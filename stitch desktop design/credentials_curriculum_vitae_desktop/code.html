@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Credentials | Dr. Julian Thorne</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            font-family: 'Newsreader', serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .mono {
+            font-family: 'Space Grotesk', monospace;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#564335",
+                    "surface-dim": "#dbdad5",
+                    "on-secondary-fixed-variant": "#474746",
+                    "surface-bright": "#fbf9f4",
+                    "on-tertiary-container": "#2e3c42",
+                    "surface-container-low": "#f5f3ee",
+                    "secondary": "#5f5e5e",
+                    "on-surface-variant": "#4e453f",
+                    "outline": "#80756e",
+                    "tertiary-fixed": "#d6e5ec",
+                    "primary-fixed-dim": "#dcc1ae",
+                    "outline-variant": "#d2c4bb",
+                    "primary-fixed": "#faddc9",
+                    "primary": "#6f5a4b",
+                    "on-secondary-container": "#636262",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#30312e",
+                    "on-primary-container": "#483628",
+                    "tertiary-container": "#97a6ad",
+                    "secondary-container": "#e2dfde",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fbf9f4",
+                    "secondary-fixed": "#e5e2e1",
+                    "on-surface": "#1b1c19",
+                    "surface-tint": "#6f5a4b",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "background": "#fbf9f4",
+                    "on-tertiary-fixed": "#0f1d23",
+                    "tertiary": "#526167",
+                    "surface-variant": "#e4e2dd",
+                    "surface-container-high": "#eae8e3",
+                    "on-tertiary-fixed-variant": "#3b494f",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#f0eee9",
+                    "tertiary-fixed-dim": "#bac9d0",
+                    "on-primary-fixed": "#27180c",
+                    "on-error": "#ffffff",
+                    "on-background": "#1b1c19",
+                    "inverse-on-surface": "#f2f1ec",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "surface-container-highest": "#e4e2dd",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "inverse-primary": "#dcc1ae",
+                    "primary-container": "#b89f8d"
+            },
+            "borderRadius": {
+                    "none": "0px",
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader"],
+                    "body": ["Newsreader"],
+                    "label": ["Space Grotesk"]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation Shell -->
+<nav class="bg-[#fbf9f4]/85 dark:bg-[#1A1A1A]/85 backdrop-blur-md fixed top-0 w-full z-50 transition">
+<div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
+<div class="font-serif text-xl font-bold text-[#1A1A1A] dark:text-[#fbf9f4] tracking-tighter">
+                Dr. Julian Thorne | Internal Medicine
+            </div>
+<div class="hidden md:flex items-center space-x-10">
+<a class="font-serif text-lg tracking-tight text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors duration-300" href="#">About</a>
+<a class="font-serif text-lg tracking-tight text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors duration-300" href="#">Writing</a>
+<a class="font-serif text-lg tracking-tight text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors duration-300" href="#">Contact</a>
+</div>
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-8 max-w-screen-2xl mx-auto">
+<!-- Headline Section -->
+<header class="mb-24">
+<h1 class="text-[5rem] md:text-[8rem] font-headline leading-[0.85] tracking-tighter text-on-surface font-light">
+                The record,<br/>
+<span class="italic text-primary">in brief.</span>
+</h1>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-20">
+<!-- Left Column: Primary Content -->
+<div class="lg:col-span-8 space-y-24">
+<!-- Education Rows -->
+<section>
+<h2 class="font-label uppercase text-[10px] tracking-[0.2em] text-secondary mb-8">Education &amp; Formation</h2>
+<div class="space-y-0">
+<div class="flex justify-between items-baseline py-8 border-t border-outline-variant/30">
+<div class="max-w-md">
+<h3 class="text-2xl font-headline italic">Doctor of Medicine (MD)</h3>
+<p class="text-on-surface-variant font-headline text-lg">Johns Hopkins School of Medicine</p>
+</div>
+<span class="font-label text-sm text-secondary">2012</span>
+</div>
+<div class="flex justify-between items-baseline py-8 border-t border-outline-variant/30">
+<div class="max-w-md">
+<h3 class="text-2xl font-headline italic">Residency, Internal Medicine</h3>
+<p class="text-on-surface-variant font-headline text-lg">Massachusetts General Hospital</p>
+</div>
+<span class="font-label text-sm text-secondary">2015</span>
+</div>
+<div class="flex justify-between items-baseline py-8 border-t border-outline-variant/30">
+<div class="max-w-md">
+<h3 class="text-2xl font-headline italic">B.S. in Molecular Biology</h3>
+<p class="text-on-surface-variant font-headline text-lg">Stanford University, Summa Cum Laude</p>
+</div>
+<span class="font-label text-sm text-secondary">2008</span>
+</div>
+</div>
+</section>
+<!-- Current Appointment -->
+<section class="bg-surface-container-low p-12">
+<h2 class="font-label uppercase text-[10px] tracking-[0.2em] text-secondary mb-6">Current Appointment</h2>
+<div class="space-y-2">
+<p class="text-3xl font-headline font-medium text-on-surface">Senior Attending Physician</p>
+<p class="text-xl font-headline italic text-primary">Department of Internal Medicine, Saint Jude Medical Center</p>
+<p class="font-label text-xs uppercase tracking-widest text-secondary mt-4">Tenured since 2019</p>
+</div>
+</section>
+<!-- Experience Paragraph -->
+<section>
+<h2 class="font-label uppercase text-[10px] tracking-[0.2em] text-secondary mb-8">Professional Trajectory</h2>
+<div class="max-w-2xl">
+<p class="text-2xl font-headline leading-relaxed text-on-surface">
+                            Over fifteen years of clinical practice focused on complex diagnostic challenges. Formerly a research fellow at the <span class="underline decoration-outline-variant/50 underline-offset-4">Institute for Preventive Medicine</span>, Julian has pioneered internal protocols for managing multi-systemic chronic inflammation in geriatric populations. His career is marked by a commitment to the "slow medicine" movement, prioritizing patient narrative alongside clinical data.
+                        </p>
+</div>
+</section>
+</div>
+<!-- Right Column: Metadata & Details -->
+<div class="lg:col-span-4 space-y-16">
+<!-- Clinical Interests (Pills) -->
+<section>
+<h2 class="font-label uppercase text-[10px] tracking-[0.2em] text-secondary mb-6">Clinical Interests</h2>
+<div class="flex flex-wrap gap-2">
+<span class="px-4 py-2 bg-surface-container-highest font-label text-[11px] uppercase tracking-wider text-on-surface">Diagnostic Medicine</span>
+<span class="px-4 py-2 bg-surface-container-highest font-label text-[11px] uppercase tracking-wider text-on-surface">Gerontology</span>
+<span class="px-4 py-2 bg-surface-container-highest font-label text-[11px] uppercase tracking-wider text-on-surface">Autoimmune Pathology</span>
+<span class="px-4 py-2 bg-surface-container-highest font-label text-[11px] uppercase tracking-wider text-on-surface">Preventive Care</span>
+<span class="px-4 py-2 bg-surface-container-highest font-label text-[11px] uppercase tracking-wider text-on-surface">Medical Ethics</span>
+</div>
+</section>
+<!-- Empanelled Affiliations -->
+<section class="border-t border-outline-variant/30 pt-8">
+<h2 class="font-label uppercase text-[10px] tracking-[0.2em] text-secondary mb-6">Empanelled Affiliations</h2>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="text-primary text-xl mt-[-4px]">•</span>
+<span class="font-headline text-lg">American College of Physicians (Fellow)</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="text-primary text-xl mt-[-4px]">•</span>
+<span class="font-headline text-lg">Journal of Clinical Diagnosis (Editorial Board)</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="text-primary text-xl mt-[-4px]">•</span>
+<span class="font-headline text-lg">National Institute of Health Advisory Panel</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="text-primary text-xl mt-[-4px]">•</span>
+<span class="font-headline text-lg">Global Health Alliance Task Force</span>
+</li>
+</ul>
+</section>
+<!-- Visual Detail Card -->
+<div class="relative aspect-[4/5] bg-surface-container overflow-hidden">
+<img alt="Medical professional office" class="object-cover w-full h-full grayscale mix-blend-multiply opacity-80" data-alt="Minimalist medical consultation room with clean white surfaces, a wooden desk, and soft natural light from a large window" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKqDZcnnGsSGgCMHbz97eSyu3eH_dbI2lB3fpLIde999JdFobiT0fVYuNT8hjQko2PHepV7SWDZbZpZRHjmVkKiYddh1omfDcTFjRdzIO6z8UZ3Y5W4hgX452EeL8S7XuHzpq49bfXdhGhq9f_mIdAg4FoW7XU2yJILVL7A8vkRzVqIEbFuL0JNmZIOVxuopnqCj66Igwf_6J6R5nbbJlzZQ70XXyZOJ7j6ua_OYkzoIEw9CUREYh7oBXBPpnU99jjvgvRBxODWaU"/>
+<div class="absolute inset-0 border-[1.5rem] border-surface"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Shell -->
+<footer class="bg-[#f9f7f2] dark:bg-[#121212] w-full border-t border-[#d2c4bb]/15">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-16 max-w-screen-2xl mx-auto">
+<div class="md:col-span-1">
+<div class="font-serif italic text-lg text-[#1A1A1A] dark:text-[#fbf9f4] mb-4">
+                    Dr. Julian Thorne
+                </div>
+<p class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d]">
+                    © 2024 Dr. Julian Thorne. All Rights Reserved.
+                </p>
+</div>
+<div class="md:col-span-3 grid grid-cols-2 md:grid-cols-4 gap-8">
+<div>
+<h4 class="font-mono uppercase text-[10px] tracking-widest text-[#1A1A1A] dark:text-[#fbf9f4] font-bold mb-4">Practice</h4>
+<ul class="space-y-2">
+<li><a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Medical Disclaimer</a></li>
+<li><a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-mono uppercase text-[10px] tracking-widest text-[#1A1A1A] dark:text-[#fbf9f4] font-bold mb-4">Academic</h4>
+<ul class="space-y-2">
+<li><a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Institutional Affiliations</a></li>
+<li><a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Archive</a></li>
+</ul>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

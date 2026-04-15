@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#80756e",
+                        "on-surface-variant": "#4e453f",
+                        "surface-container-low": "#f5f3ee",
+                        "secondary": "#5f5e5e",
+                        "on-tertiary-container": "#2e3c42",
+                        "surface-bright": "#fbf9f4",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-dim": "#dbdad5",
+                        "on-primary-fixed-variant": "#564335",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#fbf9f4",
+                        "secondary-container": "#e2dfde",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#97a6ad",
+                        "on-primary-container": "#483628",
+                        "inverse-surface": "#30312e",
+                        "primary-fixed": "#faddc9",
+                        "primary": "#6f5a4b",
+                        "on-secondary-container": "#636262",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#d2c4bb",
+                        "primary-fixed-dim": "#dcc1ae",
+                        "tertiary-fixed": "#d6e5ec",
+                        "surface-container": "#f0eee9",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#526167",
+                        "surface-variant": "#e4e2dd",
+                        "surface-container-high": "#eae8e3",
+                        "on-tertiary-fixed-variant": "#3b494f",
+                        "on-tertiary-fixed": "#0f1d23",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fbf9f4",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#6f5a4b",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-surface": "#1b1c19",
+                        "primary-container": "#b89f8d",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "inverse-primary": "#dcc1ae",
+                        "surface-container-highest": "#e4e2dd",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "inverse-on-surface": "#f2f1ec",
+                        "on-error": "#ffffff",
+                        "on-background": "#1b1c19",
+                        "tertiary-fixed-dim": "#bac9d0",
+                        "on-primary-fixed": "#27180c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Newsreader", "serif"],
+                        "body": ["Newsreader", "serif"],
+                        "label": ["Space Grotesk", "monospace"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fbf9f4;
+            color: #1b1c19;
+            -webkit-font-smoothing: antialiased;
+        }
+        .text-justify-newspaper {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fbf9f4]/85 backdrop-blur-md">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#6f5a4b]" data-icon="menu_book">menu_book</span>
+<span class="font-serif text-xl tracking-tighter font-bold text-[#1a1a1a]">Dr. Clinical Record</span>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="font-label text-[11px] uppercase tracking-[0.1em] text-[#5f5e5e] hover:text-[#1a1a1a] transition-colors duration-300" href="#">Journal</a>
+<a class="font-label text-[11px] uppercase tracking-[0.1em] text-[#5f5e5e] hover:text-[#1a1a1a] transition-colors duration-300" href="#">Archives</a>
+<a class="font-label text-[11px] uppercase tracking-[0.1em] text-[#6f5a4b] border-b-2 border-[#6f5a4b] pb-1" href="#">Legal</a>
+<button class="bg-[#6f5a4b] text-white px-5 py-2 font-label text-[10px] uppercase tracking-widest hover:bg-[#483628] transition-colors">Contact</button>
+</nav>
+</div>
+<div class="bg-[#f5f3ee] h-[1px] w-full"></div>
+</header>
+<main class="pt-32 pb-24 px-6 md:px-12">
+<div class="max-w-4xl mx-auto">
+<!-- Hero Header -->
+<div class="border-b border-outline-variant/30 pb-12 mb-16">
+<span class="font-label text-[12px] uppercase tracking-[0.2em] text-primary mb-4 block">Regulatory &amp; Ethics</span>
+<h1 class="font-headline text-5xl md:text-7xl font-light tracking-tight text-on-surface mb-6 leading-none">
+                    Legal <span class="italic text-primary">&amp;</span> Disclaimers
+                </h1>
+<p class="font-label text-[11px] uppercase tracking-widest text-secondary">Last updated: October 24, 2023 | Document ref: DP-772-AP</p>
+</div>
+<!-- Asymmetric Content Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+<!-- Sidebar / Anchors (Desktop Only) -->
+<aside class="hidden md:block md:col-span-3">
+<div class="sticky top-40 space-y-8">
+<div class="border-l-2 border-primary-container pl-4">
+<h4 class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-4 font-bold">In this record</h4>
+<ul class="space-y-3 font-label text-[11px] text-secondary uppercase tracking-tighter">
+<li><a class="hover:text-primary transition-colors" href="#medical-disclaimer">Medical Disclaimer</a></li>
+<li><a class="hover:text-primary transition-colors" href="#privacy-policy">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#nmc-ethics">NMC Ethics</a></li>
+<li><a class="hover:text-primary transition-colors" href="#terms">Digital Terms</a></li>
+</ul>
+</div>
+<div class="bg-surface-container-low p-6">
+<p class="font-headline italic text-lg leading-snug text-on-surface-variant">
+                                "The clinical record is not merely data; it is a sacred trust of patient confidentiality and professional transparency."
+                            </p>
+</div>
+</div>
+</aside>
+<!-- Primary Column -->
+<article class="md:col-span-9 max-w-2xl prose prose-slate">
+<!-- Section: Medical Disclaimer -->
+<section class="mb-20" id="medical-disclaimer">
+<div class="flex items-baseline gap-4 mb-8">
+<span class="font-label text-3xl text-outline-variant/40">01.</span>
+<h2 class="font-headline text-3xl font-medium text-on-surface">Medical Disclaimer</h2>
+</div>
+<div class="space-y-6 text-lg leading-relaxed text-on-surface-variant font-body">
+<p class="font-bold text-primary italic">Information provided on this platform is for educational and informational purposes only.</p>
+<p>The content authored by Dr. Amitabh Parti within 'Dr. Clinical Record' does not constitute professional medical advice, diagnosis, or treatment. Medical knowledge is constantly evolving; while we strive for accuracy, clinical protocols may change based on new research.</p>
+<div class="bg-primary-container/10 p-8 border-l-4 border-primary my-8">
+<p class="m-0 italic font-medium">Never disregard professional medical advice or delay seeking it because of something you have read on this digital record. In case of a medical emergency, contact your local healthcare provider or emergency services immediately.</p>
+</div>
+<p>Case studies presented are anonymized and intended for peer-to-peer educational discourse. They should not be used as a self-diagnostic tool by patients.</p>
+</div>
+</section>
+<!-- Image Integration -->
+<figure class="mb-20">
+<div class="aspect-[16/7] w-full overflow-hidden bg-surface-container">
+<img alt="Medical ethics" class="w-full h-full object-cover grayscale opacity-80" data-alt="Close-up of a vintage fountain pen resting on an old medical journal with soft morning light and sepia tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9Vz3EcuWCcglgB7D3Yo90ZjavcNwcG8JaJzyXLbCvVPP4ozPfkGMtHB_0TT6GPKGqplJ2JQQd37GoCaDXWDVIJbX4LPQG2-lF7tXOQGOQI7lOAT7vUpXQPht3s9XuEekmZT-HFTtKMAsJI0vyKimQwvOQqTcGWNqS0ZtEK7y_96SEbDSZJvZqHPqRNR1PBSt5etxTXn6R12fkcUaiwJcydzS0AF79t33dEUJFo0iFFyGdWyApkFqSF_9znopVjs_oOIb35ZZLiOs"/>
+</div>
+<figcaption class="mt-4 font-label text-[10px] uppercase tracking-widest text-secondary text-right">Documenting the Clinical Ethics of Practice</figcaption>
+</figure>
+<!-- Section: Privacy Policy -->
+<section class="mb-20" id="privacy-policy">
+<div class="flex items-baseline gap-4 mb-8">
+<span class="font-label text-3xl text-outline-variant/40">02.</span>
+<h2 class="font-headline text-3xl font-medium text-on-surface">Privacy Policy</h2>
+</div>
+<div class="space-y-6 text-lg leading-relaxed text-on-surface-variant font-body">
+<p>Your privacy is paramount. This policy outlines how we handle the minimal data we collect when you interact with this journal. We believe in "Data Minimalism"—collecting only what is necessary to deliver the content you request.</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 my-10">
+<div class="p-6 bg-surface-container-lowest border border-outline-variant/10">
+<h5 class="font-label text-[11px] uppercase tracking-widest text-primary mb-3">Personal Data</h5>
+<p class="text-sm">We do not sell, rent, or trade your personal information to third parties. Email addresses provided for correspondence are used solely for the intended communication.</p>
+</div>
+<div class="p-6 bg-surface-container-lowest border border-outline-variant/10">
+<h5 class="font-label text-[11px] uppercase tracking-widest text-primary mb-3">Cookies</h5>
+<p class="text-sm">We use essential technical cookies to ensure the stability of the broadsheet layout. No tracking pixels or third-party advertising cookies are deployed.</p>
+</div>
+</div>
+<p>We adhere to global data protection standards, ensuring that your digital footprint on this clinical record remains private and secure.</p>
+</div>
+</section>
+<!-- Section: NMC Ethics -->
+<section class="mb-20" id="nmc-ethics">
+<div class="flex items-baseline gap-4 mb-8">
+<span class="font-label text-3xl text-outline-variant/40">03.</span>
+<h2 class="font-headline text-3xl font-medium text-on-surface">NMC Ethics &amp; Compliance</h2>
+</div>
+<div class="space-y-6 text-lg leading-relaxed text-on-surface-variant font-body">
+<p>This digital presence is maintained in strict accordance with the **National Medical Commission (NMC)** Code of Ethics. Dr. Amitabh Parti ensures that all clinical commentary is professional, non-promotional, and focused on scientific advancement.</p>
+<ul class="list-none p-0 space-y-4">
+<li class="flex gap-4">
+<span class="font-label text-primary text-xs mt-1">/01</span>
+<span>No solicitation or advertisement of medical services.</span>
+</li>
+<li class="flex gap-4">
+<span class="font-label text-primary text-xs mt-1">/02</span>
+<span>Evidence-based clinical findings only.</span>
+</li>
+<li class="flex gap-4">
+<span class="font-label text-primary text-xs mt-1">/03</span>
+<span>Complete transparency regarding clinical affiliations.</span>
+</li>
+</ul>
+</div>
+</section>
+</article>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-[#d2c4bb]/15 bg-[#f5f3ee]">
+<div class="flex flex-col items-center gap-6 py-12 px-8 max-w-7xl mx-auto">
+<div class="font-serif italic text-lg text-[#1a1a1a]">Dr. Clinical Record</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors duration-300" href="#">Legal</a>
+<a class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e] underline text-[#1a1a1a]" href="#">Medical Disclaimer</a>
+<a class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors duration-300" href="#">Correspondence</a>
+</div>
+<p class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e]">© 2024 Dr. Clinical Record. All rights reserved.</p>
+<div class="mt-4 opacity-30">
+<span class="material-symbols-outlined text-sm" data-icon="shield">shield</span>
+</div>
+</div>
+</footer>
+</body></html>

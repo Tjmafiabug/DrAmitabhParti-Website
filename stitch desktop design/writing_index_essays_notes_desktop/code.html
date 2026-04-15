@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#564335",
+                    "surface-dim": "#dbdad5",
+                    "on-secondary-fixed-variant": "#474746",
+                    "surface-bright": "#fbf9f4",
+                    "on-tertiary-container": "#2e3c42",
+                    "surface-container-low": "#f5f3ee",
+                    "secondary": "#5f5e5e",
+                    "on-surface-variant": "#4e453f",
+                    "outline": "#80756e",
+                    "tertiary-fixed": "#d6e5ec",
+                    "primary-fixed-dim": "#dcc1ae",
+                    "outline-variant": "#d2c4bb",
+                    "primary-fixed": "#faddc9",
+                    "primary": "#6f5a4b",
+                    "on-secondary-container": "#636262",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#30312e",
+                    "on-primary-container": "#483628",
+                    "tertiary-container": "#97a6ad",
+                    "secondary-container": "#e2dfde",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fbf9f4",
+                    "secondary-fixed": "#e5e2e1",
+                    "on-surface": "#1b1c19",
+                    "surface-tint": "#6f5a4b",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "background": "#fbf9f4",
+                    "on-tertiary-fixed": "#0f1d23",
+                    "tertiary": "#526167",
+                    "surface-variant": "#e4e2dd",
+                    "surface-container-high": "#eae8e3",
+                    "on-tertiary-fixed-variant": "#3b494f",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#f0eee9",
+                    "tertiary-fixed-dim": "#bac9d0",
+                    "on-primary-fixed": "#27180c",
+                    "on-error": "#ffffff",
+                    "on-background": "#1b1c19",
+                    "inverse-on-surface": "#f2f1ec",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "surface-container-highest": "#e4e2dd",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "inverse-primary": "#dcc1ae",
+                    "primary-container": "#b89f8d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader", "serif"],
+                    "body": ["Newsreader", "serif"],
+                    "label": ["Space Grotesk", "monospace"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fbf9f4;
+            color: #1b1c19;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="bg-[#fbf9f4]/85 dark:bg-[#1A1A1A]/85 backdrop-blur-md fixed top-0 w-full z-50">
+<nav class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
+<div class="font-serif text-xl font-bold text-[#1A1A1A] dark:text-[#fbf9f4] tracking-tighter">
+                Dr. Julian Thorne | Internal Medicine
+            </div>
+<div class="hidden md:flex items-center gap-10 font-serif text-lg tracking-tight">
+<a class="text-[#5f5e5e] dark:text-[#d2c4bb] hover:text-[#6f5a4b] dark:hover:text-[#B89F8D] transition-colors duration-300" href="#">About</a>
+<a class="text-[#6f5a4b] dark:text-[#B89F8D] border-b border-[#6f5a4b] pb-1" href="#">Writing</a>
+<a class="text-[#5f5e5e] dark:text-[#d2c4bb] hover:text-[#6f5a4b] dark:hover:text-[#B89F8D] transition-colors duration-300" href="#">Contact</a>
+</div>
+</nav>
+</header>
+<main class="pt-32 pb-24 px-8 max-w-screen-2xl mx-auto">
+<!-- Hero Section -->
+<section class="mb-20">
+<h1 class="font-headline text-7xl md:text-8xl leading-[0.95] tracking-tight mb-8">
+                Essays, notes,<br/>
+<span class="italic text-primary">and educational articles.</span>
+</h1>
+<p class="max-w-2xl text-2xl font-body text-on-surface-variant leading-relaxed">
+                Exploring the intersection of modern clinical practice, medical ethics, and the evolving landscape of diagnostic technology through a critical lens.
+            </p>
+</section>
+<!-- Filters -->
+<nav class="flex flex-wrap items-center gap-x-8 gap-y-4 mb-16 py-4 border-y border-outline-variant/15">
+<span class="font-label uppercase text-[10px] tracking-widest text-outline">Filter by:</span>
+<button class="font-label uppercase text-xs tracking-widest text-on-surface font-bold">All Entries</button>
+<button class="font-label uppercase text-xs tracking-widest text-secondary hover:text-primary transition-colors">Clinical Pathology</button>
+<button class="font-label uppercase text-xs tracking-widest text-secondary hover:text-primary transition-colors">Medical Ethics</button>
+<button class="font-label uppercase text-xs tracking-widest text-secondary hover:text-primary transition-colors">Public Health</button>
+<button class="font-label uppercase text-xs tracking-widest text-secondary hover:text-primary transition-colors">Narrative Medicine</button>
+</nav>
+<!-- Article List -->
+<div class="flex flex-col">
+<!-- Row 1 -->
+<article class="group py-12 border-b border-outline-variant/15 flex flex-col md:flex-row gap-8 items-start">
+<div class="md:w-1/4">
+<div class="font-label uppercase text-[11px] tracking-[0.2em] text-outline mb-2">Clinical Pathology</div>
+<div class="font-label text-xs text-on-secondary-fixed-variant">OCT 24, 2024 · 12 MIN READ</div>
+</div>
+<div class="md:w-3/4 max-w-3xl">
+<a class="block mb-4" href="#">
+<h2 class="font-headline text-4xl md:text-5xl group-hover:text-primary transition-colors duration-300 leading-tight">The Metabolic Signature of Early-Onset Inflammatory Markers</h2>
+</a>
+<p class="text-xl text-secondary leading-relaxed font-body">
+                        An examination of how subtle shifts in serum protein levels can predict systemic autoimmune responses long before traditional diagnostic thresholds are met.
+                    </p>
+</div>
+</article>
+<!-- Row 2 -->
+<article class="group py-12 border-b border-outline-variant/15 flex flex-col md:flex-row gap-8 items-start">
+<div class="md:w-1/4">
+<div class="font-label uppercase text-[11px] tracking-[0.2em] text-outline mb-2">Medical Ethics</div>
+<div class="font-label text-xs text-on-secondary-fixed-variant">OCT 18, 2024 · 8 MIN READ</div>
+</div>
+<div class="md:w-3/4 max-w-3xl">
+<a class="block mb-4" href="#">
+<h2 class="font-headline text-4xl md:text-5xl group-hover:text-primary transition-colors duration-300 leading-tight">Decentralized Care and the Erosion of the Physician-Patient Bond</h2>
+</a>
+<p class="text-xl text-secondary leading-relaxed font-body">
+                        Reflections on how tele-health platforms risk turning clinical observation into a purely transactional exchange, potentially missing the "silent symptoms" of physical presence.
+                    </p>
+</div>
+</article>
+<!-- Row 3 -->
+<article class="group py-12 border-b border-outline-variant/15 flex flex-col md:flex-row gap-8 items-start">
+<div class="md:w-1/4">
+<div class="font-label uppercase text-[11px] tracking-[0.2em] text-outline mb-2">Public Health</div>
+<div class="font-label text-xs text-on-secondary-fixed-variant">SEP 30, 2024 · 15 MIN READ</div>
+</div>
+<div class="md:w-3/4 max-w-3xl">
+<a class="block mb-4" href="#">
+<h2 class="font-headline text-4xl md:text-5xl group-hover:text-primary transition-colors duration-300 leading-tight">Epidemiological Resilience in Post-Industrial Urban Centers</h2>
+</a>
+<p class="text-xl text-secondary leading-relaxed font-body">
+                        A retrospective analysis of immunization trends and community-driven healthcare initiatives across the rust belt, highlighting successful micro-intervention strategies.
+                    </p>
+</div>
+</article>
+<!-- Row 4 -->
+<article class="group py-12 border-b border-outline-variant/15 flex flex-col md:flex-row gap-8 items-start">
+<div class="md:w-1/4">
+<div class="font-label uppercase text-[11px] tracking-[0.2em] text-outline mb-2">Narrative Medicine</div>
+<div class="font-label text-xs text-on-secondary-fixed-variant">SEP 12, 2024 · 6 MIN READ</div>
+</div>
+<div class="md:w-3/4 max-w-3xl">
+<a class="block mb-4" href="#">
+<h2 class="font-headline text-4xl md:text-5xl group-hover:text-primary transition-colors duration-300 leading-tight">The Anatomy of a Diagnosis: A Physician’s Internal Dialogue</h2>
+</a>
+<p class="text-xl text-secondary leading-relaxed font-body">
+                        Exploring the psychological framework doctors use when faced with ambiguous cases, where medical training meets the gut instinct of human intuition.
+                    </p>
+</div>
+</article>
+<!-- Row 5 -->
+<article class="group py-12 border-b border-outline-variant/15 flex flex-col md:flex-row gap-8 items-start">
+<div class="md:w-1/4">
+<div class="font-label uppercase text-[11px] tracking-[0.2em] text-outline mb-2">Clinical Pathology</div>
+<div class="font-label text-xs text-on-secondary-fixed-variant">AUG 25, 2024 · 10 MIN READ</div>
+</div>
+<div class="md:w-3/4 max-w-3xl">
+<a class="block mb-4" href="#">
+<h2 class="font-headline text-4xl md:text-5xl group-hover:text-primary transition-colors duration-300 leading-tight">Navigating Polypharmacy in the Geriatric Population</h2>
+</a>
+<p class="text-xl text-secondary leading-relaxed font-body">
+                        A clinical guide to the deprescribing process, focusing on minimizing adverse drug interactions while maintaining quality of life for multi-morbidity patients.
+                    </p>
+</div>
+</article>
+</div>
+<!-- Pagination / Load More -->
+<div class="mt-20 flex justify-center">
+<button class="font-label uppercase text-[10px] tracking-[0.3em] px-12 py-5 border border-outline/30 hover:border-primary hover:text-primary transition-all duration-300">
+                Load Older Archives
+            </button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#f9f7f2] dark:bg-[#121212] w-full border-t border-[#d2c4bb]/15 mt-20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-16 max-w-screen-2xl mx-auto">
+<div class="col-span-1 md:col-span-1">
+<div class="font-serif italic text-lg text-[#1A1A1A] dark:text-[#fbf9f4] mb-4">
+                    Dr. Julian Thorne
+                </div>
+<p class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d]">
+                    © 2024 Dr. Julian Thorne. All Rights Reserved.
+                </p>
+</div>
+<div class="flex flex-col gap-4">
+<div class="font-mono uppercase text-[10px] tracking-widest text-[#1A1A1A] dark:text-[#fbf9f4] font-bold">Archives</div>
+<a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">2023 Entries</a>
+<a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">2022 Entries</a>
+<a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Legacy Notes</a>
+</div>
+<div class="flex flex-col gap-4">
+<div class="font-mono uppercase text-[10px] tracking-widest text-[#1A1A1A] dark:text-[#fbf9f4] font-bold">Links</div>
+<a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Medical Disclaimer</a>
+<a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Privacy Policy</a>
+<a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Institutional Affiliations</a>
+</div>
+<div class="flex flex-col gap-4">
+<div class="font-mono uppercase text-[10px] tracking-widest text-[#1A1A1A] dark:text-[#fbf9f4] font-bold">Connect</div>
+<a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Newsletter</a>
+<a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Academic Portal</a>
+<a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">ORCID iD</a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#1b1c19",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface-tint": "#6f5a4b",
+                        "tertiary-container": "#97a6ad",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dbdad5",
+                        "outline-variant": "#d2c4bb",
+                        "surface-bright": "#fbf9f4",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-primary-container": "#483628",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e4e2dd",
+                        "surface": "#fbf9f4",
+                        "on-tertiary-fixed-variant": "#3b494f",
+                        "tertiary-fixed-dim": "#bac9d0",
+                        "primary-fixed-dim": "#dcc1ae",
+                        "inverse-on-surface": "#f2f1ec",
+                        "primary": "#6f5a4b",
+                        "tertiary-fixed": "#d6e5ec",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#eae8e3",
+                        "on-primary": "#ffffff",
+                        "secondary": "#5f5e5e",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "primary-fixed": "#faddc9",
+                        "on-tertiary-fixed": "#0f1d23",
+                        "inverse-surface": "#30312e",
+                        "surface-container": "#f0eee9",
+                        "inverse-primary": "#dcc1ae",
+                        "surface-container-low": "#f5f3ee",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#2e3c42",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#564335",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-primary-fixed": "#27180c",
+                        "on-secondary-container": "#636262",
+                        "tertiary": "#526167",
+                        "primary-container": "#b89f8d",
+                        "on-background": "#1b1c19",
+                        "secondary-container": "#e2dfde",
+                        "on-surface-variant": "#4e453f",
+                        "outline": "#80756e",
+                        "background": "#fbf9f4",
+                        "surface-variant": "#e4e2dd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Newsreader", "serif"],
+                        "body": ["Newsreader", "serif"],
+                        "label": ["Space Grotesk", "monospace"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fbf9f4;
+            color: #1a1a1a;
+        }
+        .text-justify-newspaper {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-[#fbf9f4] border-b border-[#d2c4bb]/30 sticky top-0 z-50">
+<nav class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#6f5a4b]" data-icon="menu_book">menu_book</span>
+<span class="text-2xl font-black font-serif uppercase tracking-tighter text-[#1a1a1a]">Dr. Amitabh Parti</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-mono uppercase tracking-widest text-xs text-[#6f5a4b] border-b border-[#6f5a4b]" href="#">About</a>
+<a class="font-mono uppercase tracking-widest text-xs text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors duration-300" href="#">Writing</a>
+<a class="font-mono uppercase tracking-widest text-xs text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors duration-300" href="#">Contact</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 font-mono text-[10px] uppercase tracking-widest hover:bg-primary-container transition-colors duration-300">Contact</button>
+</nav>
+</header>
+<main class="max-w-7xl mx-auto px-6 py-12 lg:py-20">
+<!-- Hero Section -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-12 items-end mb-24">
+<div class="md:col-span-7">
+<p class="font-label uppercase tracking-[0.2em] text-primary text-xs mb-6">Clinical Leadership &amp; Public Health</p>
+<h1 class="font-headline text-5xl md:text-7xl font-light leading-[1.1] tracking-tight mb-8">
+                    Advancing medical thought through <span class="italic text-primary">clinical rigor</span> and public discourse.
+                </h1>
+<div class="max-w-xl">
+<p class="text-xl text-on-surface-variant leading-relaxed">
+                        Dedicated to the intersection of internal medicine, institutional leadership, and the dissemination of evidence-based health education for the modern era.
+                    </p>
+</div>
+</div>
+<div class="md:col-span-5 aspect-[4/5] relative overflow-hidden bg-surface-container-high">
+<img alt="Professional portrait of a physician" class="w-full h-full object-cover grayscale contrast-125 mix-blend-multiply opacity-90" data-alt="Professional studio portrait of an experienced physician with a warm expression, wearing a tailored navy blazer, soft natural lighting against a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTnSlVaDKLINVgwPiScTT_tro79m2Zs0jVCl4MQA0abVGHzrr1Ep3uy-0gBu8siekinE-l63ZAmzB5wcJeFJOZVlP88TKngK6WIfDgZ5Hjqxpj2jmXLnQSp0PlcLuO7gPnpjuc11oDmM6LfjxDFD74SkiSExRF_YQlU1-mCA_5K4oOCtJN_miuOyLvfgBVzlEUaMxwhxrU_5qiJPHdlukKqMBlE0ULF-0SFXhV9rO2a2rf2YJuDMgls5maLO-RxpcHa8uIL5MquzM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent"></div>
+</div>
+</section>
+<!-- Separation Line -->
+<div class="bg-[#f5f3ee] h-[1px] w-full mb-12"></div>
+<!-- Credibility Strip -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-px bg-outline-variant/20 mb-24">
+<div class="bg-surface p-8">
+<p class="font-label text-[10px] uppercase tracking-widest text-secondary mb-2">Qualifications</p>
+<p class="font-headline text-xl">Internal Medicine Board Certified</p>
+</div>
+<div class="bg-surface p-8">
+<p class="font-label text-[10px] uppercase tracking-widest text-secondary mb-2">Experience</p>
+<p class="font-headline text-xl">25+ Years Clinical Practice</p>
+</div>
+<div class="bg-surface p-8">
+<p class="font-label text-[10px] uppercase tracking-widest text-secondary mb-2">Leadership</p>
+<p class="font-headline text-xl">Former Chief of Internal Medicine</p>
+</div>
+<div class="bg-surface p-8">
+<p class="font-label text-[10px] uppercase tracking-widest text-secondary mb-2">Education</p>
+<p class="font-headline text-xl">Public Health Advocacy &amp; Policy</p>
+</div>
+</section>
+<!-- Featured Essay (Editorial Grid) -->
+<section class="mb-24">
+<div class="flex justify-between items-end mb-12 border-b border-on-surface/5 pb-4">
+<h2 class="font-label text-xs uppercase tracking-[0.3em]">Latest Medical Thought</h2>
+<span class="font-label text-[10px] uppercase tracking-widest text-secondary">Vol. 2024.01</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Main Feature -->
+<article class="lg:col-span-8 flex flex-col gap-6">
+<div class="aspect-[16/9] overflow-hidden bg-surface-container">
+<img alt="Laboratory setting" class="w-full h-full object-cover" data-alt="Modern high-tech clinical laboratory with sterile equipment and blue ambient lighting, minimalist and professional medical research aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx3KEe-818mrdwqHBupA0NDdTCRS5k1gOMuK-ntxlejCG-C1Xchz13YOO9_XaMO8cCSehf9f-MdHNo8dbOsYSo4LtchFhJbsc5wMxruN5ARkchvply9KwZB-vgasYKMbeafR2eD39Zz9Iadi6ciseTcaRunnaHXmicJmOeON1eKA3DL9VcvswyRhGQOJe-8Bcfp9fPL0F6z2deb2JEtLDUWPifm2AvK1AmUHHD2s3zmsVNo741TKXX9uQ34PwgfaAFaLIqrJr7wi8"/>
+</div>
+<div>
+<p class="font-label text-[10px] uppercase tracking-widest text-primary mb-4">Essay / Epidemiology</p>
+<h3 class="font-headline text-4xl mb-6 leading-tight">The Evolution of Preventive Care in the Post-Digital Landscape</h3>
+<p class="text-on-surface-variant leading-relaxed text-lg text-justify-newspaper mb-8">
+                            Examining the structural shifts in patient interaction as digital surveillance tools begin to outpace traditional clinical observation. This inquiry explores the delicate balance between data-driven metrics and the essential human diagnostic intuition.
+                        </p>
+<a class="inline-flex items-center gap-2 font-label text-[10px] uppercase tracking-[0.2em] border-b border-primary text-primary pb-1" href="#">Read Full Perspective</a>
+</div>
+</article>
+<!-- Side Feed -->
+<aside class="lg:col-span-4 flex flex-col gap-12 border-l border-outline-variant/15 pl-0 lg:pl-12">
+<article>
+<p class="font-label text-[10px] uppercase tracking-widest text-secondary mb-2">Insight / Policy</p>
+<h4 class="font-headline text-xl mb-3">Healthcare Equity: Beyond the Clinical Encounter</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Structural analysis of systemic barriers in urban healthcare delivery systems.</p>
+</article>
+<div class="h-px bg-outline-variant/20"></div>
+<article>
+<p class="font-label text-[10px] uppercase tracking-widest text-secondary mb-2">Commentary / Ethics</p>
+<h4 class="font-headline text-xl mb-3">The Morality of Algorithmic Diagnostics</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Where medical responsibility lies when AI dictates the pathway of care.</p>
+</article>
+<div class="h-px bg-outline-variant/20"></div>
+<article>
+<p class="font-label text-[10px] uppercase tracking-widest text-secondary mb-2">Observation / Clinical</p>
+<h4 class="font-headline text-xl mb-3">Metabolic Syndrome in Late Adulthood</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">A retrospective look at intervention strategies over two decades of practice.</p>
+</article>
+</aside>
+</div>
+</section>
+<!-- Clinical Interests -->
+<section class="bg-surface-container-low p-12 mb-24">
+<h2 class="font-label text-xs uppercase tracking-[0.3em] mb-12 text-center">Focus &amp; Specialization</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-12">
+<div>
+<h5 class="font-headline text-lg border-b border-primary/20 pb-2 mb-4 text-primary">Geriatric Health Management</h5>
+<p class="text-sm leading-relaxed text-on-surface-variant">Focusing on complex multi-morbidity and the preservation of quality of life in late-stage aging.</p>
+</div>
+<div>
+<h5 class="font-headline text-lg border-b border-primary/20 pb-2 mb-4 text-primary">Healthcare Informatics</h5>
+<p class="text-sm leading-relaxed text-on-surface-variant">Integration of data systems to improve clinical outcomes and provider efficiency.</p>
+</div>
+<div>
+<h5 class="font-headline text-lg border-b border-primary/20 pb-2 mb-4 text-primary">Public Health Policy</h5>
+<p class="text-sm leading-relaxed text-on-surface-variant">Advocating for institutional shifts that prioritize preventive medicine at scale.</p>
+</div>
+<div>
+<h5 class="font-headline text-lg border-b border-primary/20 pb-2 mb-4 text-primary">Diagnostic Rigor</h5>
+<p class="text-sm leading-relaxed text-on-surface-variant">Returning to fundamental physical examination techniques in an over-tested environment.</p>
+</div>
+<div>
+<h5 class="font-headline text-lg border-b border-primary/20 pb-2 mb-4 text-primary">Medical Education</h5>
+<p class="text-sm leading-relaxed text-on-surface-variant">Mentoring the next generation of clinical leaders in the art of evidence-based practice.</p>
+</div>
+<div>
+<h5 class="font-headline text-lg border-b border-primary/20 pb-2 mb-4 text-primary">Institutional Ethics</h5>
+<p class="text-sm leading-relaxed text-on-surface-variant">Advising on the ethical frameworks governing modern hospital administration.</p>
+</div>
+</div>
+</section>
+<!-- Notes (Quotes) -->
+<section class="mb-24 flex flex-col items-center">
+<div class="max-w-3xl text-center">
+<span class="material-symbols-outlined text-outline-variant text-4xl mb-6" data-icon="format_quote">format_quote</span>
+<blockquote class="font-headline text-3xl italic leading-tight mb-8 text-on-surface">
+                    "Medicine is not merely the application of science to biology, but the translation of evidence into empathy within the constraints of human reality."
+                </blockquote>
+<p class="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">— FROM 'THE CLINICAL MANUSCRIPT', 2023</p>
+</div>
+</section>
+<!-- Correspondence (Contact) -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24">
+<div class="p-12 border border-outline-variant/30 flex flex-col justify-center">
+<h2 class="font-headline text-4xl mb-6">Professional Correspondence</h2>
+<p class="text-on-surface-variant leading-relaxed mb-8">
+                    Dr. Parti is available for clinical consulting, public health speaking engagements, and medical editorial contributions. For all professional inquiries, please use the structured format.
+                </p>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="location_on">location_on</span>
+<p class="font-label text-xs uppercase tracking-widest">Medical Center Plaza, Suite 402</p>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="mail">mail</span>
+<p class="font-label text-xs uppercase tracking-widest">office@draparti.med</p>
+</div>
+</div>
+</div>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label text-[10px] uppercase tracking-widest text-secondary">Full Name</label>
+<input class="bg-transparent border-b border-outline-variant/50 focus:border-primary outline-none py-2 font-headline transition-colors" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label text-[10px] uppercase tracking-widest text-secondary">Organization</label>
+<input class="bg-transparent border-b border-outline-variant/50 focus:border-primary outline-none py-2 font-headline transition-colors" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label text-[10px] uppercase tracking-widest text-secondary">Inquiry Type</label>
+<select class="bg-transparent border-b border-outline-variant/50 focus:border-primary outline-none py-2 font-headline transition-colors appearance-none">
+<option>Speaking Engagement</option>
+<option>Clinical Consulting</option>
+<option>Editorial/Writing</option>
+<option>Public Health Policy</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label text-[10px] uppercase tracking-widest text-secondary">Message</label>
+<textarea class="bg-transparent border-b border-outline-variant/50 focus:border-primary outline-none py-2 font-headline transition-colors resize-none" rows="4"></textarea>
+</div>
+<button class="w-full bg-on-surface text-surface py-4 font-label text-[10px] uppercase tracking-[0.3em] hover:bg-primary transition-colors duration-300" type="submit">Submit Formal Request</button>
+</form>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#f5f3ee] py-12 px-6 flex flex-col items-center gap-4 text-center border-t border-[#d2c4bb]/15">
+<div class="flex gap-8 mb-4">
+<a class="font-mono text-[10px] uppercase tracking-widest text-[#5f5e5e] hover:text-[#1a1a1a] transition-colors" href="#">Medical Disclaimer</a>
+<a class="font-mono text-[10px] uppercase tracking-widest text-[#5f5e5e] hover:text-[#1a1a1a] transition-colors" href="#">Privacy Policy</a>
+<a class="font-mono text-[10px] uppercase tracking-widest text-[#5f5e5e] hover:text-[#1a1a1a] transition-colors" href="#">Terms of Service</a>
+</div>
+<p class="font-mono text-[10px] uppercase tracking-widest text-[#6f5a4b] mb-2">© 2024 Dr. Amitabh Parti. All Rights Reserved.</p>
+<p class="text-[9px] text-[#5f5e5e] max-w-lg leading-loose italic">
+            This digital record is for educational and informational purposes only and does not constitute medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions regarding a medical condition.
+        </p>
+</footer>
+</body></html>

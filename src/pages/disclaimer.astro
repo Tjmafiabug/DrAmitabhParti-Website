@@ -1,0 +1,61 @@
+---
+export const prerender = true;
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<BaseLayout title="Medical Disclaimer" description="Medical disclaimer for amitabhparti.com.">
+
+  <PageHero
+    eyebrow="Legal"
+    title="Medical"
+    titleItalic="Disclaimer."
+  />
+
+  <section class="bg-[var(--color-surface)]">
+    <div class="container-wide mx-auto px-6 py-16 md:py-20">
+      <article class="container-reading mx-auto prose-article">
+        <p>
+          The content on this website — including essays, notes, and articles — is
+          published for general education and public awareness. It reflects the
+          considered opinions of Dr. Amitabh Parti on questions of internal medicine
+          and public health, written in plain language for a lay reader.
+        </p>
+
+        <h2>Not medical advice</h2>
+        <p>
+          Nothing on this website constitutes individual medical advice. Articles do
+          not recommend specific treatments, dosages, or clinical decisions for any
+          particular reader. The experience of any one person is particular to them
+          and cannot be addressed by a published article.
+        </p>
+
+        <h2>Please consult a physician</h2>
+        <p>
+          If you are unwell, or if any article here has raised a concern about your
+          health, please consult a qualified medical practitioner in person. Do not
+          delay medical attention because of something you have read on this site.
+        </p>
+
+        <h2>Not a channel for consultation</h2>
+        <p>
+          This website is not a means of contacting Dr. Parti for clinical
+          consultation. Patient queries, appointment requests, and medical records
+          should not be sent by email through this site. For clinical matters, please use
+          <a href="https://www.fortishealthcare.com/doctors/dr-amitabh-parti-1097" rel="noopener">Fortis Memorial's official appointment systems</a>.
+        </p>
+
+        <h2>Emergencies</h2>
+        <p>
+          If you believe you are experiencing a medical emergency, please call your
+          nearest hospital or local emergency services immediately.
+        </p>
+
+        <div class="mt-12 pt-6" style="border-top: 1px solid var(--color-outline-variant);">
+          <p class="text-[0.88rem] italic" style="color: var(--color-secondary);">Last updated: April 2026</p>
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

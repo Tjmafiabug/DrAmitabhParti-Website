@@ -1,0 +1,54 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+const fullTitle = title ? `${title} — Admin · ${site.name}` : `Admin · ${site.name}`;
+const user = Astro.locals.user;
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{fullTitle}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-[var(--color-surface)] min-h-screen">
+    {user && (
+      <header class="border-b border-[var(--color-outline-variant)]/40 bg-[var(--color-surface)] sticky top-0 z-40">
+        <div class="container-wide mx-auto px-6 py-4 flex items-center justify-between">
+          <a href="/admin" class="flex items-center gap-3">
+            <span class="font-[var(--font-headline)] text-[1.05rem] font-semibold uppercase tracking-tight">Dr. Amitabh Parti</span>
+            <span class="chip">Admin</span>
+          </a>
+          <nav class="flex items-center gap-6 text-[0.85rem]" style="font-family: var(--font-label);">
+            <a href="/admin" class={`uppercase tracking-[0.15em] ${path === '/admin' ? 'text-[var(--color-primary)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)]'}`}>Posts</a>
+            <a href="/admin/pages/about" class={`uppercase tracking-[0.15em] ${path.startsWith('/admin/pages') ? 'text-[var(--color-primary)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)]'}`}>Pages</a>
+            <a href="/" class="uppercase tracking-[0.15em] text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)]" target="_blank" rel="noopener">View site ↗</a>
+            <span class="text-[var(--color-on-surface-variant)] text-[0.75rem]">{user.email}</span>
+            <form method="post" action="/auth/signout" class="inline">
+              <button type="submit" class="text-[0.75rem] uppercase tracking-[0.15em] text-[var(--color-on-surface-variant)] hover:text-[var(--color-accent)]">Sign out</button>
+            </form>
+          </nav>
+        </div>
+      </header>
+    )}
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import Composer from '../../../components/admin/Composer';
+export const prerender = false;
+---
+
+<AdminLayout title="New post">
+  <section class="px-6 py-10">
+    <Composer client:only="react" />
+  </section>
+</AdminLayout>

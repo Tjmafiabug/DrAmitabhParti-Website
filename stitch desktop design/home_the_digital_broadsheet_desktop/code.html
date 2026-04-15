@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-primary-fixed-variant": "#564335",
+                "surface-dim": "#dbdad5",
+                "on-secondary-fixed-variant": "#474746",
+                "surface-bright": "#fbf9f4",
+                "on-tertiary-container": "#2e3c42",
+                "surface-container-low": "#f5f3ee",
+                "secondary": "#5f5e5e",
+                "on-surface-variant": "#4e453f",
+                "outline": "#80756e",
+                "tertiary-fixed": "#d6e5ec",
+                "primary-fixed-dim": "#dcc1ae",
+                "outline-variant": "#d2c4bb",
+                "primary-fixed": "#faddc9",
+                "primary": "#6f5a4b",
+                "on-secondary-container": "#636262",
+                "error-container": "#ffdad6",
+                "inverse-surface": "#30312e",
+                "on-primary-container": "#483628",
+                "tertiary-container": "#97a6ad",
+                "secondary-container": "#e2dfde",
+                "on-secondary": "#ffffff",
+                "surface-container-lowest": "#ffffff",
+                "surface": "#fbf9f4",
+                "secondary-fixed": "#e5e2e1",
+                "on-surface": "#1b1c19",
+                "surface-tint": "#6f5a4b",
+                "error": "#ba1a1a",
+                "on-error-container": "#93000a",
+                "on-tertiary": "#ffffff",
+                "background": "#fbf9f4",
+                "on-tertiary-fixed": "#0f1d23",
+                "tertiary": "#526167",
+                "surface-variant": "#e4e2dd",
+                "surface-container-high": "#eae8e3",
+                "on-tertiary-fixed-variant": "#3b494f",
+                "on-primary": "#ffffff",
+                "surface-container": "#f0eee9",
+                "tertiary-fixed-dim": "#bac9d0",
+                "on-primary-fixed": "#27180c",
+                "on-error": "#ffffff",
+                "on-background": "#1b1c19",
+                "inverse-on-surface": "#f2f1ec",
+                "secondary-fixed-dim": "#c8c6c5",
+                "surface-container-highest": "#e4e2dd",
+                "on-secondary-fixed": "#1c1b1b",
+                "inverse-primary": "#dcc1ae",
+                "primary-container": "#b89f8d"
+            },
+            "borderRadius": {
+                "none": "0px",
+                "DEFAULT": "0px",
+                "lg": "0px",
+                "xl": "0px",
+                "full": "9999px"
+            },
+            "fontFamily": {
+                "headline": ["Newsreader", "serif"],
+                "body": ["Newsreader", "serif"],
+                "label": ["Space Grotesk", "monospace"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Newsreader', serif; }
+        .font-mono-data { font-family: 'Space Grotesk', monospace; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed-variant">
+<!-- TopAppBar -->
+<nav class="bg-[#fbf9f4]/85 dark:bg-[#1A1A1A]/85 backdrop-blur-md fixed top-0 w-full z-50 transition duration-300">
+<div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
+<a class="font-serif text-xl font-bold text-[#1A1A1A] dark:text-[#fbf9f4] tracking-tighter" href="#">
+                Dr. Amitabh Parti | Internal Medicine
+            </a>
+<div class="hidden md:flex items-center gap-10 font-serif text-lg tracking-tight">
+<a class="text-[#6f5a4b] dark:text-[#B89F8D] border-b border-[#6f5a4b] pb-1" href="#">About</a>
+<a class="text-[#5f5e5e] dark:text-[#d2c4bb] hover:text-[#6f5a4b] dark:hover:text-[#B89F8D] transition-colors duration-300" href="#">Writing</a>
+<a class="text-[#5f5e5e] dark:text-[#d2c4bb] hover:text-[#6f5a4b] dark:hover:text-[#B89F8D] transition-colors duration-300" href="#">Contact</a>
+</div>
+</div>
+</nav>
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="max-w-screen-2xl mx-auto px-8 py-20 lg:py-32 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+<div class="lg:col-span-7">
+<h1 class="text-6xl lg:text-8xl font-headline font-semibold tracking-tighter leading-[0.95] text-on-surface mb-8">
+                    Advancing the standard<br/>of <span class="italic text-primary font-light underline decoration-1 underline-offset-8">Internal Medicine.</span>
+</h1>
+<p class="text-xl lg:text-2xl text-on-surface-variant max-w-2xl leading-relaxed mb-12">
+                    A clinical practice rooted in evidence-based precision and a commitment to medical education. Dr. Amitabh Parti integrates metabolic health research with decades of primary care excellence.
+                </p>
+<div class="flex items-center gap-6">
+<button class="bg-primary text-on-primary px-8 py-4 font-label uppercase tracking-widest text-sm transition-all hover:bg-on-primary-fixed-variant">
+                        Schedule Consultation
+                    </button>
+<button class="border border-outline-variant px-8 py-4 font-label uppercase tracking-widest text-sm hover:bg-surface-container-low transition-all">
+                        View Curriculum Vitae
+                    </button>
+</div>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="aspect-[4/5] bg-surface-container-low relative z-10 overflow-hidden shadow-[40px_12px_40px_rgba(27,28,25,0.1)]">
+<img class="w-full h-full object-cover" data-alt="Distinguished mature male physician with salt-and-pepper hair wearing a white coat, looking thoughtfully into distance, soft natural lighting, warm studio atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzXJYfHknRLsCAI8tWtxRVkeb--7kDGWS1K1HxgBMYgCydUuzjHnDo1M7cLhqm6EBKXqCJ4d6FN2o57X_JLQMRUdBBQSxGi8eRGxdYpf9HTGWQr3UoW2QPmmv-Yo5ovKoyuV6RyIcKE40RzDaFHE6Km5uwTAqsVfiuussRSko8Uo_F0DCr5JaSSOzlFHwqai4ggJix-ABITZsDdB7ywz6PNiiyzWX_2CjGK7_J-6mLfKVAKHGRCcjpshRZYhPU3LL-Zhvm9p_MuB4"/>
+</div>
+<div class="absolute -bottom-8 -left-8 w-48 h-48 bg-primary-container/20 -z-0"></div>
+</div>
+</section>
+<!-- Credibility Strip -->
+<section class="bg-surface-container-low py-12">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="flex flex-col gap-1">
+<span class="font-mono-data text-xs uppercase tracking-widest text-secondary mb-2">Practice Experience</span>
+<span class="text-3xl font-headline font-bold text-on-surface">24+ Years</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-mono-data text-xs uppercase tracking-widest text-secondary mb-2">Clinical Research</span>
+<span class="text-3xl font-headline font-bold text-on-surface">15 Publications</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-mono-data text-xs uppercase tracking-widest text-secondary mb-2">Patient Outcomes</span>
+<span class="text-3xl font-headline font-bold text-on-surface">98% Retention</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-mono-data text-xs uppercase tracking-widest text-secondary mb-2">Board Certification</span>
+<span class="text-3xl font-headline font-bold text-on-surface">Internal Medicine</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Essay Section -->
+<section class="max-w-screen-2xl mx-auto px-8 py-24">
+<div class="flex justify-between items-end mb-16">
+<div>
+<span class="font-mono-data text-xs uppercase tracking-widest text-primary mb-4 block">Medical Perspectives</span>
+<h2 class="text-5xl font-headline font-medium tracking-tight">Recent Writing &amp; Insights</h2>
+</div>
+<a class="font-label text-sm uppercase tracking-widest text-secondary hover:text-primary underline underline-offset-4 decoration-1" href="#">The Archive</a>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Large Entry -->
+<div class="lg:col-span-7 flex flex-col gap-8">
+<div class="aspect-[16/9] bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Close-up of high-end medical research microscope in a clean, modern clinical laboratory with cool blue and white tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyx1NEW1UYZEDoinOEyPBXfQSdJpA38DNXcifgRCllyOdlnrWpBl69eI-z7EArhJ7GrTzD0Q4A0_Qm-AFCJ0rP_eSsn2ABYK0aVS-X5Oc2bfwnHP_cvOmdwfEifQoEHP4fY1NF4FVQtsjCh5PaQMXTqxWlRM8VUOnY3La3MGmP2EpzzP7f4yTR83O_InrcoJpczT_MUA2lkiHDpZfPqOd3UYDTmJ0bvQ6D_X_p068TNLupNxPQiWTdcoK0xFm-n3SURMXunlFNXmc"/>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-mono-data text-xs uppercase tracking-widest text-secondary">February 12, 2024 — Endocrinology</span>
+<h3 class="text-4xl font-headline font-bold leading-tight hover:text-primary cursor-pointer transition-colors">The Paradigm Shift in Metabolic Syndrome: A Longitudinal Study.</h3>
+<p class="text-xl text-on-surface-variant leading-relaxed">
+                            Exploring how early intervention in insulin resistance changes the trajectory of cardiovascular outcomes in high-risk adult populations. An analysis of the latest clinical trials...
+                        </p>
+<div class="mt-4">
+<span class="font-label text-xs uppercase tracking-widest font-bold border-b border-primary pb-1 inline-block cursor-pointer">Read Full Thesis</span>
+</div>
+</div>
+</div>
+<!-- Smaller Entries -->
+<div class="lg:col-span-5 flex flex-col gap-12">
+<article class="flex flex-col gap-4 pb-12 border-b border-outline-variant/30">
+<span class="font-mono-data text-xs uppercase tracking-widest text-secondary">January 28, 2024</span>
+<h4 class="text-2xl font-headline font-bold leading-snug hover:text-primary transition-colors cursor-pointer">Preventative Protocols: Beyond the Annual Wellness Check.</h4>
+<p class="text-lg text-on-surface-variant line-clamp-2 italic">A clinical framework for data-driven wellness monitoring throughout the lifecycle.</p>
+</article>
+<article class="flex flex-col gap-4 pb-12 border-b border-outline-variant/30">
+<span class="font-mono-data text-xs uppercase tracking-widest text-secondary">January 05, 2024</span>
+<h4 class="text-2xl font-headline font-bold leading-snug hover:text-primary transition-colors cursor-pointer">Microbiome and Immunity: The Internal Medicine Connection.</h4>
+<p class="text-lg text-on-surface-variant line-clamp-2 italic">Synthesizing recent findings on gut health and its impact on autoimmune response regulation.</p>
+</article>
+<div class="bg-primary-container/10 p-8 flex flex-col gap-4">
+<h5 class="font-mono-data text-sm font-bold uppercase tracking-widest text-on-primary-container">Clinical Newsletter</h5>
+<p class="font-body text-on-surface-variant">Monthly syntheses of peer-reviewed literature for healthcare professionals.</p>
+<div class="flex mt-2">
+<input class="flex-grow bg-transparent border-b border-on-primary-container/30 focus:border-primary-container p-2 font-mono-data text-sm outline-none" placeholder="Professional Email" type="email"/>
+<button class="bg-primary px-6 py-2 text-on-primary font-label text-xs uppercase tracking-widest">Join</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Clinical Interests Grid -->
+<section class="bg-surface-container py-24">
+<div class="max-w-screen-2xl mx-auto px-8">
+<div class="max-w-3xl mb-16">
+<span class="font-mono-data text-xs uppercase tracking-widest text-primary mb-4 block">Practice Domains</span>
+<h2 class="text-5xl font-headline font-medium tracking-tight">Areas of Clinical Expertise</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border border-outline-variant/30">
+<div class="p-12 border-r border-b border-outline-variant/30 bg-surface-container-lowest hover:bg-primary/5 transition-colors group">
+<span class="material-symbols-outlined text-4xl text-primary mb-6 group-hover:scale-110 transition-transform">heart_check</span>
+<h3 class="text-2xl font-headline font-bold mb-4">Cardiology Focus</h3>
+<p class="text-on-surface-variant leading-relaxed">Comprehensive management of hypertension, lipid disorders, and cardiovascular risk reduction through multimodal therapy.</p>
+</div>
+<div class="p-12 border-r border-b border-outline-variant/30 bg-surface-container-lowest hover:bg-primary/5 transition-colors group">
+<span class="material-symbols-outlined text-4xl text-primary mb-6 group-hover:scale-110 transition-transform">vital_signs</span>
+<h3 class="text-2xl font-headline font-bold mb-4">Metabolic Health</h3>
+<p class="text-on-surface-variant leading-relaxed">Management of Type 2 Diabetes, Obesity, and Polycystic Ovary Syndrome with a focus on reversing metabolic dysfunction.</p>
+</div>
+<div class="p-12 border-b border-outline-variant/30 bg-surface-container-lowest hover:bg-primary/5 transition-colors group">
+<span class="material-symbols-outlined text-4xl text-primary mb-6 group-hover:scale-110 transition-transform">medical_information</span>
+<h3 class="text-2xl font-headline font-bold mb-4">Diagnostic Medicine</h3>
+<p class="text-on-surface-variant leading-relaxed">Precision diagnostics for complex systemic symptoms and rare clinical presentations requiring multi-disciplinary coordination.</p>
+</div>
+<div class="p-12 border-r border-outline-variant/30 bg-surface-container-lowest hover:bg-primary/5 transition-colors group">
+<span class="material-symbols-outlined text-4xl text-primary mb-6 group-hover:scale-110 transition-transform">elderly</span>
+<h3 class="text-2xl font-headline font-bold mb-4">Geriatric Optimization</h3>
+<p class="text-on-surface-variant leading-relaxed">Tailored primary care for aging populations, focusing on polypharmacy reduction and quality-of-life maintenance.</p>
+</div>
+<div class="p-12 border-r border-outline-variant/30 bg-surface-container-lowest hover:bg-primary/5 transition-colors group">
+<span class="material-symbols-outlined text-4xl text-primary mb-6 group-hover:scale-110 transition-transform">magnification_small</span>
+<h3 class="text-2xl font-headline font-bold mb-4">Preventative Care</h3>
+<p class="text-on-surface-variant leading-relaxed">Advanced screening protocols and lifestyle medicine interventions to pre-empt chronic disease before onset.</p>
+</div>
+<div class="p-12 bg-surface-container-lowest hover:bg-primary/5 transition-colors group">
+<span class="material-symbols-outlined text-4xl text-primary mb-6 group-hover:scale-110 transition-transform">history_edu</span>
+<h3 class="text-2xl font-headline font-bold mb-4">Medical Education</h3>
+<p class="text-on-surface-variant leading-relaxed">Consultancy and mentorship for resident physicians and interns at regional teaching hospitals.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Professional Correspondence -->
+<section class="max-w-screen-2xl mx-auto px-8 py-24">
+<div class="bg-surface-container-highest p-16 lg:p-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+<div>
+<span class="font-mono-data text-xs uppercase tracking-widest text-primary mb-4 block">Professional Correspondence</span>
+<h2 class="text-5xl font-headline font-medium tracking-tight mb-8">Inquiries &amp; Clinical Consultation</h2>
+<p class="text-xl text-on-surface-variant leading-relaxed mb-12">
+                        Dr. Parti maintains a selective consultation schedule for both direct patient care and institutional advisory roles. Please provide detailed clinical context for referral requests.
+                    </p>
+<div class="flex flex-col gap-6 font-mono-data text-sm">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="tracking-widest uppercase">77 Med-Park Towers, New Delhi, IN</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">mail</span>
+<span class="tracking-widest uppercase">office@amitabhparti.md</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">call</span>
+<span class="tracking-widest uppercase">+91 (011) 244-5900</span>
+</div>
+</div>
+</div>
+<form class="space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="border-b border-outline-variant pb-2">
+<label class="font-mono-data text-[10px] uppercase tracking-widest text-secondary block mb-2">Subject Name</label>
+<input class="w-full bg-transparent outline-none font-body text-xl placeholder:text-surface-dim" placeholder="John Doe" type="text"/>
+</div>
+<div class="border-b border-outline-variant pb-2">
+<label class="font-mono-data text-[10px] uppercase tracking-widest text-secondary block mb-2">Email Address</label>
+<input class="w-full bg-transparent outline-none font-body text-xl placeholder:text-surface-dim" placeholder="email@institution.org" type="email"/>
+</div>
+</div>
+<div class="border-b border-outline-variant pb-2">
+<label class="font-mono-data text-[10px] uppercase tracking-widest text-secondary block mb-2">Nature of Inquiry</label>
+<select class="w-full bg-transparent outline-none font-body text-xl appearance-none">
+<option>Clinical Referral</option>
+<option>Speaking Engagement</option>
+<option>Institutional Consulting</option>
+<option>Other</option>
+</select>
+</div>
+<div class="border-b border-outline-variant pb-2">
+<label class="font-mono-data text-[10px] uppercase tracking-widest text-secondary block mb-2">Message</label>
+<textarea class="w-full bg-transparent outline-none font-body text-xl placeholder:text-surface-dim resize-none" placeholder="Briefly describe the clinical context..." rows="4"></textarea>
+</div>
+<button class="w-full bg-primary text-on-primary py-5 font-label uppercase tracking-[0.2em] text-sm hover:bg-on-primary-fixed-variant transition-all">
+                        Dispatch Message
+                    </button>
+<p class="font-mono-data text-[10px] text-secondary text-center uppercase tracking-widest">This form is for professional inquiries. In case of emergency, please dial your local emergency services.</p>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#f9f7f2] dark:bg-[#121212] w-full border-t border-[#d2c4bb]/15 mt-20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-16 max-w-screen-2xl mx-auto">
+<div class="md:col-span-1">
+<span class="font-serif italic text-lg text-[#1A1A1A] dark:text-[#fbf9f4] block mb-4">Dr. Amitabh Parti</span>
+<p class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d] leading-loose">
+                    Clinical Research &amp; Primary Care<br/>
+                    Internal Medicine Specialist<br/>
+                    NMC Registered Practitioner
+                </p>
+</div>
+<div>
+<span class="font-mono uppercase text-[10px] tracking-widest text-[#1A1A1A] dark:text-[#fbf9f4] font-bold block mb-6">Directory</span>
+<ul class="flex flex-col gap-4">
+<li><a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Medical Disclaimer</a></li>
+<li><a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<span class="font-mono uppercase text-[10px] tracking-widest text-[#1A1A1A] dark:text-[#fbf9f4] font-bold block mb-6">Affiliations</span>
+<ul class="flex flex-col gap-4">
+<li><a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Institutional Affiliations</a></li>
+<li><a class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Archive</a></li>
+</ul>
+</div>
+<div class="md:col-span-1 text-right">
+<p class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e] dark:text-[#8d8d8d]">
+                    © 2024 Dr. Julian Thorne. All Rights Reserved.
+                </p>
+<div class="mt-8 flex justify-end gap-6">
+<span class="material-symbols-outlined text-secondary hover:text-primary cursor-pointer text-sm">share</span>
+<span class="material-symbols-outlined text-secondary hover:text-primary cursor-pointer text-sm">print</span>
+<span class="material-symbols-outlined text-secondary hover:text-primary cursor-pointer text-sm">save</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

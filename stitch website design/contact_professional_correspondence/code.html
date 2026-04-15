@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#80756e",
+                    "on-surface-variant": "#4e453f",
+                    "surface-container-low": "#f5f3ee",
+                    "secondary": "#5f5e5e",
+                    "on-tertiary-container": "#2e3c42",
+                    "surface-bright": "#fbf9f4",
+                    "on-secondary-fixed-variant": "#474746",
+                    "surface-dim": "#dbdad5",
+                    "on-primary-fixed-variant": "#564335",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fbf9f4",
+                    "secondary-container": "#e2dfde",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#97a6ad",
+                    "on-primary-container": "#483628",
+                    "inverse-surface": "#30312e",
+                    "primary-fixed": "#faddc9",
+                    "primary": "#6f5a4b",
+                    "on-secondary-container": "#636262",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#d2c4bb",
+                    "primary-fixed-dim": "#dcc1ae",
+                    "tertiary-fixed": "#d6e5ec",
+                    "surface-container": "#f0eee9",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#526167",
+                    "surface-variant": "#e4e2dd",
+                    "surface-container-high": "#eae8e3",
+                    "on-tertiary-fixed-variant": "#3b494f",
+                    "on-tertiary-fixed": "#0f1d23",
+                    "on-tertiary": "#ffffff",
+                    "background": "#fbf9f4",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#6f5a4b",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#e5e2e1",
+                    "on-surface": "#1b1c19",
+                    "primary-container": "#b89f8d",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "inverse-primary": "#dcc1ae",
+                    "surface-container-highest": "#e4e2dd",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "inverse-on-surface": "#f2f1ec",
+                    "on-error": "#ffffff",
+                    "on-background": "#1b1c19",
+                    "tertiary-fixed-dim": "#bac9d0",
+                    "on-primary-fixed": "#27180c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "0px"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader", "serif"],
+                    "body": ["Newsreader", "serif"],
+                    "label": ["Space Grotesk", "monospace"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Newsreader', serif; }
+        .label-style { font-family: 'Space Grotesk', monospace; text-transform: uppercase; letter-spacing: 0.05em; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fbf9f4]/85 backdrop-blur-md">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#6f5a4b]" data-icon="menu_book">menu_book</span>
+<span class="font-serif text-xl tracking-tighter font-bold text-[#1a1a1a]">Dr. Clinical Record</span>
+</div>
+<nav class="hidden md:flex gap-8 items-center font-label text-sm">
+<a class="text-[#5f5e5e] hover:text-[#1a1a1a] transition-colors duration-300" href="#">Journal</a>
+<a class="text-[#5f5e5e] hover:text-[#1a1a1a] transition-colors duration-300" href="#">Research</a>
+<a class="text-[#6f5a4b] border-b-2 border-[#6f5a4b] pb-1" href="#">Contact</a>
+</nav>
+</div>
+<div class="bg-[#f5f3ee] h-[1px]"></div>
+</header>
+<main class="pt-24 pb-20 max-w-7xl mx-auto px-8">
+<!-- Hero Headline -->
+<section class="mt-12 mb-16">
+<h1 class="text-6xl md:text-8xl font-headline tracking-tighter leading-none text-on-surface">
+                Where to find<br/>
+<span class="italic text-primary">Dr. Parti.</span>
+</h1>
+</section>
+<!-- Cover Image Strip -->
+<section class="w-full h-[400px] bg-surface-container-low overflow-hidden mb-16 grayscale hover:grayscale-0 transition-all duration-700">
+<img alt="Fortis Hospital Exterior" class="w-full h-full object-cover" data-alt="Modern wide-angle architectural shot of Fortis Memorial Research Institute building under soft overcast daylight, clean lines and clinical atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnLqMWKoyaX-w1zYV9fbKvNRSZYH4vjUatJDqXw9ysOGQ-GglL31QvcCN8_lWk_WVOMXbdJDgMQVjngodTiyyB7d1_aer0Vs3TrHshs0HNZpqEVI3GVrJ44srhriFYRjwJXWurCBiQ1JXOTA8gHv7KV1FpMsJa07Fj-snqKcEyA7y9mvlv2fO8_6FJKGScUScCq8AsjSPZpBpm2v1sE3LsXkqbEEwH90a9Zjl4wWd-UZEO36T8ZFYcPU2QLjIeIz4cg8EyZYqjj84"/>
+</section>
+<!-- Editorial Content Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
+<!-- Left Column: Practice Info -->
+<div class="md:col-span-7 space-y-12">
+<div>
+<span class="label-style text-xs text-secondary mb-4 block">Primary Practice</span>
+<h2 class="text-4xl font-headline mb-6">Fortis Memorial Research Institute</h2>
+<div class="text-xl leading-relaxed text-on-surface-variant max-w-xl">
+                        Sector - 44, Opposite HUDA City Centre,<br/>
+                        Gurugram, Haryana 122002,<br/>
+                        India
+                    </div>
+</div>
+<div class="bg-surface-container-low p-10">
+<span class="label-style text-xs text-secondary mb-4 block">Consultation Protocol</span>
+<p class="text-lg mb-6 font-headline">To ensure ethical practice and clinical standard maintenance, all clinical consultations are conducted exclusively through the official hospital channel.</p>
+<a class="text-primary font-label text-sm uppercase tracking-widest border-b border-primary-container hover:text-on-surface transition-colors" href="#">
+                        Access Official Hospital Appointment Registry
+                    </a>
+</div>
+</div>
+<!-- Right Column: Metadata & Correspondence -->
+<div class="md:col-span-5 space-y-12 border-l border-outline-variant/15 pl-12">
+<div>
+<span class="label-style text-xs text-secondary mb-4 block">Professional Correspondence</span>
+<p class="text-2xl font-headline italic">amitabh.parti@example.com</p>
+<p class="mt-4 text-sm text-secondary font-body">For academic inquiries, medical journalism collaborations, and research symposium invitations.</p>
+</div>
+<div>
+<span class="label-style text-xs text-secondary mb-4 block">Hours of Registry</span>
+<ul class="space-y-2 font-label text-sm uppercase">
+<li class="flex justify-between border-b border-outline-variant/10 pb-2">
+<span>Mon — Fri</span>
+<span>09:00 - 17:00</span>
+</li>
+<li class="flex justify-between border-b border-outline-variant/10 pb-2">
+<span>Sat</span>
+<span>09:00 - 13:00</span>
+</li>
+<li class="flex justify-between text-error/60">
+<span>Sun</span>
+<span>Closed</span>
+</li>
+</ul>
+</div>
+<div class="bg-primary-container/10 p-6">
+<span class="material-symbols-outlined text-primary mb-2" data-icon="gavel">gavel</span>
+<p class="text-xs font-label uppercase tracking-tighter leading-tight">Strict adherence to National Medical Commission (NMC) ethics: Direct patient-doctor solicitation is prohibited.</p>
+</div>
+</div>
+</div>
+<!-- Embedded Map Section -->
+<section class="w-full h-[500px] bg-surface-container-low mb-20 grayscale contrast-[0.9]">
+<!-- In a real scenario, this would be an actual iframe. Using a stylized div for the design prototype -->
+<div class="w-full h-full flex items-center justify-center relative bg-surface-dim" data-location="Gurugram, India" style="">
+<img alt="Location Map" class="w-full h-full object-cover mix-blend-multiply opacity-50" data-alt="Architectural map layout of Gurugram Sector 44 with minimalist linework and muted earth tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxS0hwImDLGEX5pBPTCbvmpM-4nav9nozzEPv1PWl4q3PTn_Z3emr_5xwHyp0WQt0M3YXF_LjFYFRuWimfO44pTOp33WUBgJ4NMWYMjOsPCOyo4Ea2TNjcwpAHQUss3fxVxUdcLSRbmPNXYvipiSUvV_-E-3LyQQbzlGBToUoDE9V-UoKrfAGdxSzAhhY_rVNgIQEoOJe1fE8iqQ7AN0LVDt2uGPZNueVDmpGd_kl6zaT-PUrx816mwmXxZzaHgz-WzpGgwsb2ZjY"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-on-surface text-surface px-6 py-2 font-label text-xs uppercase tracking-[0.2em]">Clinical Coordinates</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-[#d2c4bb]/15 bg-[#f5f3ee]">
+<div class="flex flex-col items-center gap-6 py-12 px-8 max-w-7xl mx-auto">
+<div class="font-serif italic text-lg text-[#1a1a1a]">Dr. Clinical Record</div>
+<div class="flex gap-8">
+<a class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors duration-300" href="#">Legal</a>
+<a class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors duration-300" href="#">Medical Disclaimer</a>
+<a class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e] underline text-[#1a1a1a]" href="#">Correspondence</a>
+</div>
+<div class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e]">© 2024 Dr. Clinical Record. All rights reserved.</div>
+</div>
+</footer>
+</body></html>

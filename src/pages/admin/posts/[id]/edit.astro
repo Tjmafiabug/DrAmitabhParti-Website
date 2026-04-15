@@ -1,0 +1,32 @@
+---
+import AdminLayout from '../../../../layouts/AdminLayout.astro';
+import Composer from '../../../../components/admin/Composer';
+import { createSupabaseServerClient } from '../../../../lib/supabase';
+
+export const prerender = false;
+
+const { id } = Astro.params;
+const supabase = createSupabaseServerClient(Astro);
+const { data: post } = await supabase
+  .from('posts')
+  .select('id, slug, title, excerpt, category, status, body_json')
+  .eq('id', id)
+  .maybeSingle();
+
+if (!post) return Astro.redirect('/admin');
+---
+
+<AdminLayout title={`Edit — ${post.title}`}>
+  <section class="px-6 py-10">
+    <Composer
+      client:only="react"
+      id={post.id}
+      initialTitle={post.title}
+      initialExcerpt={post.excerpt ?? ''}
+      initialCategory={post.category ?? 'Essay'}
+      initialStatus={post.status}
+      initialSlug={post.slug}
+      initialBodyJson={post.body_json}
+    />
+  </section>
+</AdminLayout>

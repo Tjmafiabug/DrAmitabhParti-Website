@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dr. Amitabh Parti | On a life in Internal Medicine</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#80756e",
+                    "on-surface-variant": "#4e453f",
+                    "surface-container-low": "#f5f3ee",
+                    "secondary": "#5f5e5e",
+                    "on-tertiary-container": "#2e3c42",
+                    "surface-bright": "#fbf9f4",
+                    "on-secondary-fixed-variant": "#474746",
+                    "surface-dim": "#dbdad5",
+                    "on-primary-fixed-variant": "#564335",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fbf9f4",
+                    "secondary-container": "#e2dfde",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#97a6ad",
+                    "on-primary-container": "#483628",
+                    "inverse-surface": "#30312e",
+                    "primary-fixed": "#faddc9",
+                    "primary": "#6f5a4b",
+                    "on-secondary-container": "#636262",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#d2c4bb",
+                    "primary-fixed-dim": "#dcc1ae",
+                    "tertiary-fixed": "#d6e5ec",
+                    "surface-container": "#f0eee9",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#526167",
+                    "surface-variant": "#e4e2dd",
+                    "surface-container-high": "#eae8e3",
+                    "on-tertiary-fixed-variant": "#3b494f",
+                    "on-tertiary-fixed": "#0f1d23",
+                    "on-tertiary": "#ffffff",
+                    "background": "#fbf9f4",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#6f5a4b",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#e5e2e1",
+                    "on-surface": "#1b1c19",
+                    "primary-container": "#b89f8d",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "inverse-primary": "#dcc1ae",
+                    "surface-container-highest": "#e4e2dd",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "inverse-on-surface": "#f2f1ec",
+                    "on-error": "#ffffff",
+                    "on-background": "#1b1c19",
+                    "tertiary-fixed-dim": "#bac9d0",
+                    "on-primary-fixed": "#27180c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader", "serif"],
+                    "body": ["Newsreader", "serif"],
+                    "label": ["Space Grotesk", "monospace"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .drop-cap::first-letter {
+            float: left;
+            font-size: 5rem;
+            line-height: 4rem;
+            padding-right: 0.75rem;
+            padding-top: 0.25rem;
+            font-family: 'Newsreader', serif;
+            font-weight: 700;
+            color: #6f5a4b;
+        }
+        /* Custom scrollbar for broadsheet feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #fbf9f4; }
+        ::-webkit-scrollbar-thumb { background: #d2c4bb; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#fbf9f4]/85 backdrop-blur-md">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#6f5a4b]" data-icon="menu_book">menu_book</span>
+<span class="font-serif text-xl tracking-tighter font-bold text-[#1a1a1a]">Dr. Clinical Record</span>
+</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors duration-300" href="#">Archive</a>
+<a class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#6f5a4b] border-b-2 border-[#6f5a4b] pb-1" href="#">About Dr. Parti</a>
+<a class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors duration-300" href="#">Journal</a>
+<a class="px-4 py-2 bg-primary text-on-primary font-mono uppercase tracking-[0.05em] text-[10px] hover:bg-primary-container transition-colors duration-300" href="#">Contact</a>
+</div>
+</div>
+<div class="bg-[#f5f3ee] h-[1px]"></div>
+</nav>
+<main class="pt-32 pb-24">
+<!-- Editorial Header -->
+<header class="max-w-7xl mx-auto px-8 mb-16">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+<div class="md:col-span-8">
+<span class="font-label text-[12px] uppercase tracking-[0.2em] text-primary mb-4 block">Biographical Profile</span>
+<h1 class="font-headline text-6xl md:text-8xl font-extrabold tracking-tight leading-[0.9] text-on-surface">
+                        On a life in<br/>
+<span class="italic text-primary">INTERNAL MEDICINE</span>
+</h1>
+</div>
+<div class="md:col-span-4 text-right hidden md:block">
+<p class="font-label text-[10px] uppercase tracking-widest text-secondary">Vol. IV / No. 12</p>
+<p class="font-label text-[10px] uppercase tracking-widest text-secondary">Est. MCMXCVIII</p>
+</div>
+</div>
+</header>
+<!-- Hero Portrait Section -->
+<section class="max-w-7xl mx-auto px-8 mb-24">
+<div class="relative group">
+<!-- Shadow/Backdrop effect - Note: Border radius is 0 per system, but user requested rounded for hero portrait specifically. Balancing for "softness" as instructed. -->
+<div class="w-full aspect-[21/9] overflow-hidden rounded-xl shadow-[0_40px_80px_-15px_rgba(27,28,25,0.1)] border border-outline-variant/15">
+<img alt="Dr. Amitabh Parti" class="w-full h-full object-cover grayscale-[20%] contrast-[1.1]" data-alt="Distinguished mature male doctor in a professional clinical setting with soft natural light, warm wooden office textures in background, editorial medical photography style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDt9lxCxULvGP8XLmtwdNcE1knAyn5KoGIxd2eIbt8p52uosnKZlp7GF30q66T7Jh5_SO2H5awZQxeZUUUbAaaiqXCotljwm123oUcUIl7ORah2NFQxg-kqrUTDMiCkEy5i1epwVEF1djvM-M6TDwqh1h5vBnYbHhM9bLLHMLAaVk3A6EzVE8qgdHjVOvGXBcO_-CQQou9OMHD8mz2EKzF5YA1o9CZgSCuwTZMIDaK3uOlZfayftC6keVlHO-SFO3o-c3b6ps57iuo"/>
+</div>
+<div class="absolute -bottom-6 right-12 bg-surface p-6 shadow-xl border border-outline-variant/10 max-w-md hidden md:block">
+<p class="font-body italic text-lg leading-relaxed text-on-surface-variant">
+                        "The practice of medicine is an art, not a trade; a calling, not a business; a calling in which your heart will be exercised equally with your head."
+                    </p>
+<p class="font-label text-[10px] uppercase tracking-widest text-primary mt-4">— Dr. Amitabh Parti</p>
+</div>
+</div>
+</section>
+<!-- Main Editorial Content -->
+<article class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-12 gap-16">
+<!-- Sidebar Metadata -->
+<aside class="md:col-span-3 border-t-2 border-primary pt-8">
+<div class="sticky top-28 space-y-12">
+<div>
+<h4 class="font-label text-[11px] uppercase tracking-[0.15em] text-secondary mb-4">Credentials</h4>
+<ul class="space-y-2 font-body text-sm text-on-surface">
+<li>MBBS, MD (Internal Medicine)</li>
+<li>Senior Consultant Physician</li>
+<li>Academic Fellow, IM</li>
+</ul>
+</div>
+<div>
+<h4 class="font-label text-[11px] uppercase tracking-[0.15em] text-secondary mb-4">Focus Areas</h4>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-highest px-3 py-1 font-label text-[10px] uppercase tracking-wider">Metabolic Health</span>
+<span class="bg-surface-container-highest px-3 py-1 font-label text-[10px] uppercase tracking-wider">Geriatrics</span>
+<span class="bg-surface-container-highest px-3 py-1 font-label text-[10px] uppercase tracking-wider">Preventative Care</span>
+</div>
+</div>
+<div class="pt-8">
+<div class="bg-surface-container-low p-6">
+<h4 class="font-label text-[11px] uppercase tracking-[0.15em] text-primary mb-3">Notice</h4>
+<p class="font-body text-xs italic text-on-surface-variant leading-relaxed">
+                                This profile adheres strictly to NMC Ethical Guidelines. In compliance with professional standards, no patient testimonials or reviews are featured.
+                            </p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Long-form Prose -->
+<div class="md:col-span-7 space-y-20">
+<!-- Lede -->
+<div class="border-l-4 border-primary pl-8 py-2">
+<p class="font-headline italic text-3xl leading-snug text-on-surface-variant">
+                        Dr. Amitabh Parti has spent over three decades navigating the intricate intersections of human physiology and personal narrative, treating patients not as a collection of symptoms, but as complex clinical histories.
+                    </p>
+</div>
+<!-- Section: Beginnings -->
+<section id="beginnings">
+<h2 class="font-label text-[12px] uppercase tracking-[0.3em] text-secondary mb-8 border-b border-outline-variant/30 pb-2">I. Beginnings</h2>
+<div class="font-body text-xl leading-relaxed text-on-surface drop-cap space-y-6">
+<p>
+                            Medicine was never merely a career choice for Dr. Parti; it was a legacy of observation. Growing up in an environment where scientific rigor met empathetic dialogue, he developed an early fascination with the diagnostic process—the silent language of the body and the spoken anxieties of the soul.
+                        </p>
+<p>
+                            His early influences were rooted in the traditional school of clinical medicine, where the stethoscope and the physical examination were the primary tools of discovery, long before the digital screens of modernity claimed the physician's gaze.
+                        </p>
+</div>
+</section>
+<!-- Section: Training -->
+<section id="training">
+<h2 class="font-label text-[12px] uppercase tracking-[0.3em] text-secondary mb-8 border-b border-outline-variant/30 pb-2">II. Training &amp; Formation</h2>
+<div class="font-body text-lg leading-relaxed text-on-surface space-y-6">
+<p>
+                            The crucible of his professional identity was forged in the demanding wards of leading academic institutions. Here, Internal Medicine was revealed as the "Queen of Specialties"—the intellectual hub where every organ system must be understood both in isolation and in harmony.
+                        </p>
+<p>
+                            Under the mentorship of legendary diagnosticians, Dr. Parti honed the ability to synthesize vast amounts of clinical data into cohesive management plans, always prioritizing the long-term metabolic health of his patients.
+                        </p>
+</div>
+</section>
+<!-- Section: Career -->
+<section id="career">
+<h2 class="font-label text-[12px] uppercase tracking-[0.3em] text-secondary mb-8 border-b border-outline-variant/30 pb-2">III. Professional Trajectory</h2>
+<div class="font-body text-lg leading-relaxed text-on-surface space-y-6">
+<p>
+                            Across his career spanning three decades, Dr. Parti has held senior leadership roles in some of the region's most prestigious healthcare systems. His practice is characterized by a "Clinical Record" approach—meticulous documentation that serves as a living history of a patient's health journey.
+                        </p>
+<div class="bg-surface-container-low p-10 border-l-2 border-outline-variant">
+<h3 class="font-headline text-2xl font-bold mb-4">Academic Appointments</h3>
+<ul class="space-y-4 font-body italic text-lg text-on-surface-variant">
+<li>Director of Medical Services, Metropolitan Health</li>
+<li>Adjunct Faculty, Internal Medicine Residency Program</li>
+<li>Chairperson, Hospital Ethics Committee</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Section: Interests -->
+<section id="interests">
+<h2 class="font-label text-[12px] uppercase tracking-[0.3em] text-secondary mb-8 border-b border-outline-variant/30 pb-2">IV. Clinical Specializations</h2>
+<div class="font-body text-lg leading-relaxed text-on-surface space-y-6">
+<p>
+                            Dr. Parti’s clinical focus lies at the intersection of lifestyle and longevity. He has pioneered comprehensive management protocols for metabolic syndrome, complex diabetes management, and geriatric health optimizations.
+                        </p>
+<p>
+                            His philosophy centers on "Preventative Intervention"—the belief that the most successful medical outcome is the disease that never manifests due to timely, evidence-based lifestyle recalibrations.
+                        </p>
+</div>
+</section>
+<!-- Section: Teaching -->
+<section id="teaching">
+<h2 class="font-label text-[12px] uppercase tracking-[0.3em] text-secondary mb-8 border-b border-outline-variant/30 pb-2">V. The Pedagogy of Practice</h2>
+<div class="font-body text-lg leading-relaxed text-on-surface space-y-6">
+<p>
+                            As a committed educator, Dr. Parti dedicates a significant portion of his schedule to teaching the next generation of physicians. To him, the "Clinical Record" is also a teaching tool—an example of how clarity in thought leads to clarity in care.
+                        </p>
+<p>
+                            He frequently delivers grand rounds on the 'Lost Art of Physical Examination' and the 'Ethical Dimensions of Chronic Care Management'.
+                        </p>
+</div>
+</section>
+<!-- Section: Away from Clinic -->
+<section id="personal">
+<h2 class="font-label text-[12px] uppercase tracking-[0.3em] text-secondary mb-8 border-b border-outline-variant/30 pb-2">VI. Beyond the White Coat</h2>
+<div class="font-body text-lg leading-relaxed text-on-surface space-y-6">
+<p>
+                            Away from the clinical hustle, Dr. Parti finds balance in the quiet disciplines. An avid student of philosophy and classical music, he believes that a well-rounded mind is a doctor's greatest asset. These pursuits provide the meditative distance necessary to return to his patients with renewed perspective and patience.
+                        </p>
+</div>
+</section>
+<!-- Signature Ornament -->
+<div class="pt-20 flex flex-col items-center">
+<div class="h-1px w-32 bg-outline-variant mb-4"></div>
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="auto_stories">auto_stories</span>
+<p class="font-label text-[10px] uppercase tracking-[0.4em] text-secondary mt-4">Fine . Record . Medicine</p>
+</div>
+</div>
+<!-- Right Spacer / Decorative Column -->
+<aside class="md:col-span-2 hidden md:block">
+<div class="h-full border-l border-outline-variant/20 flex flex-col items-center py-8">
+<span class="font-label text-[10px] [writing-mode:vertical-rl] uppercase tracking-[0.5em] text-outline/40">AMITABH PARTI MD</span>
+</div>
+</aside>
+</article>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-[#d2c4bb]/15 bg-[#f5f3ee]">
+<div class="flex flex-col items-center gap-6 py-12 px-8 max-w-7xl mx-auto">
+<span class="font-serif italic text-lg text-[#1a1a1a]">Dr. Clinical Record</span>
+<div class="flex gap-8">
+<a class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors" href="#">Legal</a>
+<a class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors" href="#">Medical Disclaimer</a>
+<a class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors" href="#">Correspondence</a>
+</div>
+<p class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e]">© 2024 Dr. Clinical Record. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

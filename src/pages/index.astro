@@ -1,17 +1,415 @@
 ---
+export const prerender = true;
 
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getRecentPosts, formatDate } from "../data/posts";
+import { site } from "../data/site";
+
+const recent = await getRecentPosts(4);
+const [featured, ...side] = recent;
+
+const chipClass = (c: string | null) =>
+  c === "Awareness"
+    ? "chip-category chip-awareness"
+    : c === "Reflection"
+      ? "chip-category chip-reflection"
+      : "chip-category chip-essay";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  {/* ================== HERO — dark introduction band ================== */}
+  <section class="section-dark-hero">
+    <div class="container-wide mx-auto px-6 pt-10 md:pt-14 lg:pt-16 pb-0">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-end">
+        <div class="md:col-span-7 order-2 md:order-1 pb-12 md:pb-16">
+          <p class="label mb-4" style="color: var(--color-gold-soft);">
+            <span
+              class="inline-block h-px w-8 align-middle mr-3"
+              style="background: var(--color-gold-soft);"></span>
+            From the writing
+          </p>
+          <blockquote
+            class="font-[var(--font-headline)] italic text-balance"
+            style="font-size: clamp(1.4rem, 2.2vw + 0.6rem, 2.1rem); line-height: 1.25; font-weight: 300;"
+          >
+            &ldquo;Medicine has built magnificent instruments. The single most
+            consequential remains the
+            <span
+              class="not-italic font-normal"
+              style="color: var(--color-gold-soft);"
+              >willingness to listen.</span
+            >&rdquo;
+          </blockquote>
+          <p
+            class="meta mt-4 mb-5"
+            style="color: var(--color-gold-soft); opacity: 0.9;"
+          >
+            — Dr. Amitabh Parti · Internal Medicine, Fortis Memorial, Gurgaon
+          </p>
+
+          <p
+            class="text-[0.98rem] leading-[1.7] max-w-xl text-pretty opacity-90"
+          >
+            Dr. Parti writes on internal medicine, public health, and the
+            discipline of clinical attention. Recent notes include
+            <a href="/writing/monsoon-illness-in-north-india"
+              >Monsoon Illness in North India</a
+            >
+            and
+            <a href="/writing/diabetes-and-the-long-game"
+              >Diabetes and the Long Game</a
+            >.
+          </p>
+
+          <div class="mt-7 flex flex-wrap items-center gap-8">
+            <a
+              href="/writing"
+              class="font-[var(--font-label)] uppercase tracking-[0.2em] text-[0.7rem]"
+              style="color: var(--color-gold-soft);"
+            >
+              Read the essays →
+            </a>
+            <a
+              href="/about"
+              class="font-[var(--font-label)] uppercase tracking-[0.2em] text-[0.7rem]"
+              style="color: var(--color-gold-soft);"
+            >
+              About Dr. Parti
+            </a>
+          </div>
+        </div>
+
+        <div class="md:col-span-5 order-1 md:order-2 self-end">
+          <figure
+            class="relative max-w-[520px] md:max-w-none mx-auto md:mx-0 md:-mr-4 lg:-mr-8"
+          >
+            <img
+              src="/images/parti-cutout.png"
+              alt="Dr. Amitabh Parti, Senior Director of Internal Medicine at Fortis Memorial Research Institute, Gurgaon"
+              class="w-full h-auto block"
+              style="filter: saturate(0.97) contrast(1.05); transform: scale(1.12); transform-origin: bottom center;"
+              loading="eager"
+              width="620"
+              height="404"
+            />
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* =================== CREDIBILITY STRIP — LIGHT =================== */}
+  <section class="bg-[var(--color-surface)]">
+    <div class="container-wide mx-auto px-6 py-16 md:py-20">
+      <div
+        class="grid grid-cols-2 md:grid-cols-4 gap-px bg-[var(--color-outline-variant)]/25"
+      >
+        <div
+          class="bg-[var(--color-surface)] p-6 md:p-8 flex flex-col min-h-[130px] md:min-h-[150px]"
+        >
+          <p class="label">Qualifications</p>
+          <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
+            MBBS <span class="italic text-[var(--color-primary)]"
+              >Gold Medallist</span
+            >, {site.mbbsYear}
+          </p>
+        </div>
+        <div
+          class="bg-[var(--color-surface)] p-6 md:p-8 flex flex-col min-h-[130px] md:min-h-[150px]"
+        >
+          <p class="label">Specialisation</p>
+          <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
+            MD Internal Medicine, {site.mdYear}
+          </p>
+        </div>
+        <div
+          class="bg-[var(--color-surface)] p-6 md:p-8 flex flex-col min-h-[130px] md:min-h-[150px]"
+        >
+          <p class="label">Experience</p>
+          <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
+            {site.experienceYears} Years in Practice
+          </p>
+        </div>
+        <div
+          class="bg-[var(--color-surface)] p-6 md:p-8 flex flex-col min-h-[130px] md:min-h-[150px]"
+        >
+          <p class="label">Appointment</p>
+          <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
+            Senior Director, Fortis Memorial
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {
+    /* ========================= RECENT WRITING — DARK ========================= */
+  }
+  <section class="section-dark-hero">
+    <div class="container-wide mx-auto px-6 py-16 md:py-20">
+      <div class="flex justify-between items-end mb-10 md:mb-12">
+        <h2 class="label" style="color: var(--color-gold-soft);">
+          Recent Writing
+        </h2>
+        <span class="meta" style="color: var(--color-gold-soft); opacity: 0.8;"
+          >Vol. 01 · April 2026</span
+        >
+      </div>
+
+      <ul>
+        {
+          recent.slice(0, 3).map((p, i) => (
+            <li
+              class={i > 0 ? "border-t" : ""}
+              style="border-color: rgba(221, 184, 128, 0.15);"
+            >
+              <a
+                href={`/writing/${p.slug}`}
+                class="group grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 md:gap-10 py-8 md:py-10 items-start"
+              >
+                <div>
+                  <div class="flex items-center gap-3 mb-3">
+                    <span class={chipClass(p.category)}>{p.category}</span>
+                    <span
+                      class="meta"
+                      style="color: var(--color-gold-soft); opacity: 0.7;"
+                    >
+                      {p.readingTime}
+                    </span>
+                  </div>
+                  <h3
+                    class={`font-[var(--font-headline)] mb-3 leading-[1.1] text-balance transition-colors group-hover:text-white ${
+                      i === 0
+                        ? "text-3xl md:text-4xl"
+                        : "text-2xl md:text-[1.7rem]"
+                    }`}
+                    style="color: #f4efdf;"
+                  >
+                    {p.title}
+                  </h3>
+                  <p class="leading-relaxed max-w-2xl opacity-80">
+                    {p.excerpt}
+                  </p>
+                </div>
+                <div class="flex md:flex-col md:items-end gap-2 shrink-0 md:pt-1">
+                  <span
+                    class="meta"
+                    style="color: var(--color-gold-soft); opacity: 0.7;"
+                  >
+                    {formatDate(p.publishedAt)}
+                  </span>
+                  <span
+                    class="meta opacity-0 group-hover:opacity-100 transition-opacity"
+                    style="color: var(--color-gold-soft);"
+                  >
+                    Read →
+                  </span>
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-8 flex justify-end">
+        <a
+          href="/writing"
+          class="font-[var(--font-label)] text-[0.72rem] uppercase tracking-[0.2em]"
+        >
+          All writing →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {
+    /* ===================== AREAS OF CLINICAL INTEREST — LIGHT ===================== */
+  }
+  <section class="bg-paper-warm">
+    <div class="container-wide mx-auto px-6 py-16 md:py-20">
+      <div class="flex items-baseline justify-between mb-10 md:mb-12">
+        <div class="flex items-baseline gap-4">
+          <span class="rule-accent"></span>
+          <h2 class="label label-strong">Areas of Clinical Expertise</h2>
+        </div>
+        <span class="meta">{site.experienceYears} years</span>
+      </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-14 gap-y-10"
+      >
+        {
+          site.clinicalInterests.map((t, i) => {
+            const accents = [
+              "var(--color-primary)",
+              "var(--color-tertiary)",
+              "var(--color-gold)",
+              "var(--color-primary)",
+              "var(--color-tertiary)",
+              "var(--color-gold)",
+            ];
+            const c = accents[i % accents.length];
+            return (
+              <div>
+                <div class="flex items-baseline gap-3 mb-3">
+                  <span class="meta" style={`color: ${c};`}>
+                    № {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h5
+                    class="font-[var(--font-headline)] text-lg"
+                    style={`color: ${c};`}
+                  >
+                    {t.title}
+                  </h5>
+                </div>
+                <div
+                  class="h-px w-full mb-3"
+                  style={`background: ${c}; opacity: 0.25;`}
+                />
+                <p class="text-sm leading-relaxed text-[var(--color-on-surface-variant)] italic">
+                  {t.note}
+                </p>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ====================== EMPANELMENTS — DARK ====================== */}
+  <section class="section-dark-hero">
+    <div class="container-wide mx-auto px-6 py-16 md:py-20">
+      <div class="flex items-baseline justify-between mb-8 md:mb-10">
+        <h2 class="label" style="color: var(--color-gold-soft);">
+          Empanelled Visiting Physician
+        </h2>
+        <span class="meta" style="color: var(--color-gold-soft); opacity: 0.8;"
+          >Corporate Health Partners</span
+        >
+      </div>
+      <ul class="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-6">
+        {
+          site.empanelments.map((e, i) => {
+            const tops = [
+              "var(--color-primary-container)",
+              "#8fb3b8",
+              "var(--color-gold-soft)",
+              "#c97056",
+              "#dbc4a8",
+            ];
+            return (
+              <li
+                class="p-5 relative"
+                style="background: rgba(255,255,255,0.04); border: 1px solid rgba(221,184,128,0.1);"
+              >
+                <span
+                  class="absolute top-0 left-0 h-[3px] w-10"
+                  style={`background: ${tops[i]};`}
+                />
+                <p
+                  class="meta mt-2 mb-3"
+                  style="color: var(--color-gold-soft); opacity: 0.7;"
+                >
+                  № {String(i + 1).padStart(2, "0")}
+                </p>
+                <p
+                  class="font-[var(--font-headline)] text-[1.05rem] leading-tight"
+                  style="color: #f4efdf;"
+                >
+                  {e}
+                </p>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* ======================= PULL QUOTE — LIGHT ======================= */}
+  <section class="bg-paper-cool">
+    <div
+      class="container-wide mx-auto px-6 py-20 md:py-28 flex flex-col items-center"
+    >
+      <div class="max-w-3xl text-center">
+        <svg
+          width="44"
+          height="44"
+          viewBox="0 0 40 40"
+          fill="none"
+          aria-hidden="true"
+          class="mx-auto mb-6"
+          style="color: var(--color-tertiary);"
+        >
+          <path
+            d="M12 10C8 10 5 13 5 17V24H13V17H9C9 14.5 10.5 13 12 13V10ZM27 10C23 10 20 13 20 17V24H28V17H24C24 14.5 25.5 13 27 13V10Z"
+            fill="currentColor"></path>
+        </svg>
+        <blockquote class="pull-quote mb-8 text-balance">
+          Medicine is not the application of science to biology. It is the <span
+            style="color: var(--color-accent);"
+            >translation of evidence into empathy</span
+          >, within the constraints of a human life.
+        </blockquote>
+        <div class="flex items-center justify-center gap-3">
+          <span class="h-px w-8" style="background: var(--color-gold);"></span>
+          <p class="meta" style="color: var(--color-gold);">
+            From the writing · 2026
+          </p>
+          <span class="h-px w-8" style="background: var(--color-gold);"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {
+    /* ====================== PROFESSIONAL CORRESPONDENCE — LIGHT ====================== */
+  }
+  <section class="bg-[var(--color-surface-container-low)]">
+    <div class="container-wide mx-auto px-6 py-16 md:py-20">
+      <div
+        class="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 items-center"
+      >
+        <div>
+          <p class="label label-primary mb-5">Professional Correspondence</p>
+          <h2 class="mb-6 text-balance">
+            For media, teaching,<br />
+            <span class="italic">or professional enquiry.</span>
+          </h2>
+          <p
+            class="text-[var(--color-on-surface-variant)] leading-relaxed text-[1.05rem] max-w-xl text-pretty"
+          >
+            This site is not a channel for clinical consultation. For patient
+            care, please contact Fortis Memorial Research Institute through
+            their official systems. For media, fellowship, speaking, or
+            editorial correspondence, please write to the address opposite.
+          </p>
+        </div>
+
+        <div class="space-y-8">
+          <div>
+            <p class="label mb-3">By Letter</p>
+            <a
+              href={`mailto:${site.email}`}
+              class="font-[var(--font-headline)] italic text-[1.4rem] text-[var(--color-primary)] link-editorial"
+            >
+              {site.email}
+            </a>
+          </div>
+          <div>
+            <p class="label mb-3">In Clinic</p>
+            <p class="leading-[1.7] text-[var(--color-on-surface)]">
+              {site.address.hospital}<br />
+              {site.address.line2}
+            </p>
+            <a
+              href="/contact"
+              class="mt-3 inline-block meta text-[var(--color-primary)]"
+              >See the map →</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

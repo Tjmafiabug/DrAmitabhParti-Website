@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Writing Index | Dr. Amitabh Parti</title>
+<!-- Typography: Newsreader (Serif) & Space Grotesk (Mono) -->
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#80756e",
+                    "on-surface-variant": "#4e453f",
+                    "surface-container-low": "#f5f3ee",
+                    "secondary": "#5f5e5e",
+                    "on-tertiary-container": "#2e3c42",
+                    "surface-bright": "#fbf9f4",
+                    "on-secondary-fixed-variant": "#474746",
+                    "surface-dim": "#dbdad5",
+                    "on-primary-fixed-variant": "#564335",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fbf9f4",
+                    "secondary-container": "#e2dfde",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#97a6ad",
+                    "on-primary-container": "#483628",
+                    "inverse-surface": "#30312e",
+                    "primary-fixed": "#faddc9",
+                    "primary": "#6f5a4b",
+                    "on-secondary-container": "#636262",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#d2c4bb",
+                    "primary-fixed-dim": "#dcc1ae",
+                    "tertiary-fixed": "#d6e5ec",
+                    "surface-container": "#f0eee9",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#526167",
+                    "surface-variant": "#e4e2dd",
+                    "surface-container-high": "#eae8e3",
+                    "on-tertiary-fixed-variant": "#3b494f",
+                    "on-tertiary-fixed": "#0f1d23",
+                    "on-tertiary": "#ffffff",
+                    "background": "#fbf9f4",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#6f5a4b",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#e5e2e1",
+                    "on-surface": "#1b1c19",
+                    "primary-container": "#b89f8d",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "inverse-primary": "#dcc1ae",
+                    "surface-container-highest": "#e4e2dd",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "inverse-on-surface": "#f2f1ec",
+                    "on-error": "#ffffff",
+                    "on-background": "#1b1c19",
+                    "tertiary-fixed-dim": "#bac9d0",
+                    "on-primary-fixed": "#27180c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader", "serif"],
+                    "body": ["Newsreader", "serif"],
+                    "label": ["Space Grotesk", "monospace"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fbf9f4;
+            color: #1b1c19;
+            font-family: 'Newsreader', serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar Navigation Shell -->
+<header class="fixed top-0 w-full z-50 bg-[#fbf9f4]/85 dark:bg-[#1a1a1a]/85 backdrop-blur-md">
+<nav class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#6f5a4b] dark:text-[#b89f8d]" data-icon="menu_book">menu_book</span>
+<span class="font-serif text-xl tracking-tighter font-bold text-[#1a1a1a] dark:text-[#fbf9f4]">Dr. Clinical Record</span>
+</div>
+<div class="hidden md:flex gap-8 items-center font-label text-[12px] uppercase tracking-widest">
+<a class="text-[#5f5e5e] dark:text-[#a1a1a1] hover:text-[#1a1a1a] dark:hover:text-[#fbf9f4] transition-colors duration-300" href="#">Home</a>
+<a class="text-[#6f5a4b] dark:text-[#b89f8d] border-b-2 border-[#6f5a4b] pb-1" href="#">Writing</a>
+<a class="text-[#5f5e5e] dark:text-[#a1a1a1] hover:text-[#1a1a1a] dark:hover:text-[#fbf9f4] transition-colors duration-300" href="#">Archive</a>
+<a class="text-[#5f5e5e] dark:text-[#a1a1a1] hover:text-[#1a1a1a] dark:hover:text-[#fbf9f4] transition-colors duration-300" href="#">Contact</a>
+</div>
+</nav>
+<div class="bg-[#f5f3ee] dark:bg-[#2a2a2a] h-[1px]"></div>
+</header>
+<main class="pt-32 pb-24 px-8 max-w-7xl mx-auto">
+<!-- BroadSheet Hero Headline -->
+<div class="mb-16">
+<h1 class="text-6xl md:text-8xl font-headline font-extrabold tracking-tighter leading-[0.9] text-on-surface">
+                Essays, notes, <br/>
+<span class="italic font-light text-primary">and educational articles.</span>
+</h1>
+<div class="mt-8 max-w-2xl">
+<p class="text-xl text-on-surface-variant font-body italic">
+                    A curated collection of clinical observations, peer-reviewed insights, and professional commentary on the evolving landscape of modern medicine.
+                </p>
+</div>
+</div>
+<!-- Sticky Filter Row -->
+<div class="sticky top-[73px] z-40 bg-surface py-6 border-b border-outline-variant/30 flex flex-wrap gap-3 items-center">
+<span class="font-label text-[10px] uppercase tracking-[0.2em] text-secondary mr-4">Filter by:</span>
+<button class="bg-primary text-on-primary px-4 py-1 text-[11px] font-label uppercase tracking-wider">All Records</button>
+<button class="bg-surface-container-highest hover:bg-outline-variant/20 px-4 py-1 text-[11px] font-label uppercase tracking-wider transition-colors">Cardiology</button>
+<button class="bg-surface-container-highest hover:bg-outline-variant/20 px-4 py-1 text-[11px] font-label uppercase tracking-wider transition-colors">Clinical Ethics</button>
+<button class="bg-surface-container-highest hover:bg-outline-variant/20 px-4 py-1 text-[11px] font-label uppercase tracking-wider transition-colors">Digital Health</button>
+<button class="bg-surface-container-highest hover:bg-outline-variant/20 px-4 py-1 text-[11px] font-label uppercase tracking-wider transition-colors">Research</button>
+</div>
+<!-- Editorial Article List (Asymmetric Grid Layout) -->
+<section class="mt-16 space-y-24">
+<!-- Article Item 01 -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start group">
+<div class="md:col-span-3">
+<div class="font-label text-[11px] uppercase tracking-[0.1em] text-secondary space-y-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-primary"></span>
+<span class="text-primary font-bold">Clinical Ethics</span>
+</div>
+<div>October 24, 2023</div>
+<div>12 min read</div>
+</div>
+</div>
+<div class="md:col-span-7">
+<h2 class="text-4xl md:text-5xl font-headline font-bold leading-tight group-hover:text-primary transition-colors duration-300">
+                        The Sovereignty of the Patient in the Age of Algorithmic Diagnosis.
+                    </h2>
+<p class="mt-4 text-lg text-on-surface-variant font-body leading-relaxed max-w-xl">
+                        As artificial intelligence begins to dominate the diagnostic phase of clinical care, we must re-evaluate the human bridge between data and empathy. This essay explores the ethical boundaries of automated decision-making in critical care environments.
+                    </p>
+</div>
+<div class="md:col-span-2 flex md:justify-end">
+<button class="font-label text-[10px] uppercase tracking-widest border-b border-on-surface pb-1 group-hover:text-primary group-hover:border-primary transition-all">Read Entry</button>
+</div>
+</article>
+<!-- Featured Image / Breakthrough Section (Tonal Shift) -->
+<div class="w-full bg-surface-container-low p-12 md:p-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="order-2 md:order-1">
+<div class="font-label text-[10px] uppercase tracking-[0.3em] text-primary mb-4">Current Research Highlight</div>
+<h3 class="text-3xl md:text-5xl font-headline italic font-light leading-tight mb-6">
+                        "The integration of digital biometrics must not outpace our moral frameworks for data privacy."
+                    </h3>
+<p class="font-label text-xs uppercase tracking-widest text-secondary">A. Parti, Journal of Medical Insight</p>
+</div>
+<div class="order-1 md:order-2 h-80 bg-surface-container-high relative overflow-hidden">
+<img alt="Medical Research" class="w-full h-full object-cover grayscale opacity-80" data-alt="Close-up of a high-tech medical laboratory microscope lens with subtle glowing blue light and sterile environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu8Zx2DNiLnNsvsxy2O6uTbTnMoRt1Vnw4F4rys5yH4X_r7zPxqGhcCXASQhfom52vVzxRU7-71Wp24pgfWzi0-EG_VPVNJVXKI-RySnqRJEVFSuuf9mkihbPLZxTCugW1njrDX2tE42L38sb680ty4OgsNBAyJyXnNQA9p8PF-isLGlGUa52k3dFqAq4VA1w-fi1XBakSoVJfOjQ0ge4mLpWP_H7FgGzrDPhm7ypAPClfupe2uW2xF14Z-mfuLNAGqE0GbUnhpuY"/>
+<div class="absolute inset-0 bg-primary/10 mix-blend-multiply"></div>
+</div>
+</div>
+<!-- Article Item 02 -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start group">
+<div class="md:col-span-3">
+<div class="font-label text-[11px] uppercase tracking-[0.1em] text-secondary space-y-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-outline"></span>
+<span class="text-on-surface font-bold">Pathology</span>
+</div>
+<div>September 12, 2023</div>
+<div>08 min read</div>
+</div>
+</div>
+<div class="md:col-span-7">
+<h2 class="text-4xl md:text-5xl font-headline font-bold leading-tight group-hover:text-primary transition-colors duration-300">
+                        Synthesizing New Protocols for Chronic Inflammation Management.
+                    </h2>
+<p class="mt-4 text-lg text-on-surface-variant font-body leading-relaxed max-w-xl">
+                        The traditional approach to geriatric inflammation is shifting toward a more personalized biomarker-driven model. This note outlines the technical adjustments required in multidisciplinary clinics.
+                    </p>
+</div>
+<div class="md:col-span-2 flex md:justify-end">
+<button class="font-label text-[10px] uppercase tracking-widest border-b border-on-surface pb-1 group-hover:text-primary group-hover:border-primary transition-all">Read Entry</button>
+</div>
+</article>
+<!-- Horizontal Hairline -->
+<div class="w-full h-[1px] bg-outline-variant/20"></div>
+<!-- Article Item 03 -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start group">
+<div class="md:col-span-3">
+<div class="font-label text-[11px] uppercase tracking-[0.1em] text-secondary space-y-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-tertiary"></span>
+<span class="text-tertiary font-bold">Health Tech</span>
+</div>
+<div>August 30, 2023</div>
+<div>15 min read</div>
+</div>
+</div>
+<div class="md:col-span-7">
+<h2 class="text-4xl md:text-5xl font-headline font-bold leading-tight group-hover:text-primary transition-colors duration-300">
+                        Notes on the Telemedicine Interface: Designing for the Elderly.
+                    </h2>
+<p class="mt-4 text-lg text-on-surface-variant font-body leading-relaxed max-w-xl">
+                        Accessibility is not merely a feature; it is a clinical requirement. Reviewing the UI patterns that facilitate better engagement for patients with cognitive and physical limitations.
+                    </p>
+</div>
+<div class="md:col-span-2 flex md:justify-end">
+<button class="font-label text-[10px] uppercase tracking-widest border-b border-on-surface pb-1 group-hover:text-primary group-hover:border-primary transition-all">Read Entry</button>
+</div>
+</article>
+</section>
+<!-- Pagination Section -->
+<div class="mt-32 flex justify-between items-center font-label text-[10px] uppercase tracking-[0.4em] text-secondary border-t border-outline-variant/30 pt-12">
+<a class="hover:text-primary transition-colors" href="#">Previous Page</a>
+<div class="flex gap-6">
+<span class="text-primary font-bold underline">01</span>
+<a class="hover:text-primary transition-colors" href="#">02</a>
+<a class="hover:text-primary transition-colors" href="#">03</a>
+<a class="hover:text-primary transition-colors" href="#">04</a>
+</div>
+<a class="hover:text-primary transition-colors" href="#">Next Page</a>
+</div>
+</main>
+<!-- Ethics Footer Section -->
+<div class="bg-surface-container-low py-8 px-8 border-t border-outline-variant/15">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+<div class="font-label text-[9px] uppercase tracking-widest text-secondary/60 max-w-xl">
+                NMC Ethics Compliance: All materials provided are for educational purposes only. They do not constitute professional medical advice, diagnosis, or treatment. Dr. Amitabh Parti does not promote specific pharmaceutical brands or medical products.
+            </div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-outline-variant text-sm" data-icon="gavel">gavel</span>
+<span class="material-symbols-outlined text-outline-variant text-sm" data-icon="verified_user">verified_user</span>
+</div>
+</div>
+</div>
+<!-- Main Footer Navigation -->
+<footer class="bg-[#f5f3ee] dark:bg-[#121212] w-full border-t border-[#d2c4bb]/15">
+<div class="flex flex-col items-center gap-6 py-12 px-8 max-w-7xl mx-auto">
+<div class="font-serif italic text-lg text-[#1a1a1a] dark:text-[#fbf9f4]">
+                Dr. Amitabh Parti
+            </div>
+<div class="flex gap-8 font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e] dark:text-[#a1a1a1]">
+<a class="hover:text-[#6f5a4b] transition-colors duration-300" href="#">Legal</a>
+<a class="hover:text-[#6f5a4b] transition-colors duration-300" href="#">Medical Disclaimer</a>
+<a class="hover:text-[#6f5a4b] transition-colors duration-300" href="#">Correspondence</a>
+</div>
+<div class="font-mono uppercase tracking-[0.05em] text-[10px] text-[#5f5e5e] dark:text-[#a1a1a1]">
+                © 2024 Dr. Clinical Record. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>

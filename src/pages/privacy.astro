@@ -1,0 +1,38 @@
+---
+export const prerender = true;
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<BaseLayout title="Privacy" description="Privacy policy for amitabhparti.com.">
+
+  <PageHero
+    eyebrow="Legal"
+    title="Privacy."
+  />
+
+  <section class="bg-[var(--color-surface)]">
+    <div class="container-wide mx-auto px-6 py-16 md:py-20">
+      <article class="container-reading mx-auto prose-article">
+        <p>This website is a personal publishing space for Dr. Amitabh Parti. It does not knowingly collect personal data from readers.</p>
+
+        <h2>What we do not do</h2>
+        <p>We do not track individual visitors across sessions. We do not use advertising networks. We do not sell, share, or sync reader data with third parties.</p>
+
+        <h2>What we measure</h2>
+        <p>We use a privacy-respecting, cookie-less analytics tool to count aggregate page visits (for example, how many people read a particular article in a month). Individual visitors are not identified.</p>
+
+        <h2>If you contact us</h2>
+        <p>If you send an email via an address published on this site, we retain the email only for correspondence. Please do not share personal medical information by email; this site is not a channel for clinical consultation.</p>
+
+        <h2>Questions</h2>
+        <p>For privacy questions, please write to the correspondence address published on the <a href="/contact">Contact</a> page.</p>
+
+        <div class="mt-12 pt-6" style="border-top: 1px solid var(--color-outline-variant);">
+          <p class="text-[0.88rem] italic" style="color: var(--color-secondary);">Last updated: April 2026</p>
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

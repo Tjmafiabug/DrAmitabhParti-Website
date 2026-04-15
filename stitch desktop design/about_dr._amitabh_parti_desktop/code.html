@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#564335",
+                    "surface-dim": "#dbdad5",
+                    "on-secondary-fixed-variant": "#474746",
+                    "surface-bright": "#fbf9f4",
+                    "on-tertiary-container": "#2e3c42",
+                    "surface-container-low": "#f5f3ee",
+                    "secondary": "#5f5e5e",
+                    "on-surface-variant": "#4e453f",
+                    "outline": "#80756e",
+                    "tertiary-fixed": "#d6e5ec",
+                    "primary-fixed-dim": "#dcc1ae",
+                    "outline-variant": "#d2c4bb",
+                    "primary-fixed": "#faddc9",
+                    "primary": "#6f5a4b",
+                    "on-secondary-container": "#636262",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#30312e",
+                    "on-primary-container": "#483628",
+                    "tertiary-container": "#97a6ad",
+                    "secondary-container": "#e2dfde",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fbf9f4",
+                    "secondary-fixed": "#e5e2e1",
+                    "on-surface": "#1b1c19",
+                    "surface-tint": "#6f5a4b",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "background": "#fbf9f4",
+                    "on-tertiary-fixed": "#0f1d23",
+                    "tertiary": "#526167",
+                    "surface-variant": "#e4e2dd",
+                    "surface-container-high": "#eae8e3",
+                    "on-tertiary-fixed-variant": "#3b494f",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#f0eee9",
+                    "tertiary-fixed-dim": "#bac9d0",
+                    "on-primary-fixed": "#27180c",
+                    "on-error": "#ffffff",
+                    "on-background": "#1b1c19",
+                    "inverse-on-surface": "#f2f1ec",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "surface-container-highest": "#e4e2dd",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "inverse-primary": "#dcc1ae",
+                    "primary-container": "#b89f8d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader", "serif"],
+                    "body": ["Newsreader", "serif"],
+                    "label": ["Space Grotesk", "monospace"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .drop-cap::first-letter {
+            float: left;
+            font-size: 5rem;
+            line-height: 4rem;
+            padding-top: 0.5rem;
+            padding-right: 0.75rem;
+            font-family: 'Newsreader', serif;
+            font-weight: 700;
+            color: #6f5a4b;
+        }
+        body {
+            background-color: #fbf9f4;
+            color: #1b1c19;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar from JSON -->
+<header class="bg-[#fbf9f4]/85 backdrop-blur-md fixed top-0 w-full z-50 transition-opacity slow-fade">
+<div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto">
+<a class="font-serif text-xl font-bold text-[#1A1A1A] tracking-tighter" href="#">
+                Dr. Amitabh Parti | Internal Medicine
+            </a>
+<nav class="hidden md:flex items-center space-x-10 font-serif text-lg tracking-tight">
+<a class="text-[#6f5a4b] border-b border-[#6f5a4b] pb-1 hover:text-[#6f5a4b] transition-colors duration-300" href="#">About</a>
+<a class="text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors duration-300" href="#">Writing</a>
+<a class="text-[#5f5e5e] hover:text-[#6f5a4b] transition-colors duration-300" href="#">Contact</a>
+</nav>
+</div>
+</header>
+<main class="pt-32 pb-24">
+<!-- Hero Section -->
+<div class="max-w-screen-2xl mx-auto px-8 mb-24">
+<h1 class="font-headline text-[clamp(3.5rem,8vw,6rem)] leading-[0.95] tracking-tight font-bold mb-12">
+                On a life in<br/>
+<span class="text-primary italic">internal medicine.</span>
+</h1>
+<div class="w-full aspect-[21/9] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
+<img alt="Dr. Amitabh Parti" class="w-full h-full object-cover object-center" data-alt="A wide landscape-cropped cinematic portrait of a mature doctor in a minimal clinical setting, soft natural side lighting, muted earthy tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLiqTt5jON4As8j7CZL6uTLr9zF4kJ0gBt1aIRgXEAgxFbx_niRg4YtyoapiUeICCYqXSvnJ1SYxE5x9vijZqoRjJ75so8Eht3nQE9XsYqwRMA6S_1EazV_uzl2UzC_XSK_hKGhLXgVAw6i-jYp-Wcn4vfVCq86alVn-AMUd1OZGb4_U2_U3FWB-FVse4ToSllNx1uAwSW1BeszyM9J2sVP-AGSikgKNOYLaM_CyD6Cm_itVVZNGa4qacfAUzZ8ASKxsoEnw9el8U"/>
+</div>
+<div class="mt-4 flex justify-between items-center border-t border-outline-variant/30 pt-4">
+<span class="font-label text-xs uppercase tracking-widest text-secondary">Biography / Folio 2024</span>
+<span class="font-label text-xs uppercase tracking-widest text-secondary">Est. 1994</span>
+</div>
+</div>
+<!-- Single Column Reading Layout -->
+<article class="max-w-[620px] mx-auto px-6 text-xl leading-relaxed text-on-surface">
+<!-- Beginnings -->
+<section class="mb-20">
+<div class="font-label text-xs uppercase tracking-[0.2em] text-primary mb-6">Beginnings</div>
+<p class="drop-cap mb-8">
+                    The path toward internal medicine was not a sudden revelation, but rather a slow gathering of observations on human resilience and the intricate machinery of the biological form. Born from a curiosity about the invisible systems that sustain us, my early years were defined by a relentless pursuit of the "why" behind every symptom and the narrative behind every patient.
+                </p>
+<p>
+                    It was in the quiet halls of my local clinic that I first witnessed the intersection of rigorous science and profound empathy. Medicine, I realized, was as much about the silence between a patient's words as it was about the data on their chart.
+                </p>
+</section>
+<!-- Training -->
+<section class="mb-20">
+<div class="font-label text-xs uppercase tracking-[0.2em] text-primary mb-6">Training</div>
+<p class="mb-6">
+                    My formal education served as the crucible where instinct was tempered by evidence. From the foundational complexities of physiology to the high-stakes environment of clinical rotations, each phase of my training reinforced the philosophy that a physician must be a perpetual student.
+                </p>
+<div class="p-8 bg-surface-container-low border-l-4 border-primary mb-8">
+<ul class="space-y-4 font-label text-sm uppercase tracking-wider text-secondary">
+<li class="flex items-center gap-4">
+<span class="text-primary font-bold">1994</span>
+<span class="text-on-surface">Doctor of Medicine (MD)</span>
+</li>
+<li class="flex items-center gap-4">
+<span class="text-primary font-bold">1998</span>
+<span class="text-on-surface">Residency in Internal Medicine</span>
+</li>
+<li class="flex items-center gap-4">
+<span class="text-primary font-bold">2002</span>
+<span class="text-on-surface">Board Certification</span>
+</li>
+</ul>
+</div>
+</section>
+<!-- Career -->
+<section class="mb-20">
+<div class="font-label text-xs uppercase tracking-[0.2em] text-primary mb-6">Career</div>
+<p class="mb-8">
+                    Over three decades, my career has evolved from clinical practice into a synthesis of patient care and diagnostic strategy. Internal medicine provides the unique challenge of managing chronic complexity—untangling the web of multi-system ailments to find a path toward sustainable health.
+                </p>
+<div class="grid grid-cols-2 gap-8 mb-8">
+<div class="aspect-square bg-surface-variant overflow-hidden">
+<img alt="Clinical environment" class="w-full h-full object-cover grayscale" data-alt="Minimalist macro shot of a stethoscope resting on a white clinical desk, bright natural window light, clinical clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChoGTGp1EG9tgkTNALNNp80akrNxua8tkMTiANzKbuVp9nz9SAkWWo4KrMQYJ6VmQNAYbXIwI3ARIWrHjtlTkkx1Z6MmuGMDEm-S8vSTH-y7kB9Cs_TqiZKl_iSgfOmd5L_jExz14Mag8n_kFH9LUqA_Futd8adzbPQSxk5kIn8Mj-45vx7a-brZf85Iy2Wj6gR9APDoOgmIm40tS04zCUa9M33N2zjvMKdG55_AVStFn3jznjnVDCHjJKfq162t0fpU_VQ-EKy_U"/>
+</div>
+<div class="aspect-square bg-surface-variant overflow-hidden">
+<img alt="Laboratory research" class="w-full h-full object-cover grayscale" data-alt="Microscopic view of medical slides or lab equipment, clean bright clinical photography, high key lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADQcDNodU9dePw5Ei2dWCK6oAHwVnBWdjSDega4Q1ZV7lcgnBF-xnRwniz2cKYb2NRy1v-XwK1SDuVGHqYiGvqxMm-QtUM-TbLgaqM_ybjI6wke9miN4-Trmudn_aZumFwmtHT126usfhQJkLX7nWz7iRoCz2nPG4lQ1Ux6yvN0Uu72UCgBTTPel--xYKP5JeOKLNBzWEym0ljq5xkZn5HhhxrKchLX8l3Y5yZMkF1xGcGJM9pUdCJImc4VNO0S_8xwzKlOu-wWVI"/>
+</div>
+</div>
+<p>
+                    My focus remains on the prevention of degenerative diseases and the optimization of metabolic health through evidence-based interventions.
+                </p>
+</section>
+<!-- Interests -->
+<section class="mb-20">
+<div class="font-label text-xs uppercase tracking-[0.2em] text-primary mb-6">Interests</div>
+<p class="mb-6">
+                    Beyond the immediate clinical diagnosis, my intellectual pursuits lie in the emerging field of longevity medicine and the role of systemic inflammation in chronic illness. I am deeply invested in how lifestyle architecture can augment pharmacological therapies to produce better outcomes for long-term health.
+                </p>
+</section>
+<!-- Teaching -->
+<section class="mb-20">
+<div class="font-label text-xs uppercase tracking-[0.2em] text-primary mb-6">Teaching</div>
+<p class="mb-6">
+                    Mentorship is the cornerstone of progress. I devote a significant portion of my time to instructing medical students and residents, emphasizing that the "clinical eye" is a skill sharpened by both literature and the bedside. To teach is to relearn the fundamentals through the fresh perspectives of the next generation.
+                </p>
+</section>
+<!-- Away from clinic -->
+<section class="mb-24">
+<div class="font-label text-xs uppercase tracking-[0.2em] text-primary mb-6">Away from clinic</div>
+<p class="mb-8">
+                    When the white coat is hung, I find equilibrium in the tactile world of gardening and the quiet precision of classical music. There is a profound symmetry between the patience required to nurture a landscape and the patience required to heal a body. Both require an understanding of seasons, nutrients, and the inherent time scales of growth.
+                </p>
+<div class="border-t border-outline-variant pt-12 mt-20">
+<p class="font-serif italic text-2xl text-primary leading-relaxed">
+                        To treat the patient, one must first understand the person. The science is our tool, but the humanity is our guide.
+                    </p>
+<p class="mt-8 font-label text-sm uppercase tracking-widest text-secondary">— Dr. Amitabh Parti</p>
+</div>
+</section>
+</article>
+</main>
+<!-- Footer from JSON -->
+<footer class="bg-[#f9f7f2] border-t border-[#d2c4bb]/15 transition-all">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-16 max-w-screen-2xl mx-auto">
+<div class="space-y-6">
+<div class="font-serif italic text-lg text-[#1A1A1A]">Dr. Julian Thorne</div>
+<p class="font-mono uppercase text-[10px] tracking-widest text-[#5f5e5e]">© 2024 Dr. Julian Thorne. All Rights Reserved.</p>
+</div>
+<div class="md:col-span-3 grid grid-cols-2 md:grid-cols-4 gap-8">
+<div>
+<h4 class="font-mono uppercase text-[10px] tracking-widest text-[#1A1A1A] font-bold mb-4">Practice</h4>
+<ul class="font-mono uppercase text-[10px] tracking-widest space-y-2">
+<li><a class="text-[#5f5e5e] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Medical Disclaimer</a></li>
+<li><a class="text-[#5f5e5e] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-mono uppercase text-[10px] tracking-widest text-[#1A1A1A] font-bold mb-4">Academic</h4>
+<ul class="font-mono uppercase text-[10px] tracking-widest space-y-2">
+<li><a class="text-[#5f5e5e] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Institutional Affiliations</a></li>
+<li><a class="text-[#5f5e5e] hover:text-[#6f5a4b] underline decoration-1 underline-offset-4" href="#">Archive</a></li>
+</ul>
+</div>
+<div class="col-span-2 flex justify-end items-end">
+<div class="text-right">
+<span class="font-serif text-5xl opacity-10">A.P.</span>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

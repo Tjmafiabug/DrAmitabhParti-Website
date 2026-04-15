@@ -1,0 +1,40 @@
+---
+import { site } from '../data/site';
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path === href || path.startsWith(href + '/');
+---
+
+<header class="sticky top-0 z-40 bg-[var(--color-surface)]/90 backdrop-blur-sm">
+  <div class="container-wide px-6 py-5 flex items-center justify-between gap-6">
+    <a href="/" class="group">
+      <span class="font-[var(--font-headline)] text-[1.1rem] font-semibold uppercase tracking-tight text-[var(--color-on-surface)] transition-colors group-hover:text-[var(--color-primary)]">
+        Dr. Amitabh Parti
+      </span>
+    </a>
+
+    <nav aria-label="Primary" class="hidden md:block">
+      <ul class="flex items-center gap-10">
+        {site.nav.map((item) => {
+          const active = isActive(item.href);
+          return (
+            <li>
+              <a
+                href={item.href}
+                class={`font-[var(--font-label)] uppercase tracking-[0.2em] text-[0.72rem] pb-1 transition-colors ${active ? 'text-[var(--color-primary)] border-b border-[var(--color-primary)]' : 'text-[var(--color-secondary)] hover:text-[var(--color-primary)]'}`}
+                aria-current={active ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
+    <!-- Mobile menu trigger (static link to Contact for v1) -->
+    <a href="/contact" class="md:hidden font-[var(--font-label)] text-[0.7rem] uppercase tracking-[0.2em] text-[var(--color-primary)]">
+      Contact
+    </a>
+  </div>
+</header>
