@@ -1,0 +1,29 @@
+---
+export const prerender = true;
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Not Found" description="The page you were looking for has moved, or never existed.">
+  <section class="section-dark-hero">
+    <div class="container-wide mx-auto px-6 py-24 md:py-32 text-center">
+      <p class="label mb-6" style="color: var(--color-gold-soft);">
+        <span class="inline-block h-px w-8 align-middle mr-3" style="background: var(--color-gold-soft);"></span>
+        404 — Not Found
+      </p>
+      <h1 class="mb-8 text-balance" style="color: #f4efdf;">
+        This page has wandered off<br/>
+        <span class="italic font-light" style="color: var(--color-gold-soft);">or never existed.</span>
+      </h1>
+      <p class="max-w-xl mx-auto leading-relaxed text-[1.05rem] opacity-85 mb-10">
+        Addresses change. Articles are sometimes retitled. If you followed a link
+        that brought you here, the best next step is almost always the home page.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-8">
+        <a href="/" class="font-[var(--font-label)] uppercase tracking-[0.2em] text-[0.7rem]" style="color: var(--color-gold-soft);">← Home</a>
+        <a href="/writing" class="font-[var(--font-label)] uppercase tracking-[0.2em] text-[0.7rem]" style="color: var(--color-gold-soft);">Read the essays</a>
+        <a href="/contact" class="font-[var(--font-label)] uppercase tracking-[0.2em] text-[0.7rem]" style="color: var(--color-gold-soft);">Contact</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

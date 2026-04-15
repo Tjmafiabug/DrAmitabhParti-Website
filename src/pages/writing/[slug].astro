@@ -2,6 +2,8 @@
 export const prerender = true;
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReadingProgress from '../../components/ReadingProgress.astro';
+import BackToTop from '../../components/BackToTop.astro';
 import { getAllPosts, getPost, formatDate } from '../../data/posts';
 import { site } from '../../data/site';
 
@@ -23,7 +25,10 @@ const allPosts = await getAllPosts();
 const related = allPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
 ---
 
-<BaseLayout title={post.title} description={post.excerpt}>
+<BaseLayout title={post.title} description={post.excerpt ?? undefined}>
+
+  <ReadingProgress />
+  <BackToTop />
 
   {/* ARTICLE HERO — dark band with metadata + title */}
   <section class="section-dark-hero">

@@ -32,9 +32,66 @@ const isActive = (href: string) =>
       </ul>
     </nav>
 
-    <!-- Mobile menu trigger (static link to Contact for v1) -->
-    <a href="/contact" class="md:hidden font-[var(--font-label)] text-[0.7rem] uppercase tracking-[0.2em] text-[var(--color-primary)]">
-      Contact
-    </a>
+    <!-- Mobile menu trigger -->
+    <button
+      id="mobile-nav-open"
+      class="md:hidden font-[var(--font-label)] text-[0.72rem] uppercase tracking-[0.2em] text-[var(--color-on-surface)] flex items-center gap-2"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      type="button"
+    >
+      <span>Menu</span>
+      <span aria-hidden="true" class="text-[1.1rem] leading-none">≡</span>
+    </button>
   </div>
 </header>
+
+<!-- Mobile nav drawer -->
+<div id="mobile-nav" class="mobile-nav md:hidden" aria-hidden="true">
+  <div class="h-full flex flex-col">
+    <div class="flex items-center justify-between px-6 py-5">
+      <span class="font-[var(--font-headline)] text-[1.1rem] font-semibold uppercase tracking-tight">Dr. Amitabh Parti</span>
+      <button id="mobile-nav-close" aria-label="Close menu" class="font-[var(--font-label)] text-[0.72rem] uppercase tracking-[0.2em] flex items-center gap-2" type="button">
+        <span>Close</span>
+        <span aria-hidden="true" class="text-[1.1rem] leading-none">×</span>
+      </button>
+    </div>
+    <nav aria-label="Primary mobile" class="flex-1 flex flex-col justify-center px-8">
+      {site.nav.map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))}
+    </nav>
+    <div class="px-8 pb-10">
+      <p class="label text-[var(--color-secondary)]">{site.role} · {site.institutionShort}</p>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const openBtn = document.getElementById('mobile-nav-open');
+    const closeBtn = document.getElementById('mobile-nav-close');
+    const drawer = document.getElementById('mobile-nav');
+    if (!openBtn || !closeBtn || !drawer) return;
+
+    const open = () => {
+      drawer.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
+      openBtn.setAttribute('aria-expanded', 'true');
+      document.documentElement.style.overflow = 'hidden';
+    };
+    const close = () => {
+      drawer.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+      openBtn.setAttribute('aria-expanded', 'false');
+      document.documentElement.style.overflow = '';
+    };
+
+    openBtn.addEventListener('click', open);
+    closeBtn.addEventListener('click', close);
+    drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    window.addEventListener('astro:before-swap', close);
+  })();
+</script>

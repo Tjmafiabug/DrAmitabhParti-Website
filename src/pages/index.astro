@@ -102,10 +102,10 @@ const chipClass = (c: string | null) =>
   <section class="bg-[var(--color-surface)]">
     <div class="container-wide mx-auto px-6 py-16 md:py-20">
       <div
-        class="grid grid-cols-2 md:grid-cols-4 gap-px bg-[var(--color-outline-variant)]/25"
+        class="reveal-group grid grid-cols-2 md:grid-cols-4 gap-px bg-[var(--color-outline-variant)]/25"
       >
         <div
-          class="bg-[var(--color-surface)] p-6 md:p-8 flex flex-col min-h-[130px] md:min-h-[150px]"
+          class="reveal bg-[var(--color-surface)] p-6 md:p-8 flex flex-col min-h-[130px] md:min-h-[150px]"
         >
           <p class="label">Qualifications</p>
           <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
@@ -115,7 +115,7 @@ const chipClass = (c: string | null) =>
           </p>
         </div>
         <div
-          class="bg-[var(--color-surface)] p-6 md:p-8 flex flex-col min-h-[130px] md:min-h-[150px]"
+          class="reveal bg-[var(--color-surface)] p-6 md:p-8 flex flex-col min-h-[130px] md:min-h-[150px]"
         >
           <p class="label">Specialisation</p>
           <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
@@ -123,7 +123,7 @@ const chipClass = (c: string | null) =>
           </p>
         </div>
         <div
-          class="bg-[var(--color-surface)] p-6 md:p-8 flex flex-col min-h-[130px] md:min-h-[150px]"
+          class="reveal bg-[var(--color-surface)] p-6 md:p-8 flex flex-col min-h-[130px] md:min-h-[150px]"
         >
           <p class="label">Experience</p>
           <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
@@ -131,7 +131,7 @@ const chipClass = (c: string | null) =>
           </p>
         </div>
         <div
-          class="bg-[var(--color-surface)] p-6 md:p-8 flex flex-col min-h-[130px] md:min-h-[150px]"
+          class="reveal bg-[var(--color-surface)] p-6 md:p-8 flex flex-col min-h-[130px] md:min-h-[150px]"
         >
           <p class="label">Appointment</p>
           <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
@@ -156,11 +156,11 @@ const chipClass = (c: string | null) =>
         >
       </div>
 
-      <ul>
+      <ul class="reveal-group">
         {
           recent.slice(0, 3).map((p, i) => (
             <li
-              class={i > 0 ? "border-t" : ""}
+              class={`reveal ${i > 0 ? "border-t" : ""}`}
               style="border-color: rgba(221, 184, 128, 0.15);"
             >
               <a
@@ -235,7 +235,7 @@ const chipClass = (c: string | null) =>
         <span class="meta">{site.experienceYears} years</span>
       </div>
       <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-14 gap-y-10"
+        class="reveal-group grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-14 gap-y-10"
       >
         {
           site.clinicalInterests.map((t, i) => {
@@ -249,7 +249,7 @@ const chipClass = (c: string | null) =>
             ];
             const c = accents[i % accents.length];
             return (
-              <div>
+              <div class="reveal">
                 <div class="flex items-baseline gap-3 mb-3">
                   <span class="meta" style={`color: ${c};`}>
                     № {String(i + 1).padStart(2, "0")}
@@ -287,7 +287,7 @@ const chipClass = (c: string | null) =>
           >Corporate Health Partners</span
         >
       </div>
-      <ul class="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-6">
+      <ul class="reveal-group grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-6">
         {
           site.empanelments.map((e, i) => {
             const tops = [
@@ -299,7 +299,7 @@ const chipClass = (c: string | null) =>
             ];
             return (
               <li
-                class="p-5 relative"
+                class="reveal p-5 relative"
                 style="background: rgba(255,255,255,0.04); border: 1px solid rgba(221,184,128,0.1);"
               >
                 <span

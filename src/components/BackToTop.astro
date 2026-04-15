@@ -1,0 +1,31 @@
+---
+/**
+ * Back-to-top button that fades in after 800px scroll. Mounted on long pages.
+ */
+---
+
+<button id="back-to-top" class="back-to-top" aria-label="Back to top" type="button">
+  ↑
+</button>
+
+<script is:inline>
+  (function () {
+    const btn = document.getElementById('back-to-top');
+    if (!btn) return;
+
+    const toggle = () => {
+      if (window.scrollY > 800) btn.classList.add('visible');
+      else btn.classList.remove('visible');
+    };
+
+    const scrollTop = () => {
+      const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+    };
+
+    btn.addEventListener('click', scrollTop);
+    window.addEventListener('scroll', toggle, { passive: true });
+    window.addEventListener('astro:page-load', toggle);
+    toggle();
+  })();
+</script>

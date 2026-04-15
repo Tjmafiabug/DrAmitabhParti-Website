@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { ClientRouter } from 'astro:transitions';
 import { site } from '../data/site';
 
 interface Props {
@@ -54,6 +55,8 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
         alumniOf: { '@type': 'EducationalOrganization', name: site.university },
       })}
     />
+
+    <ClientRouter fallback="swap" />
   </head>
 
   <body>
@@ -63,5 +66,22 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
       <slot />
     </main>
     <Footer />
+
+    {/* Reveal-on-scroll: fade+rise for any element with class .reveal */}
+    <script is:inline>
+      (function () {
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+          return;
+        }
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
+
+        const bind = () => document.querySelectorAll('.reveal:not(.in)').forEach((el) => io.observe(el));
+        bind();
+        document.addEventListener('astro:page-load', bind);
+      })();
+    </script>
   </body>
 </html>
