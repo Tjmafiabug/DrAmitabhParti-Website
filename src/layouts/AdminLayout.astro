@@ -10,6 +10,12 @@ const { title } = Astro.props;
 const fullTitle = title ? `${title} — Admin · ${site.name}` : `Admin · ${site.name}`;
 const user = Astro.locals.user;
 const path = Astro.url.pathname;
+
+const navItems = [
+  { href: '/admin',                label: 'Posts',    match: (p: string) => p === '/admin' || p.startsWith('/admin/posts') },
+  { href: '/admin/pages/about',    label: 'Pages',    match: (p: string) => p.startsWith('/admin/pages') },
+  { href: '/admin/settings',       label: 'Settings', match: (p: string) => p.startsWith('/admin/settings') },
+];
 ---
 
 <!doctype html>
@@ -23,32 +29,80 @@ const path = Astro.url.pathname;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Space+Grotesk:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="bg-[var(--color-surface)] min-h-screen">
-    {user && (
-      <header class="border-b border-[var(--color-outline-variant)]/40 bg-[var(--color-surface)] sticky top-0 z-40">
-        <div class="container-wide mx-auto px-6 py-4 flex items-center justify-between">
-          <a href="/admin" class="flex items-center gap-3">
-            <span class="font-[var(--font-headline)] text-[1.05rem] font-semibold uppercase tracking-tight">Dr. Amitabh Parti</span>
-            <span class="chip">Admin</span>
-          </a>
-          <nav class="flex items-center gap-6 text-[0.85rem]" style="font-family: var(--font-label);">
-            <a href="/admin" class={`uppercase tracking-[0.15em] ${path === '/admin' ? 'text-[var(--color-primary)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)]'}`}>Posts</a>
-            <a href="/admin/pages/about" class={`uppercase tracking-[0.15em] ${path.startsWith('/admin/pages') ? 'text-[var(--color-primary)]' : 'text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)]'}`}>Pages</a>
-            <a href="/" class="uppercase tracking-[0.15em] text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)]" target="_blank" rel="noopener">View site ↗</a>
-            <span class="text-[var(--color-on-surface-variant)] text-[0.75rem]">{user.email}</span>
-            <form method="post" action="/auth/signout" class="inline">
-              <button type="submit" class="text-[0.75rem] uppercase tracking-[0.15em] text-[var(--color-on-surface-variant)] hover:text-[var(--color-accent)]">Sign out</button>
-            </form>
-          </nav>
+  <body class="admin-root">
+    {user ? (
+      <div class="admin-shell">
+
+        {/* Mobile top bar */}
+        <div class="admin-topbar">
+          <div>
+            <div class="admin-brand-name">Dr. Amitabh Parti</div>
+            <div class="admin-brand-sub">Admin</div>
+          </div>
+          <button id="admin-menu-toggle" class="admin-topbar-btn" aria-label="Open menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
         </div>
-      </header>
+
+        {/* Sidebar */}
+        <aside id="admin-sidebar" class="admin-sidebar" aria-label="Admin navigation">
+          <div class="admin-brand">
+            <div class="admin-brand-name">Dr. Amitabh Parti</div>
+            <div class="admin-brand-sub">Admin</div>
+          </div>
+
+          <nav class="admin-nav">
+            {navItems.map((item) => {
+              const active = item.match(path);
+              return (
+                <a href={item.href} class={`admin-nav-item ${active ? 'active' : ''}`} aria-current={active ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              );
+            })}
+            <a href="/" class="admin-nav-external" target="_blank" rel="noopener">
+              View site
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </a>
+          </nav>
+
+          <div class="admin-user">
+            <span class="admin-user-email">{user.email}</span>
+            <form method="post" action="/auth/signout">
+              <button type="submit" class="admin-user-signout">Sign out</button>
+            </form>
+          </div>
+        </aside>
+
+        <main class="admin-main">
+          <slot />
+        </main>
+      </div>
+    ) : (
+      <main class="admin-root">
+        <slot />
+      </main>
     )}
-    <main>
-      <slot />
-    </main>
+
+    <script is:inline>
+      (function () {
+        const toggle = document.getElementById('admin-menu-toggle');
+        const sidebar = document.getElementById('admin-sidebar');
+        if (!toggle || !sidebar) return;
+        toggle.addEventListener('click', () => {
+          const isOpen = sidebar.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', String(isOpen));
+          document.documentElement.style.overflow = isOpen ? 'hidden' : '';
+        });
+        sidebar.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
+          sidebar.classList.remove('open');
+          document.documentElement.style.overflow = '';
+        }));
+      })();
+    </script>
   </body>
 </html>

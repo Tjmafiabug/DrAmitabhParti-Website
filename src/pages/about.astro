@@ -3,6 +3,9 @@ export const prerender = true;
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import { getPageBody } from '../lib/pages';
+
+const aboutHtml = await getPageBody('about');
 ---
 
 <BaseLayout title="About" description="A short biography of Dr. Amitabh Parti — internal medicine consultant at Fortis Memorial Research Institute, Gurgaon.">
@@ -15,7 +18,7 @@ import PageHero from '../components/PageHero.astro';
 
   {/* LEDE + PORTRAIT */}
   <section class="bg-[var(--color-surface)]">
-    <div class="container-wide mx-auto px-6 py-16 md:py-20">
+    <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
       <div class="grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-10 md:gap-16 items-center">
         <figure class="order-2 md:order-1 relative max-w-[420px] mx-auto md:mx-0">
           <img
@@ -39,36 +42,11 @@ import PageHero from '../components/PageHero.astro';
     </div>
   </section>
 
-  {/* BIOGRAPHY — subtle tonal shift, still light */}
+  {/* BIOGRAPHY — rendered from admin-edited body_html */}
   <section class="bg-[var(--color-surface-container-low)]">
-    <div class="container-wide mx-auto px-6 py-16 md:py-24">
+    <div class="container-wide mx-auto px-5 md:px-6 py-14 md:py-24">
       <div class="container-reading mx-auto">
-        <p class="label label-primary mb-8">A Placeholder Biography</p>
-        <p class="italic text-[1.1rem] leading-relaxed mb-12 pl-5 border-l-2 text-[var(--color-on-surface-variant)]" style="border-color: var(--color-primary);">
-          The final biographical text will be developed from an interview with
-          Dr. Parti, in his own voice. What follows is an outline of the
-          chapters that will be filled in.
-        </p>
-
-        <div class="prose-article drop-cap">
-          <p>Dr. Amitabh Parti grew up in Punjab and went to medical school at the University of Punjab, graduating MBBS in 1986 with a gold medal. He went on to take his MD in Internal Medicine at the same institution in 1991.</p>
-
-          <h2>Training</h2>
-          <p>[Postgraduate training locations, formative wards, mentors, the cases that stayed with him from the first few years of practice — to be developed from interview.]</p>
-
-          <h2>A career in internal medicine</h2>
-          <p>For most of his career, Dr. Parti has practised as a general internist — the specialist most patients need before any other specialist, and often the one they never knew they were looking for. He currently serves as Senior Director and Unit Head of Internal Medicine at Fortis Memorial Research Institute in Gurgaon, where he manages outpatient and complex in-patient care across cardiac, diabetic, pulmonary, and tropical illnesses.</p>
-
-          <h2>Clinical interests</h2>
-          <p>Infectious disease, hypertension, diabetes management, and thyroid disorders make up the centre of his clinical practice. His interest in general internal medicine is rooted in a simple belief: that thinking through the whole of a patient, rather than the fragment handed to one specialist, is the work most worth doing.</p>
-
-          <h2>Teaching and correspondence</h2>
-          <p>[Affiliations with teaching programmes, fellowships supervised, CME lectures, panels served on — to be developed.]</p>
-
-          <h2>Away from the clinic</h2>
-          <p>[Personal paragraph — interests, family, reading, the ordinary things that make a physician a person — to be developed.]</p>
-        </div>
-
+        <div class="prose-article drop-cap" set:html={aboutHtml} />
         <p class="mt-16 text-center italic text-[var(--color-on-surface-variant)]">— Dr. Amitabh Parti</p>
       </div>
     </div>
@@ -76,7 +54,7 @@ import PageHero from '../components/PageHero.astro';
 
   {/* QUICK LINKS — same paper, stronger tonal shift */}
   <section class="bg-[var(--color-surface)]">
-    <div class="container-wide mx-auto px-6 py-14">
+    <div class="container-wide mx-auto px-5 md:px-6 py-12">
       <div class="grid md:grid-cols-3 gap-8 text-center">
         <a href="/credentials" class="group">
           <p class="label mb-2">Curriculum Vitae</p>

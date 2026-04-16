@@ -1,0 +1,15 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import SettingsForm from '../../components/admin/SettingsForm';
+import { getSettings } from '../../lib/settings';
+
+export const prerender = false;
+
+const initial = await getSettings();
+---
+
+<AdminLayout title="Settings">
+  <div class="admin-container">
+    <SettingsForm client:only="react" initial={initial} />
+  </div>
+</AdminLayout>

@@ -5,7 +5,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ReadingProgress from '../../components/ReadingProgress.astro';
 import BackToTop from '../../components/BackToTop.astro';
 import { getAllPosts, getPost, formatDate } from '../../data/posts';
-import { site } from '../../data/site';
+import { getSettings } from '../../lib/settings';
+
+const settings = await getSettings();
 
 export async function getStaticPaths() {
   const all = await getAllPosts();
@@ -32,7 +34,7 @@ const related = allPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
 
   {/* ARTICLE HERO — dark band with metadata + title */}
   <section class="section-dark-hero">
-    <div class="container-wide mx-auto px-6 py-14 md:py-20">
+    <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
       <div class="container-reading mx-auto">
         <div class="flex items-center gap-4 mb-6">
           <span class={chipClass(post.category)}>{post.category}</span>
@@ -52,7 +54,7 @@ const related = allPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
 
   {/* ARTICLE BODY */}
   <section class="bg-[var(--color-surface)]">
-    <div class="container-wide mx-auto px-6 py-16 md:py-24">
+    <div class="container-wide mx-auto px-5 md:px-6 py-14 md:py-24">
       <article class="container-reading mx-auto">
         <div class="prose-article drop-cap" set:html={post.body} />
 
@@ -69,7 +71,7 @@ const related = allPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
           <p class="label label-primary mb-3">Respond to this essay</p>
           <p class="text-[0.95rem] leading-relaxed text-[var(--color-on-surface-variant)] max-w-xl">
             Thoughts, questions, or a letter of your own? Dr. Parti reads correspondence at
-            <a href={`mailto:${site.email}?subject=${encodeURIComponent(`Re: ${post.title}`)}`} class="link-editorial">{site.email}</a>.
+            <a href={`mailto:${settings.contact.email}?subject=${encodeURIComponent(`Re: ${post.title}`)}`} class="link-editorial">{settings.contact.email}</a>.
             <span class="italic">Please do not send clinical questions or personal medical details — this is not a consultation channel.</span>
           </p>
         </div>
@@ -85,7 +87,7 @@ const related = allPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
   {/* CONTINUE READING — tonal shift, still light */}
   {related.length > 0 && (
     <section class="bg-[var(--color-surface-container-low)]">
-      <div class="container-wide mx-auto px-6 py-14 md:py-16">
+      <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-16">
         <div class="container-page mx-auto">
           <div class="flex items-baseline gap-4 mb-10">
             <span class="rule-accent"></span>

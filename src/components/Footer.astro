@@ -1,6 +1,15 @@
 ---
 import { site } from '../data/site';
+import { getSettings } from '../lib/settings';
+
+const settings = await getSettings();
 const year = new Date().getFullYear();
+
+// Merge settings-backed correspond links with the static nav
+const correspondLinks = [
+  { href: '/contact', label: 'Contact' },
+  { href: `mailto:${settings.contact.email}`, label: 'Email' },
+];
 ---
 
 <footer class="section-dark-hero py-10 px-6">
@@ -23,7 +32,7 @@ const year = new Date().getFullYear();
       <div>
         <p class="label mb-3 text-[0.65rem]" style="color: var(--color-gold-soft);">Correspond</p>
         <ul class="flex flex-col gap-1.5 text-[0.85rem]">
-          {site.footer.correspond.map((l) => (
+          {correspondLinks.map((l) => (
             <li><a href={l.href}>{l.label}</a></li>
           ))}
         </ul>

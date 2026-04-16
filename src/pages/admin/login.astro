@@ -5,55 +5,50 @@ const sent = Astro.url.searchParams.get('sent');
 ---
 
 <AdminLayout title="Sign in">
-  <section class="min-h-[100vh] flex items-center justify-center px-6 py-20">
-    <div class="w-full max-w-md">
-      <p class="label label-primary mb-4 text-center">Private Administration</p>
-      <h1 class="text-center mb-3" style="font-size: clamp(1.8rem, 3vw + 0.5rem, 2.6rem); line-height: 1.1;">
-        Sign in to <span class="italic">amitabhparti.com</span>
-      </h1>
-      <p class="text-center text-[var(--color-on-surface-variant)] mb-10 leading-relaxed">
-        Enter your email. We'll send you a one-time sign-in link.
-      </p>
+  <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem 1rem;">
+    <div class="admin-card" style="width: 100%; max-width: 420px; padding: 2rem 2rem 1.75rem;">
+      <div style="margin-bottom: 1.5rem;">
+        <h1 style="font-size: 1.3rem; margin-bottom: 0.35rem;">Sign in</h1>
+        <p class="admin-page-sub">amitabhparti.com administration</p>
+      </div>
 
       {error === 'not_admin' && (
-        <div class="mb-6 p-4 border-l-2 text-[0.9rem] leading-relaxed" style="background: rgba(154, 74, 46, 0.06); border-color: var(--color-accent); color: var(--color-accent);">
-          That email is not authorised for this administration. If you reached this message by mistake, please contact the site owner.
+        <div class="admin-flash admin-flash-error">
+          That email is not authorised for this administration. If you reached this page by mistake, please contact the site owner.
+        </div>
+      )}
+      {error === 'exchange_failed' && (
+        <div class="admin-flash admin-flash-error">
+          That sign-in link has expired or was already used. Request a new one below.
+        </div>
+      )}
+      {error === 'send_failed' && (
+        <div class="admin-flash admin-flash-error">
+          Couldn't send the sign-in email. Try again in a minute.
         </div>
       )}
 
-      {sent && (
-        <div class="mb-6 p-4 border-l-2 text-[0.9rem] leading-relaxed" style="background: rgba(111, 90, 75, 0.06); border-color: var(--color-primary); color: var(--color-on-surface);">
-          Sign-in link sent. Check your inbox at <strong>{sent}</strong>. The link expires in one hour.
-        </div>
-      )}
-
-      {!sent && (
-        <form method="post" action="/auth/signin" class="space-y-5">
+      {sent ? (
+        <div class="admin-flash admin-flash-info">
           <div>
-            <label for="email" class="label block mb-2">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              autocomplete="email"
-              autofocus
-              placeholder="you@example.com"
-              class="w-full px-4 py-3 bg-[var(--color-surface-container-lowest)] border border-[var(--color-outline-variant)] focus:border-[var(--color-primary)] focus:outline-none transition-colors font-[var(--font-body)] text-[1rem]"
-            />
+            <p style="margin-bottom: 0.25rem; font-weight: 500;">Check your inbox</p>
+            <p class="admin-meta">A sign-in link was sent to <strong>{sent}</strong>. The link expires in one hour.</p>
           </div>
-          <button
-            type="submit"
-            class="w-full py-3.5 bg-[var(--color-on-surface)] text-[var(--color-surface)] font-[var(--font-label)] text-[0.72rem] uppercase tracking-[0.22em] hover:bg-[var(--color-primary)] transition-colors"
-          >
-            Send sign-in link
-          </button>
+        </div>
+      ) : (
+        <form method="post" action="/auth/signin">
+          <div class="admin-field">
+            <label for="email" class="admin-label">Email</label>
+            <input type="email" id="email" name="email" required autocomplete="email" autofocus placeholder="you@example.com" class="admin-input" />
+            <p class="admin-help">We'll email you a one-time sign-in link.</p>
+          </div>
+          <button type="submit" class="admin-btn admin-btn-primary" style="width: 100%;">Send sign-in link</button>
         </form>
       )}
 
-      <p class="text-center mt-8 text-[0.8rem] italic text-[var(--color-on-surface-variant)]">
-        This is the private administration for amitabhparti.com. If you're here by accident, <a href="/" class="link-editorial">return to the site</a>.
+      <p class="admin-help" style="text-align: center; margin-top: 1.5rem;">
+        Not expecting this? <a href="/" style="color: var(--a-primary); text-decoration: underline; text-underline-offset: 2px;">Return to the site</a>.
       </p>
     </div>
-  </section>
+  </div>
 </AdminLayout>

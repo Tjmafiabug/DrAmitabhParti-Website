@@ -1,24 +1,28 @@
 import type { APIRoute } from 'astro';
+import sharp from 'sharp';
 import { supabaseAdmin } from '../../lib/supabase';
 
 export const prerender = false;
 
-const MAX_BYTES = 5 * 1024 * 1024;
-const ALLOWED_MIME = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/avif']);
+const MAX_BYTES = 10 * 1024 * 1024; // 10 MB raw ceiling — we resize down server-side.
+const TARGET_MAX_WIDTH = 1800;       // Max dimension we serve on public pages.
+const WEBP_QUALITY = 82;
 
-// Magic bytes for content sniffing (defence against spoofed Content-Type).
+const ALLOWED_MIME = new Set([
+  'image/jpeg', 'image/png', 'image/webp', 'image/avif',
+]);
+
 const MAGIC: Array<{ mime: string; sig: number[] }> = [
   { mime: 'image/jpeg', sig: [0xff, 0xd8, 0xff] },
   { mime: 'image/png',  sig: [0x89, 0x50, 0x4e, 0x47] },
-  { mime: 'image/webp', sig: [0x52, 0x49, 0x46, 0x46] }, // RIFF; webp further tag in bytes 8-11
-  { mime: 'image/avif', sig: [0x00, 0x00, 0x00] },       // crude; AVIF starts with ftyp box
+  { mime: 'image/webp', sig: [0x52, 0x49, 0x46, 0x46] },
+  { mime: 'image/avif', sig: [0x00, 0x00, 0x00] },
 ];
 
 function detectMime(buf: Uint8Array, declared: string): string | null {
   for (const m of MAGIC) {
     if (m.sig.every((b, i) => buf[i] === b)) return m.mime;
   }
-  // Fallback: declared if allowed (webp/avif sigs above are approximate).
   return ALLOWED_MIME.has(declared) ? declared : null;
 }
 
@@ -33,20 +37,38 @@ export const POST: APIRoute = async (ctx) => {
   const file = form.get('file');
   if (!(file instanceof File)) return json({ error: { code: 'no_file', message: 'No file' } }, 400);
 
-  if (file.size > MAX_BYTES) return json({ error: { code: 'too_large', message: 'Max 5 MB' } }, 413);
+  if (file.size > MAX_BYTES) return json({ error: { code: 'too_large', message: 'Max 10 MB' } }, 413);
   if (!ALLOWED_MIME.has(file.type)) return json({ error: { code: 'bad_type', message: 'Unsupported image type' } }, 415);
 
-  const buf = new Uint8Array(await file.arrayBuffer());
-  const detected = detectMime(buf, file.type);
+  const srcBuf = Buffer.from(await file.arrayBuffer());
+  const detected = detectMime(srcBuf, file.type);
   if (!detected) return json({ error: { code: 'bad_content', message: 'File does not look like an image' } }, 415);
 
-  const ext = detected.split('/')[1] === 'jpeg' ? 'jpg' : detected.split('/')[1];
-  const name = `${crypto.randomUUID()}.${ext}`;
+  // Resize + convert to WebP. Strip EXIF for privacy.
+  let processed: Buffer;
+  let width: number | undefined;
+  let height: number | undefined;
+  try {
+    const pipeline = sharp(srcBuf, { failOn: 'error' })
+      .rotate()           // honour EXIF orientation, then strip metadata
+      .resize({ width: TARGET_MAX_WIDTH, withoutEnlargement: true, fit: 'inside' })
+      .webp({ quality: WEBP_QUALITY });
+
+    const { data, info } = await pipeline.toBuffer({ resolveWithObject: true });
+    processed = data;
+    width = info.width;
+    height = info.height;
+  } catch (e) {
+    console.error('[api/upload] sharp error:', e);
+    return json({ error: { code: 'process_failed', message: 'Could not process image' } }, 422);
+  }
+
+  const name = `${crypto.randomUUID()}.webp`;
   const path = `posts/${name}`;
 
   const db = supabaseAdmin();
-  const { error: upErr } = await db.storage.from('post-images').upload(path, buf, {
-    contentType: detected,
+  const { error: upErr } = await db.storage.from('post-images').upload(path, processed, {
+    contentType: 'image/webp',
     cacheControl: 'public, max-age=31536000, immutable',
     upsert: false,
   });
@@ -56,5 +78,5 @@ export const POST: APIRoute = async (ctx) => {
   }
 
   const { data } = db.storage.from('post-images').getPublicUrl(path);
-  return json({ ok: true, url: data.publicUrl, path });
+  return json({ ok: true, url: data.publicUrl, path, width, height });
 };

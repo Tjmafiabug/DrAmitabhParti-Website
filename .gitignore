@@ -21,5 +21,9 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# debug / screen recordings
+*.mp4
+*.mov
+
 # jetbrains setting folder
 .idea/

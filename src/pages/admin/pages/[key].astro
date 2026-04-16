@@ -14,17 +14,25 @@ const titles: Record<string, string> = { about: 'About', credentials: 'Credentia
 const supabase = createSupabaseServerClient(Astro);
 const { data: page } = await supabase
   .from('pages')
-  .select('body_json')
+  .select('body_json, body_html')
   .eq('key', key)
   .maybeSingle();
 ---
 
 <AdminLayout title={`Edit — ${titles[key]}`}>
-  <section class="container-wide mx-auto px-6 py-4 flex items-center gap-5">
-    <a href="/admin/pages/about" class={`font-[var(--font-label)] text-[0.72rem] uppercase tracking-[0.2em] pb-1 ${key === 'about' ? 'text-[var(--color-primary)] border-b border-[var(--color-primary)]' : 'text-[var(--color-on-surface-variant)]'}`}>About</a>
-    <a href="/admin/pages/credentials" class={`font-[var(--font-label)] text-[0.72rem] uppercase tracking-[0.2em] pb-1 ${key === 'credentials' ? 'text-[var(--color-primary)] border-b border-[var(--color-primary)]' : 'text-[var(--color-on-surface-variant)]'}`}>Credentials</a>
-  </section>
-  <section class="px-6 py-8">
-    <PageEditor client:only="react" pageKey={key} title={titles[key]} initialBodyJson={page?.body_json} />
-  </section>
+  <div class="admin-container">
+
+    <div class="admin-tabs">
+      <a href="/admin/pages/about" class={`admin-tab ${key === 'about' ? 'active' : ''}`}>About</a>
+      <a href="/admin/pages/credentials" class={`admin-tab ${key === 'credentials' ? 'active' : ''}`}>Credentials</a>
+    </div>
+
+    <PageEditor
+      client:only="react"
+      pageKey={key}
+      title={titles[key]}
+      initialBodyJson={page?.body_json}
+      initialBodyHtml={page?.body_html ?? ''}
+    />
+  </div>
 </AdminLayout>

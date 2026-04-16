@@ -9,7 +9,7 @@ const { id } = Astro.params;
 const supabase = createSupabaseServerClient(Astro);
 const { data: post } = await supabase
   .from('posts')
-  .select('id, slug, title, excerpt, category, status, body_json')
+  .select('id, slug, title, excerpt, category, status, body_json, cover_image_url, updated_at')
   .eq('id', id)
   .maybeSingle();
 
@@ -17,7 +17,7 @@ if (!post) return Astro.redirect('/admin');
 ---
 
 <AdminLayout title={`Edit — ${post.title}`}>
-  <section class="px-6 py-10">
+  <div class="admin-container">
     <Composer
       client:only="react"
       id={post.id}
@@ -27,6 +27,8 @@ if (!post) return Astro.redirect('/admin');
       initialStatus={post.status}
       initialSlug={post.slug}
       initialBodyJson={post.body_json}
+      initialCoverImageUrl={post.cover_image_url ?? null}
+      initialUpdatedAt={post.updated_at}
     />
-  </section>
+  </div>
 </AdminLayout>

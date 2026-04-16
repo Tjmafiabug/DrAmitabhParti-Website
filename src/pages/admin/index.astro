@@ -19,48 +19,95 @@ const fmt = (iso: string | null) =>
 ---
 
 <AdminLayout title="Posts">
-  <section class="container-wide mx-auto px-6 py-10">
-    <div class="flex items-end justify-between mb-10">
+  <div class="admin-container">
+
+    <div class="admin-page-head">
       <div>
-        <p class="label mb-2">Your writing</p>
-        <h1 style="font-size: clamp(1.8rem, 3vw + 0.5rem, 2.4rem); line-height: 1.15;">
-          A quiet place to <span class="italic text-[var(--color-primary)]">draft and publish.</span>
-        </h1>
+        <h1>Posts</h1>
+        <p class="admin-page-sub">Draft, publish, and manage your writing.</p>
       </div>
-      <a href="/admin/posts/new" class="btn-primary">+ New Post</a>
+      <a href="/admin/posts/new" class="admin-btn admin-btn-primary">+ New post</a>
     </div>
 
-    <div class="flex items-center gap-6 mb-6 text-[0.82rem]" style="font-family: var(--font-label);">
-      <a href="/admin" class={`uppercase tracking-[0.15em] pb-1 ${!filter ? 'text-[var(--color-primary)] border-b border-[var(--color-primary)]' : 'text-[var(--color-on-surface-variant)]'}`}>All</a>
-      <a href="/admin?status=draft" class={`uppercase tracking-[0.15em] pb-1 ${filter === 'draft' ? 'text-[var(--color-primary)] border-b border-[var(--color-primary)]' : 'text-[var(--color-on-surface-variant)]'}`}>Drafts</a>
-      <a href="/admin?status=published" class={`uppercase tracking-[0.15em] pb-1 ${filter === 'published' ? 'text-[var(--color-primary)] border-b border-[var(--color-primary)]' : 'text-[var(--color-on-surface-variant)]'}`}>Published</a>
+    <div class="admin-tabs">
+      <a href="/admin" class={`admin-tab ${!filter ? 'active' : ''}`}>All <span class="admin-muted">({posts?.length ?? 0})</span></a>
+      <a href="/admin?status=draft" class={`admin-tab ${filter === 'draft' ? 'active' : ''}`}>Drafts</a>
+      <a href="/admin?status=published" class={`admin-tab ${filter === 'published' ? 'active' : ''}`}>Published</a>
+    </div>
+
+    <div class="admin-field" style="max-width: 360px;">
+      <input id="post-search" type="search" placeholder="Search by title or category…" class="admin-input" autocomplete="off" />
     </div>
 
     {shown.length === 0 ? (
-      <div class="py-20 text-center">
-        <p class="italic text-[var(--color-on-surface-variant)] mb-4">Nothing here yet.</p>
-        <a href="/admin/posts/new" class="link-editorial">Write your first post →</a>
+      <div class="admin-empty">
+        <p>No posts yet.</p>
+        <a href="/admin/posts/new">Write your first post →</a>
       </div>
     ) : (
-      <ul class="divide-y divide-[var(--color-outline-variant)]/30">
-        {shown.map((p) => (
-          <li class="py-5 grid grid-cols-[auto_1fr_auto_auto] gap-6 items-center">
-            <span class={`chip-category ${p.status === 'published' ? 'chip-essay' : ''}`} style={p.status === 'draft' ? 'background: rgba(95,94,94,0.1); color: var(--color-secondary);' : ''}>
-              {p.status}
-            </span>
-            <div>
-              <h3 class="font-[var(--font-headline)] text-[1.2rem] leading-tight">
-                <a href={`/admin/posts/${p.id}/edit`} class="hover:text-[var(--color-primary)] transition-colors">{p.title}</a>
-              </h3>
-              <p class="meta mt-1">{p.category} · {fmt(p.published_at)}</p>
-            </div>
-            <a href={`/admin/posts/${p.id}/edit`} class="link-editorial text-[0.82rem] font-[var(--font-label)] uppercase tracking-[0.15em]">Edit</a>
-            {p.status === 'published' && (
-              <a href={`/writing/${p.slug}`} target="_blank" rel="noopener" class="meta text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)] transition-colors">View ↗</a>
-            )}
-          </li>
-        ))}
-      </ul>
+      <div class="admin-table-wrap">
+        <table class="admin-table" id="post-list">
+          <thead>
+            <tr>
+              <th style="width: 100px;">Status</th>
+              <th>Title</th>
+              <th style="width: 120px;">Category</th>
+              <th style="width: 130px;">Published</th>
+              <th style="width: 120px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {shown.map((p) => (
+              <tr class="post-row" data-title={p.title.toLowerCase()} data-category={(p.category ?? '').toLowerCase()}>
+                <td>
+                  <span class={`admin-badge admin-badge-${p.status}`}>{p.status}</span>
+                </td>
+                <td>
+                  <a href={`/admin/posts/${p.id}/edit`} style="font-weight: 500;">{p.title}</a>
+                </td>
+                <td class="admin-muted">{p.category ?? '—'}</td>
+                <td class="admin-muted">{fmt(p.published_at)}</td>
+                <td style="text-align: right;">
+                  <a href={`/admin/posts/${p.id}/edit`} class="admin-btn admin-btn-ghost admin-btn-sm">Edit</a>
+                  {p.status === 'published' && (
+                    <a href={`/writing/${p.slug}`} target="_blank" rel="noopener" class="admin-btn admin-btn-ghost admin-btn-sm">View ↗</a>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     )}
-  </section>
+
+    <div id="post-search-empty" class="admin-empty" style="display: none; margin-top: 1rem;">
+      <p>No posts match that search.</p>
+    </div>
+
+  </div>
+
+  <script is:inline>
+    (function () {
+      const input = document.getElementById('post-search');
+      const list = document.getElementById('post-list');
+      const empty = document.getElementById('post-search-empty');
+      if (!input || !list) return;
+
+      const apply = () => {
+        const q = input.value.trim().toLowerCase();
+        const rows = list.querySelectorAll('.post-row');
+        let visible = 0;
+        rows.forEach((row) => {
+          const title = row.getAttribute('data-title') || '';
+          const cat = row.getAttribute('data-category') || '';
+          const match = !q || title.includes(q) || cat.includes(q);
+          row.style.display = match ? '' : 'none';
+          if (match) visible++;
+        });
+        if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+      };
+
+      input.addEventListener('input', apply);
+    })();
+  </script>
 </AdminLayout>

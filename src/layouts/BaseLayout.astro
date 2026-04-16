@@ -2,7 +2,6 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { ClientRouter } from 'astro:transitions';
 import { site } from '../data/site';
 
 interface Props {
@@ -23,6 +22,8 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} — Writing`} href="/rss.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
@@ -56,7 +57,6 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
       })}
     />
 
-    <ClientRouter fallback="swap" />
   </head>
 
   <body>
@@ -78,9 +78,7 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
           for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
         }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
 
-        const bind = () => document.querySelectorAll('.reveal:not(.in)').forEach((el) => io.observe(el));
-        bind();
-        document.addEventListener('astro:page-load', bind);
+        document.querySelectorAll('.reveal:not(.in)').forEach((el) => io.observe(el));
       })();
     </script>
   </body>

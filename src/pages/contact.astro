@@ -3,7 +3,9 @@ export const prerender = true;
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import { site } from '../data/site';
+import { getSettings } from '../lib/settings';
+
+const settings = await getSettings();
 ---
 
 <BaseLayout title="Contact" description="Practice address and professional correspondence for Dr. Amitabh Parti.">
@@ -16,7 +18,7 @@ import { site } from '../data/site';
 
   {/* CLINICAL PRACTICE + MAP */}
   <section class="bg-[var(--color-surface)]">
-    <div class="container-wide mx-auto px-6 py-14 md:py-20">
+    <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
       <div class="container-page mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-10 md:gap-16 items-start">
           <div>
@@ -24,15 +26,15 @@ import { site } from '../data/site';
               <span class="rule-accent"></span>
               <h2 class="label label-strong">Clinical Practice</h2>
             </div>
-            <p class="font-[var(--font-headline)] text-2xl leading-tight mb-3">{site.address.hospital}</p>
+            <p class="font-[var(--font-headline)] text-2xl leading-tight mb-3">{settings.address.hospital}</p>
             <address class="not-italic leading-[1.8] text-[var(--color-on-surface-variant)] mb-6">
-              {site.address.line1}<br />
-              {site.address.line2}<br />
-              {site.address.country}
+              {settings.address.line1}<br />
+              {settings.address.line2}<br />
+              {settings.address.country}
             </address>
             <p class="text-[0.95rem] text-[var(--color-on-surface-variant)] leading-relaxed max-w-md">
               For clinical consultations, please use
-              <a href={site.fortisProfile} rel="noopener" class="link-editorial">Fortis Memorial's official appointment page</a>.
+              <a href={settings.contact.fortis_profile} rel="noopener" class="link-editorial">Fortis Memorial's official appointment page</a>.
             </p>
           </div>
 
@@ -52,7 +54,7 @@ import { site } from '../data/site';
 
   {/* PROFESSIONAL CORRESPONDENCE — tonal shift, still light */}
   <section class="bg-[var(--color-surface-container-low)]">
-    <div class="container-wide mx-auto px-6 py-14 md:py-20">
+    <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
       <div class="container-page mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-10 md:gap-16 items-center">
           <div>
@@ -71,8 +73,8 @@ import { site } from '../data/site';
           </div>
           <div>
             <p class="label mb-3">By Letter</p>
-            <a href={`mailto:${site.email}`} class="font-[var(--font-headline)] italic text-[1.5rem] md:text-[1.75rem] text-[var(--color-primary)] link-editorial">
-              {site.email}
+            <a href={`mailto:${settings.contact.email}`} class="font-[var(--font-headline)] italic text-[1.5rem] md:text-[1.75rem] text-[var(--color-primary)] link-editorial">
+              {settings.contact.email}
             </a>
           </div>
         </div>
@@ -82,7 +84,7 @@ import { site } from '../data/site';
 
   {/* CLOSING NOTE */}
   <section class="bg-[var(--color-surface)]">
-    <div class="container-wide mx-auto px-6 py-10">
+    <div class="container-wide mx-auto px-5 md:px-6 py-10">
       <p class="container-prose mx-auto text-center italic text-[0.9rem]" style="color: var(--color-secondary);">
         This site is not a channel for clinical consultation or medical advice.
         Please route all patient enquiries through Fortis Memorial's official systems.

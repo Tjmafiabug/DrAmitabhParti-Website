@@ -5,6 +5,8 @@ interface ImportMetaEnv {
   readonly PUBLIC_SUPABASE_ANON_KEY: string;
   readonly SUPABASE_SERVICE_ROLE_KEY: string;
   readonly ADMIN_EMAIL: string;
+  readonly REVALIDATE_SECRET?: string;
+  readonly VERCEL_DEPLOY_HOOK_URL?: string;
 }
 
 interface ImportMeta {
