@@ -1,14 +1,19 @@
-import DOMPurify from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 
 /**
- * Strict HTML allowlist for post body content emitted by Tiptap.
- * Anything outside the allowlist is stripped. Images restricted to our domain.
+ * Strict HTML allowlist for post / page body content emitted by Tiptap.
+ * Anything outside the allowlist is stripped. Images restricted to our
+ * own Supabase Storage bucket (or amitabhparti.com). External links get
+ * rel="noopener noreferrer" and target="_blank".
+ *
+ * Uses `sanitize-html` (pure Node, no JSDOM / browser-polyfill churn) so
+ * Vercel's serverless runtime doesn't hit ESM/CJS interop errors.
  */
+
 const ALLOWED_TAGS = [
-  'p', 'h2', 'h3', 'ul', 'ol', 'li', 'a', 'blockquote', 'em', 'strong',
-  'br', 'hr', 'img', 'code', 'pre',
+  'p', 'h2', 'h3', 'ul', 'ol', 'li', 'a', 'blockquote',
+  'em', 'strong', 'br', 'hr', 'img', 'code', 'pre',
 ];
-const ALLOWED_ATTR = ['href', 'src', 'alt', 'title', 'rel', 'target'];
 
 function safeOriginHost(origin: string | undefined): string {
   try {
@@ -20,42 +25,47 @@ function safeOriginHost(origin: string | undefined): string {
 }
 
 export function sanitizeBodyHtml(html: string, allowedImageOrigins: string[]): string {
-  let clean: string;
-  try {
-    clean = DOMPurify.sanitize(html, {
-      ALLOWED_TAGS,
-      ALLOWED_ATTR,
-      ALLOW_DATA_ATTR: false,
-      FORBID_ATTR: ['style', 'onclick', 'onerror', 'onload'],
-      FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form'],
-    });
-  } catch (e) {
-    console.error('[sanitize] DOMPurify failed, passing through plain text:', (e as Error).message);
-    // Fallback: strip all HTML tags rather than reject the save.
-    return html.replace(/<[^>]+>/g, '');
-  }
-
   const primaryHost = safeOriginHost(allowedImageOrigins[0]);
 
   try {
-    return clean
-      .replace(/<img([^>]*?)>/gi, (match, attrs) => {
-        const src = /src="([^"]+)"/i.exec(attrs)?.[1];
-        if (!src) return '';
-        const allowed = allowedImageOrigins.some((o) => src.startsWith(o));
-        if (!allowed) return '';
-        return match;
-      })
-      .replace(/<a\s([^>]*?)>/gi, (_m, attrs) => {
-        const href = /href="([^"]+)"/i.exec(attrs)?.[1] ?? '';
-        const isExternal = /^https?:\/\//i.test(href) && !href.includes(primaryHost);
-        if (isExternal && !/rel=/.test(attrs)) {
-          return `<a ${attrs} rel="noopener noreferrer" target="_blank">`;
+    return sanitizeHtml(html, {
+      allowedTags: ALLOWED_TAGS,
+      allowedAttributes: {
+        a:   ['href', 'title', 'rel', 'target'],
+        img: ['src', 'alt', 'title'],
+      },
+      allowedSchemes: ['http', 'https', 'mailto'],
+      allowedSchemesAppliedToAttributes: ['href', 'src'],
+      disallowedTagsMode: 'discard',
+      // Drop img elements whose src isn't in our allowlist.
+      exclusiveFilter: (frame) => {
+        if (frame.tag === 'img') {
+          const src = frame.attribs?.src ?? '';
+          return !allowedImageOrigins.some((o) => src.startsWith(o));
         }
-        return `<a ${attrs}>`;
-      });
+        return false;
+      },
+      // Force rel + target on external links.
+      transformTags: {
+        a: (tagName, attribs) => {
+          const href = attribs.href ?? '';
+          const isExternal = /^https?:\/\//i.test(href) && !href.includes(primaryHost);
+          if (isExternal) {
+            return {
+              tagName,
+              attribs: {
+                ...attribs,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            };
+          }
+          return { tagName, attribs };
+        },
+      },
+    });
   } catch (e) {
-    console.error('[sanitize] post-process failed, returning DOMPurify output:', (e as Error).message);
-    return clean;
+    console.error('[sanitize] sanitize-html failed, stripping all tags as fallback:', (e as Error).message);
+    return html.replace(/<[^>]+>/g, '');
   }
 }
