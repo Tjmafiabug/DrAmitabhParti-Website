@@ -1,5 +1,6 @@
 ---
-export const prerender = true;
+// Dynamic: reads from Supabase on every request so content changes appear instantly.
+// No rebuild needed.
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getRecentPosts, formatDate } from "../data/posts";
@@ -7,7 +8,6 @@ import { site } from "../data/site";
 import { getSettings } from "../lib/settings";
 
 const recent = await getRecentPosts(4);
-const [featured, ...side] = recent;
 const settings = await getSettings();
 
 // Split the hero quote around the highlighted phrase (if any)
