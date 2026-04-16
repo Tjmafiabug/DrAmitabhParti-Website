@@ -298,7 +298,8 @@ function isPlainObject(x: unknown): x is Record<string, unknown> {
   return !!x && typeof x === 'object' && !Array.isArray(x);
 }
 
-function deepMergeDefaults<T>(defaults: T, override: unknown): T {
+/** @internal — exported for unit tests; prefer `getSettings()` in app code. */
+export function deepMergeDefaults<T>(defaults: T, override: unknown): T {
   if (!isPlainObject(override)) return defaults;
   if (!isPlainObject(defaults)) return (override as T) ?? defaults;
   const out: Record<string, unknown> = { ...defaults };

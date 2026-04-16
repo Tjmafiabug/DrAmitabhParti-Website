@@ -1,36 +1,13 @@
 import type { APIRoute } from 'astro';
-import { z } from 'zod';
 import { supabaseAdmin } from '../../lib/supabase';
 import { sanitizeBodyHtml } from '../../lib/sanitize';
+import {
+  postCreateSchema as createSchema,
+  postUpdateSchema as updateSchema,
+  postDeleteSchema as deleteSchema,
+} from '../../lib/postSchemas';
 
 export const prerender = false;
-
-const categoryEnum = z.enum(['Essay', 'Awareness', 'Reflection']);
-const statusEnum   = z.enum(['draft', 'published']);
-
-const slugRe = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-
-const baseSchema = z.object({
-  title:           z.string().min(1).max(200).transform((s) => s.trim()),
-  slug:            z.string().min(1).max(96).regex(slugRe, 'Slug must be lowercase, hyphen-separated'),
-  excerpt:         z.string().max(500).nullable().optional(),
-  category:        categoryEnum,
-  body_json:       z.unknown(),
-  body_html:       z.string().max(300_000),
-  status:          statusEnum,
-  pull_quote:      z.string().max(500).nullable().optional(),
-  reading_time:    z.string().max(32).nullable().optional(),
-  cover_image_url: z.string().url().max(500).nullable().optional(),
-});
-
-const createSchema = baseSchema;
-const updateSchema = baseSchema.extend({
-  id: z.string().uuid(),
-  // Optimistic concurrency: client sends the updated_at it last saw.
-  // If the row changed since, we reject with 409.
-  expected_updated_at: z.string().optional(),
-});
-const deleteSchema = z.object({ id: z.string().uuid() });
 
 function allowedImageOrigins() {
   const url = import.meta.env.PUBLIC_SUPABASE_URL as string;

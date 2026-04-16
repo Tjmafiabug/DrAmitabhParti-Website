@@ -15,17 +15,28 @@ const ALLOWED_TAGS = [
   'em', 'strong', 'br', 'hr', 'img', 'code', 'pre',
 ];
 
-function safeOriginHost(origin: string | undefined): string {
+function parseHostSafe(origin: string | undefined, fallback: string): string {
   try {
-    if (!origin) return 'amitabhparti.com';
+    if (!origin) return fallback;
     return new URL(origin).host;
   } catch {
-    return 'amitabhparti.com';
+    return fallback;
   }
 }
 
-export function sanitizeBodyHtml(html: string, allowedImageOrigins: string[]): string {
-  const primaryHost = safeOriginHost(allowedImageOrigins[0]);
+/**
+ * Sanitize Tiptap-authored HTML for public rendering.
+ *
+ * @param html   the raw HTML string
+ * @param allowedImageOrigins  origins whose <img src> values are kept; everything else is stripped
+ * @param siteHost  the host used to decide whether an <a href> is "external"; pass 'amitabhparti.com' or whatever the live site is. Optional — if omitted, same-origin is inferred from allowedImageOrigins[1] (which in this codebase is the site URL). Same-host links are left untouched; external links get rel="noopener noreferrer" and target="_blank".
+ */
+export function sanitizeBodyHtml(
+  html: string,
+  allowedImageOrigins: string[],
+  siteHost?: string,
+): string {
+  const primaryHost = siteHost ?? parseHostSafe(allowedImageOrigins[1], 'amitabhparti.com');
 
   try {
     return sanitizeHtml(html, {
