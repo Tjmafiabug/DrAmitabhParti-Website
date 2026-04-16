@@ -1047,18 +1047,6 @@ img.fade-img.loaded { opacity: 1; }
   .hero-portrait { transform: scale(1.12); }
 }
 
-/* Reading progress bar (mounted only on article pages) */
-.reading-progress {
-  position: fixed;
-  top: 0; left: 0;
-  height: 2px;
-  width: 0%;
-  background: var(--color-gold);
-  z-index: 60;
-  transition: width 60ms linear;
-  pointer-events: none;
-}
-
 /* Back-to-top button — appears after scroll */
 .back-to-top {
   position: fixed;

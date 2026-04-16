@@ -18,6 +18,7 @@ export type Post = {
   readingTime: string | null;
   pullQuote: string | null;
   body: string;
+  coverImageUrl: string | null;
 };
 
 type Row = {
@@ -29,7 +30,10 @@ type Row = {
   reading_time: string | null;
   pull_quote: string | null;
   body_html: string | null;
+  cover_image_url: string | null;
 };
+
+const COLS = 'slug, title, excerpt, category, published_at, reading_time, pull_quote, body_html, cover_image_url';
 
 const toPost = (r: Row): Post => ({
   slug: r.slug,
@@ -40,12 +44,13 @@ const toPost = (r: Row): Post => ({
   readingTime: r.reading_time,
   pullQuote: r.pull_quote,
   body: r.body_html ?? '',
+  coverImageUrl: r.cover_image_url ?? null,
 });
 
 export async function getAllPosts(): Promise<Post[]> {
   const { data, error } = await supabaseAnon
     .from('posts')
-    .select('slug, title, excerpt, category, published_at, reading_time, pull_quote, body_html')
+    .select(COLS)
     .eq('status', 'published')
     .order('published_at', { ascending: false });
 
@@ -56,7 +61,7 @@ export async function getAllPosts(): Promise<Post[]> {
 export async function getPost(slug: string): Promise<Post | null> {
   const { data, error } = await supabaseAnon
     .from('posts')
-    .select('slug, title, excerpt, category, published_at, reading_time, pull_quote, body_html')
+    .select(COLS)
     .eq('status', 'published')
     .eq('slug', slug)
     .maybeSingle();
@@ -68,7 +73,7 @@ export async function getPost(slug: string): Promise<Post | null> {
 export async function getRecentPosts(n = 3): Promise<Post[]> {
   const { data, error } = await supabaseAnon
     .from('posts')
-    .select('slug, title, excerpt, category, published_at, reading_time, pull_quote, body_html')
+    .select(COLS)
     .eq('status', 'published')
     .order('published_at', { ascending: false })
     .limit(n);
