@@ -35,7 +35,7 @@ const ogImageUrl = ogImage?.startsWith('http') ? ogImage : new URL(ogImage, iden
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate" type="application/rss+xml" title={`${identity.name} — Writing`} href="/rss.xml" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href="/sitemap.xml" />
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
@@ -69,6 +69,8 @@ const ogImageUrl = ogImage?.startsWith('http') ? ogImage : new URL(ogImage, iden
         alumniOf: { '@type': 'EducationalOrganization', name: identity.university },
       })}
     />
+
+    <slot name="head" />
 
   </head>
 

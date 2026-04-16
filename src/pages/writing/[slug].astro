@@ -6,11 +6,6 @@ import { getSettings } from '../../lib/settings';
 
 const settings = await getSettings();
 
-export async function getStaticPaths() {
-  const all = await getAllPosts();
-  return all.map((p) => ({ params: { slug: p.slug } }));
-}
-
 const { slug } = Astro.params;
 const post = await getPost(slug!);
 if (!post) return Astro.redirect('/writing');
@@ -22,9 +17,34 @@ const chipClass = (c: string | null) =>
 
 const allPosts = await getAllPosts();
 const related = allPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
+
+const base = settings.identity.site_url.replace(/\/$/, '');
+const coverAbs = post.coverImageUrl
+  ? (post.coverImageUrl.startsWith('http') ? post.coverImageUrl : `${base}${post.coverImageUrl}`)
+  : undefined;
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  description: post.excerpt ?? undefined,
+  image: coverAbs ? [coverAbs] : undefined,
+  datePublished: post.publishedAt || undefined,
+  dateModified:  post.publishedAt || undefined,
+  mainEntityOfPage: `${base}/writing/${post.slug}`,
+  author:    { '@type': 'Person', name: settings.identity.name, url: base },
+  publisher: { '@type': 'Person', name: settings.identity.name, url: base },
+  articleSection: post.category ?? undefined,
+};
 ---
 
-<BaseLayout title={post.title} description={post.excerpt ?? undefined}>
+<BaseLayout title={post.title} description={post.excerpt ?? undefined} ogImage={post.coverImageUrl ?? undefined}>
+  <script
+    slot="head"
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(articleJsonLd)}
+  />
 
   <BackToTop />
 

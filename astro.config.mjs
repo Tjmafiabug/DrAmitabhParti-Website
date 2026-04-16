@@ -2,7 +2,6 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import vercel from '@astrojs/vercel';
 
@@ -15,5 +14,9 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [mdx(), sitemap(), react()],
+  // Sitemap is served dynamically from src/pages/sitemap.xml.ts so post slugs
+  // appear as soon as they're published, without a rebuild. @astrojs/sitemap
+  // is intentionally not wired up — it runs at build time and would miss
+  // dynamic posts + leak admin routes.
+  integrations: [mdx(), react()],
 });
