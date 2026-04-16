@@ -80,7 +80,14 @@ export const POST: APIRoute = async (ctx) => {
   if (error) {
     if ((error as any).code === '23505') return json({ error: { code: 'duplicate_slug', message: 'Slug already exists' } }, 409);
     console.error('[api/posts] insert error:', error);
-    return json({ error: { code: 'db', message: 'Could not save post' } }, 500);
+    return json({
+      error: {
+        code: (error as any).code ?? 'db',
+        message: (error as any).message ?? 'Could not save post',
+        details: (error as any).details ?? null,
+        hint: (error as any).hint ?? null,
+      },
+    }, 500);
   }
 
   return json({ ok: true, id: inserted.id, slug: inserted.slug, updated_at: inserted.updated_at });
@@ -140,7 +147,14 @@ export const PATCH: APIRoute = async (ctx) => {
   if (error) {
     if ((error as any).code === '23505') return json({ error: { code: 'duplicate_slug', message: 'Slug already exists' } }, 409);
     console.error('[api/posts] update error:', error);
-    return json({ error: { code: 'db', message: 'Could not update post' } }, 500);
+    return json({
+      error: {
+        code: (error as any).code ?? 'db',
+        message: (error as any).message ?? 'Could not update post',
+        details: (error as any).details ?? null,
+        hint: (error as any).hint ?? null,
+      },
+    }, 500);
   }
 
   return json({ ok: true, id: updated.id, slug: updated.slug, updated_at: updated.updated_at });
