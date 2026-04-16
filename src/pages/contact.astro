@@ -4,14 +4,17 @@ import PageHero from '../components/PageHero.astro';
 import { getSettings } from '../lib/settings';
 
 const settings = await getSettings();
+const { heroes, contact_page } = settings;
+const hero = heroes.contact;
 ---
 
-<BaseLayout title="Contact" description="Practice address and professional correspondence for Dr. Amitabh Parti.">
+<BaseLayout pageKey="contact">
 
   <PageHero
-    eyebrow="Contact"
-    title="Where to find"
-    titleItalic="Dr. Parti."
+    eyebrow={hero.eyebrow}
+    title={hero.title}
+    titleItalic={hero.title_italic}
+    kicker={hero.kicker || undefined}
   />
 
   {/* CLINICAL PRACTICE + MAP */}
@@ -30,27 +33,31 @@ const settings = await getSettings();
               {settings.address.line2}<br />
               {settings.address.country}
             </address>
-            <p class="text-[0.95rem] text-[var(--color-on-surface-variant)] leading-relaxed max-w-md">
-              For clinical consultations, please use
-              <a href={settings.contact.fortis_profile} rel="noopener" class="link-editorial">Fortis Memorial's official appointment page</a>.
-            </p>
+            {settings.contact.fortis_profile && (
+              <p class="text-[0.95rem] text-[var(--color-on-surface-variant)] leading-relaxed max-w-md">
+                For clinical consultations, please use
+                <a href={settings.contact.fortis_profile} rel="noopener" class="link-editorial">{settings.identity.institution_short || settings.identity.institution}'s official appointment page</a>.
+              </p>
+            )}
           </div>
 
-          <div class="aspect-[4/3] w-full overflow-hidden border border-[var(--color-outline-variant)]/40">
-            <iframe
-              title="Fortis Memorial Research Institute, Gurgaon — map"
-              src="https://www.google.com/maps?q=Fortis+Memorial+Research+Institute+Gurgaon&output=embed"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              class="w-full h-full border-0"
-            ></iframe>
-          </div>
+          {contact_page.map_embed_url && (
+            <div class="aspect-[4/3] w-full overflow-hidden border border-[var(--color-outline-variant)]/40">
+              <iframe
+                title={contact_page.map_iframe_title}
+                src={contact_page.map_embed_url}
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                class="w-full h-full border-0"
+              ></iframe>
+            </div>
+          )}
         </div>
       </div>
     </div>
   </section>
 
-  {/* PROFESSIONAL CORRESPONDENCE — tonal shift, still light */}
+  {/* PROFESSIONAL CORRESPONDENCE */}
   <section class="bg-[var(--color-surface-container-low)]">
     <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
       <div class="container-page mx-auto">
@@ -66,7 +73,7 @@ const settings = await getSettings();
             </p>
             <p class="text-[var(--color-on-surface-variant)] leading-relaxed max-w-xl text-[1rem] text-pretty">
               This site is not a channel for clinical consultation. Please route
-              patient enquiries through Fortis Memorial's official systems.
+              patient enquiries through {settings.identity.institution_short || settings.identity.institution}'s official systems.
             </p>
           </div>
           <div>
@@ -85,7 +92,7 @@ const settings = await getSettings();
     <div class="container-wide mx-auto px-5 md:px-6 py-10">
       <p class="container-prose mx-auto text-center italic text-[0.9rem]" style="color: var(--color-secondary);">
         This site is not a channel for clinical consultation or medical advice.
-        Please route all patient enquiries through Fortis Memorial's official systems.
+        Please route all patient enquiries through {settings.identity.institution_short || settings.identity.institution}'s official systems.
       </p>
     </div>
   </section>

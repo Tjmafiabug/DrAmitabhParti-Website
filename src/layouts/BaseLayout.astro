@@ -2,17 +2,29 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { site } from '../data/site';
+import { getSettings, type SeoPageKey } from '../lib/settings';
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  /** Optional: pull title/description defaults from settings.seo.pages[pageKey]. */
+  pageKey?: SeoPageKey;
 }
 
-const { title, description = site.description, ogImage = '/og-default.png' } = Astro.props;
-const fullTitle = title ? `${title} — ${site.titleSuffix}` : site.name;
-const canonical = new URL(Astro.url.pathname, site.url).toString();
+const settings = await getSettings();
+const { identity, seo } = settings;
+
+const pageMeta = Astro.props.pageKey ? seo.pages[Astro.props.pageKey] : null;
+
+const title       = Astro.props.title       ?? pageMeta?.title       ?? null;
+const description = Astro.props.description ?? pageMeta?.description ?? seo.default_description ?? identity.description;
+const ogImage     = Astro.props.ogImage     ?? seo.og_image_url;
+
+const suffix = identity.title_suffix || identity.name;
+const fullTitle = title ? `${title} — ${suffix}` : identity.name;
+const canonical = new URL(Astro.url.pathname, identity.site_url).toString();
+const ogImageUrl = ogImage?.startsWith('http') ? ogImage : new URL(ogImage, identity.site_url).toString();
 ---
 
 <!doctype html>
@@ -22,7 +34,7 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="alternate" type="application/rss+xml" title={`${site.name} — Writing`} href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${identity.name} — Writing`} href="/rss.xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <title>{fullTitle}</title>
@@ -33,7 +45,7 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL(ogImage, site.url).toString()} />
+    <meta property="og:image" content={ogImageUrl} />
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,16 +56,17 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
     />
 
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'Person',
-        name: site.name,
-        jobTitle: site.role,
-        worksFor: { '@type': 'Hospital', name: site.institution },
-        url: site.url,
-        email: site.email,
-        alumniOf: { '@type': 'EducationalOrganization', name: site.university },
+        name: identity.name,
+        jobTitle: identity.role,
+        worksFor: { '@type': 'Hospital', name: identity.institution },
+        url: identity.site_url,
+        email: settings.contact.email,
+        alumniOf: { '@type': 'EducationalOrganization', name: identity.university },
       })}
     />
 

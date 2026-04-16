@@ -43,6 +43,28 @@ function allowedImageOrigins() {
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
 
+/**
+ * Turn a Supabase / Postgres error into a response-safe shape.
+ * In development, `details` and `hint` are included so the dev can debug.
+ * In production, only a generic message is returned — the full error is
+ * still written to the server logs for operator visibility.
+ */
+function dbErrorResponse(scope: string, err: unknown, fallback: string): Response {
+  console.error(`[api/posts] ${scope}:`, err);
+  const e = err as { code?: string; message?: string; details?: string; hint?: string };
+  if (import.meta.env.DEV) {
+    return json({
+      error: {
+        code:    e?.code ?? 'db',
+        message: e?.message ?? fallback,
+        details: e?.details ?? null,
+        hint:    e?.hint ?? null,
+      },
+    }, 500);
+  }
+  return json({ error: { code: 'db', message: fallback } }, 500);
+}
+
 export const POST: APIRoute = async (ctx) => {
   const user = ctx.locals.user;
   if (!user) return json({ error: { code: 'auth', message: 'Unauthorized' } }, 401);
@@ -83,16 +105,8 @@ export const POST: APIRoute = async (ctx) => {
     .select('id, slug, status, updated_at')
     .single();
   if (error) {
-    if ((error as any).code === '23505') return json({ error: { code: 'duplicate_slug', message: 'Slug already exists' } }, 409);
-    console.error('[api/posts] insert error:', error);
-    return json({
-      error: {
-        code: (error as any).code ?? 'db',
-        message: (error as any).message ?? 'Could not save post',
-        details: (error as any).details ?? null,
-        hint: (error as any).hint ?? null,
-      },
-    }, 500);
+    if ((error as { code?: string }).code === '23505') return json({ error: { code: 'duplicate_slug', message: 'Slug already exists' } }, 409);
+    return dbErrorResponse('insert', error, 'Could not save post');
   }
 
   return json({ ok: true, id: inserted.id, slug: inserted.slug, updated_at: inserted.updated_at });
@@ -155,16 +169,8 @@ export const PATCH: APIRoute = async (ctx) => {
     .select('id, slug, status, updated_at')
     .single();
   if (error) {
-    if ((error as any).code === '23505') return json({ error: { code: 'duplicate_slug', message: 'Slug already exists' } }, 409);
-    console.error('[api/posts] update error:', error);
-    return json({
-      error: {
-        code: (error as any).code ?? 'db',
-        message: (error as any).message ?? 'Could not update post',
-        details: (error as any).details ?? null,
-        hint: (error as any).hint ?? null,
-      },
-    }, 500);
+    if ((error as { code?: string }).code === '23505') return json({ error: { code: 'duplicate_slug', message: 'Slug already exists' } }, 409);
+    return dbErrorResponse('update', error, 'Could not update post');
   }
 
   return json({ ok: true, id: updated.id, slug: updated.slug, updated_at: updated.updated_at });
@@ -188,10 +194,7 @@ export const DELETE: APIRoute = async (ctx) => {
     return json({ error: { code: 'env', message: (e as Error).message } }, 500);
   }
   const { error } = await db.from('posts').delete().eq('id', parsed.data.id);
-  if (error) {
-    console.error('[api/posts] delete error:', error);
-    return json({ error: { code: 'db', message: 'Could not delete post' } }, 500);
-  }
+  if (error) return dbErrorResponse('delete', error, 'Could not delete post');
 
   return json({ ok: true });
 };

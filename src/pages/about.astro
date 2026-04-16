@@ -2,39 +2,53 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { getPageBody } from '../lib/pages';
+import { getSettings } from '../lib/settings';
 
+const settings = await getSettings();
+const { identity, about, heroes } = settings;
+const hero = heroes.about;
 const aboutHtml = await getPageBody('about');
 ---
 
-<BaseLayout title="About" description="A short biography of Dr. Amitabh Parti — internal medicine consultant at Fortis Memorial Research Institute, Gurgaon.">
+<BaseLayout pageKey="about">
 
   <PageHero
-    eyebrow="About"
-    title="On a life"
-    titleItalic="in internal medicine."
+    eyebrow={hero.eyebrow}
+    title={hero.title}
+    titleItalic={hero.title_italic}
+    kicker={hero.kicker || undefined}
   />
 
   {/* LEDE + PORTRAIT */}
   <section class="bg-[var(--color-surface)]">
     <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
       <div class="grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-10 md:gap-16 items-center">
-        <figure class="order-2 md:order-1 relative max-w-[420px] mx-auto md:mx-0">
-          <img
-            src="/images/parti-cutout.png"
-            alt="Dr. Amitabh Parti"
-            class="w-full h-auto block"
-            style="filter: saturate(0.97) contrast(1.05);"
-            loading="eager"
-            width="620"
-            height="404"
-          />
-        </figure>
-        <div class="order-1 md:order-2">
-          <p class="pull-quote text-balance text-pretty mb-6" style="font-size: clamp(1.3rem, 1.8vw + 1rem, 1.85rem);">
-            "The single most consequential diagnostic tool remains what it was in 1900 —
-            the willingness to listen without hurry."
-          </p>
-          <p class="meta">— From <a href="/writing/the-art-of-listening" class="link-editorial">The Art of Listening</a></p>
+        {identity.portrait_url && (
+          <figure class="order-2 md:order-1 relative max-w-[420px] mx-auto md:mx-0">
+            <img
+              src={identity.portrait_url}
+              alt={identity.portrait_alt}
+              class="w-full h-auto block"
+              style="filter: saturate(0.97) contrast(1.05);"
+              loading="eager"
+              width="620"
+              height="404"
+            />
+          </figure>
+        )}
+        <div class={identity.portrait_url ? 'order-1 md:order-2' : ''}>
+          {about.lede_quote && (
+            <p class="pull-quote text-balance text-pretty mb-6" style="font-size: clamp(1.3rem, 1.8vw + 1rem, 1.85rem);">
+              &ldquo;{about.lede_quote}&rdquo;
+            </p>
+          )}
+          {about.lede_source_label && (
+            <p class="meta">
+              — From {about.lede_source_href
+                ? <a href={about.lede_source_href} class="link-editorial">{about.lede_source_label}</a>
+                : <span>{about.lede_source_label}</span>}
+            </p>
+          )}
         </div>
       </div>
     </div>
@@ -45,12 +59,14 @@ const aboutHtml = await getPageBody('about');
     <div class="container-wide mx-auto px-5 md:px-6 py-14 md:py-24">
       <div class="container-reading mx-auto">
         <div class="prose-article drop-cap" set:html={aboutHtml} />
-        <p class="mt-16 text-center italic text-[var(--color-on-surface-variant)]">— Dr. Amitabh Parti</p>
+        {about.sign_off && (
+          <p class="mt-16 text-center italic text-[var(--color-on-surface-variant)]">{about.sign_off}</p>
+        )}
       </div>
     </div>
   </section>
 
-  {/* QUICK LINKS — same paper, stronger tonal shift */}
+  {/* QUICK LINKS */}
   <section class="bg-[var(--color-surface)]">
     <div class="container-wide mx-auto px-5 md:px-6 py-12">
       <div class="grid md:grid-cols-3 gap-8 text-center">

@@ -900,6 +900,54 @@
 .admin-tool-btn:hover { background: var(--a-surface-alt); color: var(--a-text); }
 .admin-tool-btn.active { background: rgba(111, 90, 75, 0.08); color: var(--a-primary); border-color: rgba(111, 90, 75, 0.25); }
 
+/* Sticky-bottom on small screens so the doctor can always reach the toolbar
+   while writing on a phone. Desktop stays unchanged. */
+@media (max-width: 720px) {
+  .admin-toolbar-sticky-mobile {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 20;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    box-shadow: 0 -1px 0 rgba(0,0,0,0.04), 0 -6px 14px rgba(0,0,0,0.06);
+    padding: 0.5rem 0.6rem calc(0.5rem + env(safe-area-inset-bottom));
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  .admin-toolbar-sticky-mobile::-webkit-scrollbar { display: none; }
+  .admin-toolbar-sticky-mobile + div { margin-top: 0; }
+  /* Leave room at the page bottom so the floating bar never overlaps content. */
+  .admin-main { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+}
+
+/* Inline popover for link / image-alt dialogs. Centers over the editor and
+   uses a subtle scrim instead of a full modal — lightweight by design. */
+.admin-popover {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.admin-popover-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 18, 16, 0.35);
+}
+.admin-popover-panel {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: var(--a-bg);
+  border: 1px solid var(--a-border-strong);
+  border-radius: 6px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 20px 50px rgba(20,18,16,0.18);
+}
+
 /* Danger zone */
 .admin-danger-zone {
   border: 1px solid #fecaca;

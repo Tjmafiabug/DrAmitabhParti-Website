@@ -1,13 +1,15 @@
 ---
 import '../styles/global.css';
-import { site } from '../data/site';
+import { getSettings } from '../lib/settings';
 
 interface Props {
   title?: string;
 }
 
 const { title } = Astro.props;
-const fullTitle = title ? `${title} — Admin · ${site.name}` : `Admin · ${site.name}`;
+const settings = await getSettings();
+const brandName = settings.identity.name;
+const fullTitle = title ? `${title} — Admin · ${brandName}` : `Admin · ${brandName}`;
 const user = Astro.locals.user;
 const path = Astro.url.pathname;
 
@@ -40,7 +42,7 @@ const navItems = [
         {/* Mobile top bar */}
         <div class="admin-topbar">
           <div>
-            <div class="admin-brand-name">Dr. Amitabh Parti</div>
+            <div class="admin-brand-name">{brandName}</div>
             <div class="admin-brand-sub">Admin</div>
           </div>
           <button id="admin-menu-toggle" class="admin-topbar-btn" aria-label="Open menu">
@@ -51,7 +53,7 @@ const navItems = [
         {/* Sidebar */}
         <aside id="admin-sidebar" class="admin-sidebar" aria-label="Admin navigation">
           <div class="admin-brand">
-            <div class="admin-brand-name">Dr. Amitabh Parti</div>
+            <div class="admin-brand-name">{brandName}</div>
             <div class="admin-brand-sub">Admin</div>
           </div>
 

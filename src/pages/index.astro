@@ -1,14 +1,11 @@
 ---
-// Dynamic: reads from Supabase on every request so content changes appear instantly.
-// No rebuild needed.
-
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getRecentPosts, formatDate } from "../data/posts";
-import { site } from "../data/site";
 import { getSettings } from "../lib/settings";
 
 const recent = await getRecentPosts(4);
 const settings = await getSettings();
+const { identity, home } = settings;
 
 // Split the hero quote around the highlighted phrase (if any)
 const { quote, highlight, attribution } = settings.hero;
@@ -25,7 +22,7 @@ const chipClass = (c: string | null) =>
       : "chip-category chip-essay";
 ---
 
-<BaseLayout>
+<BaseLayout pageKey="home">
   {/* ================== HERO — dark introduction band ================== */}
   <section class="section-dark-hero overflow-hidden">
     <div class="container-wide mx-auto px-5 md:px-6 pt-8 md:pt-14 lg:pt-16 pb-0">
@@ -45,36 +42,32 @@ const chipClass = (c: string | null) =>
             — {attribution}
           </p>
 
-          <p class="text-[0.95rem] md:text-[0.98rem] leading-[1.7] max-w-xl text-pretty opacity-90">
-            Dr. Parti writes on internal medicine, public health, and the
-            discipline of clinical attention. Recent notes include
-            <a href="/writing/monsoon-illness-in-north-india">Monsoon Illness in North India</a>
-            and
-            <a href="/writing/diabetes-and-the-long-game">Diabetes and the Long Game</a>.
-          </p>
+          <div class="text-[0.95rem] md:text-[0.98rem] leading-[1.7] max-w-xl text-pretty opacity-90 intro-body" set:html={home.intro_paragraph_html} />
 
           <div class="mt-7 flex flex-wrap items-center gap-x-7 gap-y-3">
             <a href="/writing" class="font-[var(--font-label)] uppercase tracking-[0.2em] text-[0.7rem]" style="color: var(--color-gold-soft);">
               Read the essays →
             </a>
             <a href="/about" class="font-[var(--font-label)] uppercase tracking-[0.2em] text-[0.7rem]" style="color: var(--color-gold-soft);">
-              About Dr. Parti
+              About {identity.short_name || identity.name}
             </a>
           </div>
         </div>
 
-        <div class="md:col-span-5 order-1 md:order-2 self-end">
-          <figure class="relative max-w-[320px] md:max-w-none mx-auto md:mx-0 md:-mr-4 lg:-mr-8">
-            <img
-              src="/images/parti-cutout.png"
-              alt="Dr. Amitabh Parti, Senior Director of Internal Medicine at Fortis Memorial Research Institute, Gurgaon"
-              class="w-full h-auto block hero-portrait"
-              loading="eager"
-              width="620"
-              height="404"
-            />
-          </figure>
-        </div>
+        {identity.portrait_url && (
+          <div class="md:col-span-5 order-1 md:order-2 self-end">
+            <figure class="relative max-w-[320px] md:max-w-none mx-auto md:mx-0 md:-mr-4 lg:-mr-8">
+              <img
+                src={identity.portrait_url}
+                alt={identity.portrait_alt}
+                class="w-full h-auto block hero-portrait"
+                loading="eager"
+                width="620"
+                height="404"
+              />
+            </figure>
+          </div>
+        )}
       </div>
     </div>
   </section>
@@ -85,121 +78,83 @@ const chipClass = (c: string | null) =>
       <div
         class="reveal-group grid grid-cols-2 md:grid-cols-4 gap-px bg-[var(--color-outline-variant)]/25"
       >
-        <div
-          class="reveal bg-[var(--color-surface)] p-5 md:p-8 flex flex-col min-h-[110px] md:min-h-[150px]"
-        >
+        <div class="reveal bg-[var(--color-surface)] p-5 md:p-8 flex flex-col min-h-[110px] md:min-h-[150px]">
           <p class="label">Qualifications</p>
           <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
-            MBBS <span class="italic text-[var(--color-primary)]"
-              >Gold Medallist</span
-            >, {site.mbbsYear}
+            MBBS <span class="italic text-[var(--color-primary)]">Gold Medallist</span>, {identity.mbbs_year}
           </p>
         </div>
-        <div
-          class="reveal bg-[var(--color-surface)] p-5 md:p-8 flex flex-col min-h-[110px] md:min-h-[150px]"
-        >
+        <div class="reveal bg-[var(--color-surface)] p-5 md:p-8 flex flex-col min-h-[110px] md:min-h-[150px]">
           <p class="label">Specialisation</p>
           <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
-            MD Internal Medicine, {site.mdYear}
+            MD Internal Medicine, {identity.md_year}
           </p>
         </div>
-        <div
-          class="reveal bg-[var(--color-surface)] p-5 md:p-8 flex flex-col min-h-[110px] md:min-h-[150px]"
-        >
+        <div class="reveal bg-[var(--color-surface)] p-5 md:p-8 flex flex-col min-h-[110px] md:min-h-[150px]">
           <p class="label">Experience</p>
           <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
-            {site.experienceYears} Years in Practice
+            {identity.experience_years} Years in Practice
           </p>
         </div>
-        <div
-          class="reveal bg-[var(--color-surface)] p-5 md:p-8 flex flex-col min-h-[110px] md:min-h-[150px]"
-        >
+        <div class="reveal bg-[var(--color-surface)] p-5 md:p-8 flex flex-col min-h-[110px] md:min-h-[150px]">
           <p class="label">Appointment</p>
           <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
-            Senior Director, Fortis Memorial
+            {home.credibility_appointment_label}
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  {
-    /* ========================= RECENT WRITING — DARK ========================= */
-  }
+  {/* ========================= RECENT WRITING — DARK ========================= */}
   <section class="section-dark-hero">
     <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
       <div class="flex justify-between items-end mb-10 md:mb-12">
         <h2 class="label" style="color: var(--color-gold-soft);">
           Recent Writing
         </h2>
-        <span class="meta" style="color: var(--color-gold-soft); opacity: 0.8;"
-          >Vol. 01 · April 2026</span
-        >
       </div>
 
       <ul class="reveal-group">
-        {
-          recent.slice(0, 3).map((p, i) => (
-            <li
-              class={`reveal ${i > 0 ? "border-t" : ""}`}
-              style="border-color: rgba(221, 184, 128, 0.15);"
+        {recent.slice(0, 3).map((p, i) => (
+          <li
+            class={`reveal ${i > 0 ? "border-t" : ""}`}
+            style="border-color: rgba(221, 184, 128, 0.15);"
+          >
+            <a
+              href={`/writing/${p.slug}`}
+              class="group grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3 md:gap-10 py-7 md:py-10 items-start"
             >
-              <a
-                href={`/writing/${p.slug}`}
-                class="group grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3 md:gap-10 py-7 md:py-10 items-start"
-              >
-                <div>
-                  <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-3">
-                    <span class={chipClass(p.category)}>{p.category}</span>
-                    <span class="meta" style="color: var(--color-gold-soft); opacity: 0.7;">
-                      {p.readingTime}
-                    </span>
-                    <span class="meta md:hidden" style="color: var(--color-gold-soft); opacity: 0.55;">
-                      · {formatDate(p.publishedAt)}
-                    </span>
-                  </div>
-                  <h3
-                    class={`font-[var(--font-headline)] mb-3 leading-[1.1] text-balance transition-colors group-hover:text-white ${
-                      i === 0
-                        ? "text-[1.8rem] md:text-4xl"
-                        : "text-[1.45rem] md:text-[1.7rem]"
-                    }`}
-                    style="color: #f4efdf;"
-                  >
-                    {p.title}
-                  </h3>
-                  <p class="leading-relaxed max-w-2xl opacity-80 text-[0.95rem] md:text-base">
-                    {p.excerpt}
-                  </p>
+              <div>
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-3">
+                  <span class={chipClass(p.category)}>{p.category}</span>
+                  <span class="meta" style="color: var(--color-gold-soft); opacity: 0.7;">{p.readingTime}</span>
+                  <span class="meta md:hidden" style="color: var(--color-gold-soft); opacity: 0.55;">· {formatDate(p.publishedAt)}</span>
                 </div>
-                <div class="hidden md:flex md:flex-col md:items-end gap-2 shrink-0 md:pt-1">
-                  <span class="meta" style="color: var(--color-gold-soft); opacity: 0.7;">
-                    {formatDate(p.publishedAt)}
-                  </span>
-                  <span class="meta opacity-0 group-hover:opacity-100 transition-opacity" style="color: var(--color-gold-soft);">
-                    Read →
-                  </span>
-                </div>
-              </a>
-            </li>
-          ))
-        }
+                <h3
+                  class={`font-[var(--font-headline)] mb-3 leading-[1.1] text-balance transition-colors group-hover:text-white ${i === 0 ? "text-[1.8rem] md:text-4xl" : "text-[1.45rem] md:text-[1.7rem]"}`}
+                  style="color: #f4efdf;"
+                >
+                  {p.title}
+                </h3>
+                <p class="leading-relaxed max-w-2xl opacity-80 text-[0.95rem] md:text-base">{p.excerpt}</p>
+              </div>
+              <div class="hidden md:flex md:flex-col md:items-end gap-2 shrink-0 md:pt-1">
+                <span class="meta" style="color: var(--color-gold-soft); opacity: 0.7;">{formatDate(p.publishedAt)}</span>
+                <span class="meta opacity-0 group-hover:opacity-100 transition-opacity" style="color: var(--color-gold-soft);">Read →</span>
+              </div>
+            </a>
+          </li>
+        ))}
       </ul>
 
       <div class="mt-8 flex justify-end">
-        <a
-          href="/writing"
-          class="font-[var(--font-label)] text-[0.72rem] uppercase tracking-[0.2em]"
-        >
-          All writing →
-        </a>
+        <a href="/writing" class="font-[var(--font-label)] text-[0.72rem] uppercase tracking-[0.2em]">All writing →</a>
       </div>
     </div>
   </section>
 
-  {
-    /* ===================== AREAS OF CLINICAL INTEREST — LIGHT ===================== */
-  }
+  {/* ===================== AREAS OF CLINICAL INTEREST — LIGHT ===================== */}
   <section class="bg-paper-warm">
     <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
       <div class="flex items-baseline justify-between mb-10 md:mb-12">
@@ -207,46 +162,26 @@ const chipClass = (c: string | null) =>
           <span class="rule-accent"></span>
           <h2 class="label label-strong">Areas of Clinical Expertise</h2>
         </div>
-        <span class="meta">{site.experienceYears} years</span>
+        <span class="meta">{identity.experience_years} years</span>
       </div>
-      <div
-        class="reveal-group grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-14 gap-y-10"
-      >
-        {
-          settings.clinical_interests.map((t, i) => {
-            const accents = [
-              "var(--color-primary)",
-              "var(--color-tertiary)",
-              "var(--color-gold)",
-              "var(--color-primary)",
-              "var(--color-tertiary)",
-              "var(--color-gold)",
-            ];
-            const c = accents[i % accents.length];
-            return (
-              <div class="reveal">
-                <div class="flex items-baseline gap-3 mb-3">
-                  <span class="meta" style={`color: ${c};`}>
-                    № {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h5
-                    class="font-[var(--font-headline)] text-lg"
-                    style={`color: ${c};`}
-                  >
-                    {t.title}
-                  </h5>
-                </div>
-                <div
-                  class="h-px w-full mb-3"
-                  style={`background: ${c}; opacity: 0.25;`}
-                />
-                <p class="text-sm leading-relaxed text-[var(--color-on-surface-variant)] italic">
-                  {t.note}
-                </p>
+      <div class="reveal-group grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-14 gap-y-10">
+        {settings.clinical_interests.map((t, i) => {
+          const accents = [
+            "var(--color-primary)", "var(--color-tertiary)", "var(--color-gold)",
+            "var(--color-primary)", "var(--color-tertiary)", "var(--color-gold)",
+          ];
+          const c = accents[i % accents.length];
+          return (
+            <div class="reveal">
+              <div class="flex items-baseline gap-3 mb-3">
+                <span class="meta" style={`color: ${c};`}>№ {String(i + 1).padStart(2, "0")}</span>
+                <h5 class="font-[var(--font-headline)] text-lg" style={`color: ${c};`}>{t.title}</h5>
               </div>
-            );
-          })
-        }
+              <div class="h-px w-full mb-3" style={`background: ${c}; opacity: 0.25;`} />
+              <p class="text-sm leading-relaxed text-[var(--color-on-surface-variant)] italic">{t.note}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -255,107 +190,58 @@ const chipClass = (c: string | null) =>
   <section class="section-dark-hero">
     <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
       <div class="flex items-baseline justify-between mb-8 md:mb-10">
-        <h2 class="label" style="color: var(--color-gold-soft);">
-          Empanelled Visiting Physician
-        </h2>
-        <span class="meta" style="color: var(--color-gold-soft); opacity: 0.8;"
-          >Corporate Health Partners</span
-        >
+        <h2 class="label" style="color: var(--color-gold-soft);">Empanelled Visiting Physician</h2>
+        <span class="meta" style="color: var(--color-gold-soft); opacity: 0.8;">Corporate Health Partners</span>
       </div>
       <ul class="reveal-group grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-6">
-        {
-          settings.empanelments.map((e, i) => {
-            const tops = [
-              "var(--color-primary-container)",
-              "#8fb3b8",
-              "var(--color-gold-soft)",
-              "#c97056",
-              "#dbc4a8",
-            ];
-            return (
-              <li
-                class="reveal p-5 relative"
-                style="background: rgba(255,255,255,0.04); border: 1px solid rgba(221,184,128,0.1);"
-              >
-                <span
-                  class="absolute top-0 left-0 h-[3px] w-10"
-                  style={`background: ${tops[i]};`}
-                />
-                <p
-                  class="meta mt-2 mb-3"
-                  style="color: var(--color-gold-soft); opacity: 0.7;"
-                >
-                  № {String(i + 1).padStart(2, "0")}
-                </p>
-                <p
-                  class="font-[var(--font-headline)] text-[1.05rem] leading-tight"
-                  style="color: #f4efdf;"
-                >
-                  {e}
-                </p>
-              </li>
-            );
-          })
-        }
+        {settings.empanelments.map((e, i) => {
+          const tops = ["var(--color-primary-container)", "#8fb3b8", "var(--color-gold-soft)", "#c97056", "#dbc4a8"];
+          return (
+            <li class="reveal p-5 relative" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(221,184,128,0.1);">
+              <span class="absolute top-0 left-0 h-[3px] w-10" style={`background: ${tops[i % tops.length]};`} />
+              <p class="meta mt-2 mb-3" style="color: var(--color-gold-soft); opacity: 0.7;">№ {String(i + 1).padStart(2, "0")}</p>
+              <p class="font-[var(--font-headline)] text-[1.05rem] leading-tight" style="color: #f4efdf;">{e}</p>
+            </li>
+          );
+        })}
       </ul>
     </div>
   </section>
 
   {/* ======================= PULL QUOTE — LIGHT ======================= */}
-  <section class="bg-paper-cool">
-    <div
-      class="container-wide mx-auto px-5 md:px-6 py-16 md:py-28 flex flex-col items-center"
-    >
-      <div class="max-w-3xl text-center">
-        <svg
-          width="44"
-          height="44"
-          viewBox="0 0 40 40"
-          fill="none"
-          aria-hidden="true"
-          class="mx-auto mb-6"
-          style="color: var(--color-tertiary);"
-        >
-          <path
-            d="M12 10C8 10 5 13 5 17V24H13V17H9C9 14.5 10.5 13 12 13V10ZM27 10C23 10 20 13 20 17V24H28V17H24C24 14.5 25.5 13 27 13V10Z"
-            fill="currentColor"></path>
-        </svg>
-        <blockquote class="pull-quote mb-8 text-balance">
-          Medicine is not the application of science to biology. It is the <span
-            style="color: var(--color-accent);"
-            >translation of evidence into empathy</span
-          >, within the constraints of a human life.
-        </blockquote>
-        <div class="flex items-center justify-center gap-3">
-          <span class="h-px w-8" style="background: var(--color-gold);"></span>
-          <p class="meta" style="color: var(--color-gold);">
-            From the writing · 2026
-          </p>
-          <span class="h-px w-8" style="background: var(--color-gold);"></span>
+  {home.closing_quote && (
+    <section class="bg-paper-cool">
+      <div class="container-wide mx-auto px-5 md:px-6 py-16 md:py-28 flex flex-col items-center">
+        <div class="max-w-3xl text-center">
+          <svg width="44" height="44" viewBox="0 0 40 40" fill="none" aria-hidden="true" class="mx-auto mb-6" style="color: var(--color-tertiary);">
+            <path d="M12 10C8 10 5 13 5 17V24H13V17H9C9 14.5 10.5 13 12 13V10ZM27 10C23 10 20 13 20 17V24H28V17H24C24 14.5 25.5 13 27 13V10Z" fill="currentColor"></path>
+          </svg>
+          <blockquote class="pull-quote mb-8 text-balance" set:html={home.closing_quote} />
+          {home.closing_quote_meta && (
+            <div class="flex items-center justify-center gap-3">
+              <span class="h-px w-8" style="background: var(--color-gold);"></span>
+              <p class="meta" style="color: var(--color-gold);">{home.closing_quote_meta}</p>
+              <span class="h-px w-8" style="background: var(--color-gold);"></span>
+            </div>
+          )}
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  {
-    /* ====================== PROFESSIONAL CORRESPONDENCE — LIGHT ====================== */
-  }
+  {/* ====================== PROFESSIONAL CORRESPONDENCE — LIGHT ====================== */}
   <section class="bg-[var(--color-surface-container-low)]">
     <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
-      <div
-        class="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 items-center"
-      >
+      <div class="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 items-center">
         <div>
           <p class="label label-primary mb-5">Professional Correspondence</p>
           <h2 class="mb-6 text-balance">
             For media, teaching,<br />
             <span class="italic">or professional enquiry.</span>
           </h2>
-          <p
-            class="text-[var(--color-on-surface-variant)] leading-relaxed text-[1.05rem] max-w-xl text-pretty"
-          >
+          <p class="text-[var(--color-on-surface-variant)] leading-relaxed text-[1.05rem] max-w-xl text-pretty">
             This site is not a channel for clinical consultation. For patient
-            care, please contact Fortis Memorial Research Institute through
+            care, please contact {identity.institution_short || identity.institution} through
             their official systems. For media, fellowship, speaking, or
             editorial correspondence, please write to the address opposite.
           </p>
@@ -364,10 +250,7 @@ const chipClass = (c: string | null) =>
         <div class="space-y-8">
           <div>
             <p class="label mb-3">By Letter</p>
-            <a
-              href={`mailto:${settings.contact.email}`}
-              class="font-[var(--font-headline)] italic text-[1.4rem] text-[var(--color-primary)] link-editorial"
-            >
+            <a href={`mailto:${settings.contact.email}`} class="font-[var(--font-headline)] italic text-[1.4rem] text-[var(--color-primary)] link-editorial">
               {settings.contact.email}
             </a>
           </div>
@@ -377,14 +260,18 @@ const chipClass = (c: string | null) =>
               {settings.address.hospital}<br />
               {settings.address.line2}
             </p>
-            <a
-              href="/contact"
-              class="mt-3 inline-block meta text-[var(--color-primary)]"
-              >See the map →</a
-            >
+            <a href="/contact" class="mt-3 inline-block meta text-[var(--color-primary)]">See the map →</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .intro-body :global(a) {
+    color: var(--color-gold-soft);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

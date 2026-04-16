@@ -1,29 +1,25 @@
 ---
-import { site } from '../data/site';
 import { getSettings } from '../lib/settings';
 
 const settings = await getSettings();
+const { identity, footer } = settings;
 const year = new Date().getFullYear();
-
-// Merge settings-backed correspond links with the static nav
-const correspondLinks = [
-  { href: '/contact', label: 'Contact' },
-  { href: `mailto:${settings.contact.email}`, label: 'Email' },
-];
+const host = (() => {
+  try { return new URL(identity.site_url).host; } catch { return identity.site_url; }
+})();
 ---
 
 <footer class="section-dark-hero py-10 px-6">
   <div class="container-wide mx-auto">
-    <!-- Top row: brand + 3 link columns inline -->
     <div class="grid gap-8 md:gap-12 md:grid-cols-[1.4fr_auto_auto_auto] items-start mb-8">
       <div>
-        <p class="font-[var(--font-headline)] text-[1rem] font-semibold uppercase tracking-tight" style="color: #f4efdf;">Dr. Amitabh Parti</p>
+        <p class="font-[var(--font-headline)] text-[1rem] font-semibold uppercase tracking-tight" style="color: #f4efdf;">{footer.brand_line || identity.name}</p>
       </div>
 
       <div>
         <p class="label mb-3 text-[0.65rem]" style="color: var(--color-gold-soft);">Read</p>
         <ul class="flex flex-col gap-1.5 text-[0.85rem]">
-          {site.footer.read.map((l) => (
+          {footer.read.map((l) => (
             <li><a href={l.href}>{l.label}</a></li>
           ))}
         </ul>
@@ -32,7 +28,7 @@ const correspondLinks = [
       <div>
         <p class="label mb-3 text-[0.65rem]" style="color: var(--color-gold-soft);">Correspond</p>
         <ul class="flex flex-col gap-1.5 text-[0.85rem]">
-          {correspondLinks.map((l) => (
+          {footer.correspond.map((l) => (
             <li><a href={l.href}>{l.label}</a></li>
           ))}
         </ul>
@@ -41,20 +37,19 @@ const correspondLinks = [
       <div>
         <p class="label mb-3 text-[0.65rem]" style="color: var(--color-gold-soft);">Fine Print</p>
         <ul class="flex flex-col gap-1.5 text-[0.85rem]">
-          {site.footer.legal.map((l) => (
+          {footer.legal.map((l) => (
             <li><a href={l.href}>{l.label}</a></li>
           ))}
         </ul>
       </div>
     </div>
 
-    <!-- Bottom strip: thin tonal divider + tight info row -->
     <div class="h-px w-full mb-5" style="background: rgba(221, 184, 128, 0.12);"></div>
 
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-[0.72rem]" style="color: var(--color-gold-soft); opacity: 0.7;">
-      <p class="meta">© {year} Dr. Amitabh Parti</p>
-      <p class="italic">Educational content only. Not a substitute for individual medical advice.</p>
-      <p class="meta">amitabhparti.com</p>
+      <p class="meta">© {year} {identity.name}</p>
+      {footer.tagline && <p class="italic">{footer.tagline}</p>}
+      <p class="meta">{host}</p>
     </div>
   </div>
 </footer>

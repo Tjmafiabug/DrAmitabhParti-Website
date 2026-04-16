@@ -2,14 +2,13 @@
 import AdminLayout from '../../../layouts/AdminLayout.astro';
 import PageEditor from '../../../components/admin/PageEditor';
 import { createSupabaseServerClient } from '../../../lib/supabase';
+import { PAGE_KEYS, PAGE_META, isPageKey } from '../../../lib/pages';
 
 export const prerender = false;
 
-const allowed = ['about', 'credentials'] as const;
-const key = Astro.params.key as typeof allowed[number];
-if (!allowed.includes(key)) return Astro.redirect('/admin/pages/about');
-
-const titles: Record<string, string> = { about: 'About', credentials: 'Credentials' };
+const rawKey = Astro.params.key;
+if (!isPageKey(rawKey)) return Astro.redirect('/admin/pages/about');
+const key = rawKey;
 
 const supabase = createSupabaseServerClient(Astro);
 const { data: page } = await supabase
@@ -19,18 +18,22 @@ const { data: page } = await supabase
   .maybeSingle();
 ---
 
-<AdminLayout title={`Edit — ${titles[key]}`}>
+<AdminLayout title={`Edit — ${PAGE_META[key].title}`}>
   <div class="admin-container">
 
     <div class="admin-tabs">
-      <a href="/admin/pages/about" class={`admin-tab ${key === 'about' ? 'active' : ''}`}>About</a>
-      <a href="/admin/pages/credentials" class={`admin-tab ${key === 'credentials' ? 'active' : ''}`}>Credentials</a>
+      {PAGE_KEYS.map((k) => (
+        <a href={`/admin/pages/${k}`} class={`admin-tab ${key === k ? 'active' : ''}`}>
+          {PAGE_META[k].title}
+        </a>
+      ))}
     </div>
 
     <PageEditor
       client:only="react"
       pageKey={key}
-      title={titles[key]}
+      title={PAGE_META[key].title}
+      livePath={PAGE_META[key].livePath}
       initialBodyJson={page?.body_json}
       initialBodyHtml={page?.body_html ?? ''}
     />

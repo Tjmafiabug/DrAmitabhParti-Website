@@ -2,17 +2,19 @@ import type { APIRoute } from 'astro';
 import { z } from 'zod';
 import { supabaseAdmin } from '../../../lib/supabase';
 import { sanitizeBodyHtml } from '../../../lib/sanitize';
+import { PAGE_KEYS } from '../../../lib/pages';
 
 export const prerender = false;
 
-const keyEnum = z.enum(['about', 'credentials']);
+const keyEnum = z.enum(PAGE_KEYS);
 
 const schema = z.object({
   body_json: z.unknown(),
   body_html: z.string().max(300_000),
 });
 
-const json = (b: unknown, s = 200) => new Response(JSON.stringify(b), { status: s, headers: { 'content-type': 'application/json' } });
+const json = (b: unknown, s = 200) =>
+  new Response(JSON.stringify(b), { status: s, headers: { 'content-type': 'application/json' } });
 
 export const PATCH: APIRoute = async (ctx) => {
   const user = ctx.locals.user;
@@ -42,7 +44,10 @@ export const PATCH: APIRoute = async (ctx) => {
 
   if (error) {
     console.error('[api/pages] error:', error);
-    return json({ error: { code: 'db', message: 'Could not save page' } }, 500);
+    const details = import.meta.env.DEV
+      ? { details: (error as { details?: string }).details ?? null, hint: (error as { hint?: string }).hint ?? null }
+      : {};
+    return json({ error: { code: 'db', message: 'Could not save page', ...details } }, 500);
   }
 
   return json({ ok: true });

@@ -3,7 +3,9 @@ import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import TiptapToolbar from './TiptapToolbar';
+import { friendlyError, friendlyFetchError } from '../../lib/adminErrors';
 
 type Category = 'Essay' | 'Awareness' | 'Reflection';
 
@@ -33,6 +35,7 @@ export default function Composer(props: ComposerProps) {
   const [publishedUrl, setPublishedUrl] = useState<string | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [coverUploading, setCoverUploading] = useState(false);
+  const [wordCount, setWordCount] = useState(0);
   const saveTimer = useRef<number | null>(null);
 
   const editor = useEditor({
@@ -56,29 +59,32 @@ export default function Composer(props: ComposerProps) {
     if (!slug && title && !id) setSlug(slugify(title));
   }, [title, id, slug]);
 
+  // Word-count + debounced autosave
   useEffect(() => {
     if (!editor) return;
-    const handler = () => {
+    const updateCount = () => {
+      const text = editor.getText({ blockSeparator: ' ' }).trim();
+      setWordCount(text ? text.split(/\s+/).filter(Boolean).length : 0);
+    };
+    const onUpdate = () => {
+      updateCount();
       if (saveTimer.current) window.clearTimeout(saveTimer.current);
       saveTimer.current = window.setTimeout(() => void save(false), 4000);
     };
-    editor.on('update', handler);
-    return () => { editor.off('update', handler); };
+    updateCount();
+    editor.on('update', onUpdate);
+    return () => { editor.off('update', onUpdate); };
   }, [editor, title, excerpt, category, coverImageUrl]);
 
-  const handleFetchError = async (res: Response): Promise<never> => {
-    if (res.status === 401) throw new Error('Your session expired. Please sign in again.');
-    const data = await res.json().catch(() => ({}));
-    const err = new Error(data?.error?.message ?? `Request failed (${res.status})`);
-    (err as any).conflict = res.status === 409;
-    (err as any).server_updated_at = data?.server_updated_at;
-    throw err;
-  };
+  const readingTime = useMemo(() => {
+    const mins = Math.max(1, Math.round(wordCount / 230));
+    return `${mins} min read`;
+  }, [wordCount]);
 
   const save = async (publish: boolean, options: { force?: boolean } = {}) => {
     if (!editor) return;
     if (!title.trim()) { setErrMsg('Title is required.'); setSaveState('error'); return; }
-    if (!slug.trim()) { setErrMsg('Slug is required.'); setSaveState('error'); return; }
+    if (!slug.trim()) { setErrMsg('URL slug is required.'); setSaveState('error'); return; }
 
     setSaveState('saving'); setErrMsg(null);
 
@@ -101,7 +107,7 @@ export default function Composer(props: ComposerProps) {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) await handleFetchError(res);
+      if (!res.ok) throw await friendlyFetchError(res);
       const data = await res.json();
       if (!id && data.id) setId(data.id);
       if (data.updated_at) setUpdatedAt(data.updated_at);
@@ -109,22 +115,21 @@ export default function Composer(props: ComposerProps) {
       setSaveState('saved');
       window.setTimeout(() => setSaveState('idle'), 1500);
     } catch (e) {
-      const msg = (e as Error).message;
-      const conflict = (e as any).conflict;
-      setErrMsg(conflict ? `${msg} — click "Overwrite" to force your changes.` : msg);
+      const err = e as Error & { conflict?: boolean };
+      setErrMsg(err.conflict ? `${err.message} Click "Overwrite" to keep your changes.` : err.message);
       setSaveState('error');
     }
   };
 
-  const uploadInlineImage = async (file: File) => {
+  const uploadInlineImage = async (file: File, alt: string) => {
     if (file.size > 10 * 1024 * 1024) { setErrMsg('Image too large (max 10 MB).'); return; }
     const fd = new FormData(); fd.append('file', file);
     try {
       const res = await fetch('/api/upload', { method: 'POST', body: fd });
-      if (!res.ok) await handleFetchError(res);
+      if (!res.ok) throw await friendlyFetchError(res);
       const data = await res.json();
-      editor?.chain().focus().setImage({ src: data.url, alt: file.name }).run();
-    } catch (e) { setErrMsg((e as Error).message); }
+      editor?.chain().focus().setImage({ src: data.url, alt: alt || file.name }).run();
+    } catch (e) { setErrMsg(friendlyError(e)); }
   };
 
   const uploadCover = async (file: File) => {
@@ -133,10 +138,10 @@ export default function Composer(props: ComposerProps) {
     setCoverUploading(true); setErrMsg(null);
     try {
       const res = await fetch('/api/upload', { method: 'POST', body: fd });
-      if (!res.ok) await handleFetchError(res);
+      if (!res.ok) throw await friendlyFetchError(res);
       const data = await res.json();
       setCoverImageUrl(data.url);
-    } catch (e) { setErrMsg((e as Error).message); }
+    } catch (e) { setErrMsg(friendlyError(e)); }
     finally { setCoverUploading(false); }
   };
 
@@ -145,7 +150,7 @@ export default function Composer(props: ComposerProps) {
     if (item) {
       e.preventDefault();
       const file = item.getAsFile();
-      if (file) await uploadInlineImage(file);
+      if (file) await uploadInlineImage(file, '');
     }
   };
 
@@ -153,7 +158,7 @@ export default function Composer(props: ComposerProps) {
     const file = e.dataTransfer.files[0];
     if (file && file.type.startsWith('image/')) {
       e.preventDefault();
-      await uploadInlineImage(file);
+      await uploadInlineImage(file, '');
     }
   };
 
@@ -168,10 +173,10 @@ export default function Composer(props: ComposerProps) {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ id }),
       });
-      if (!res.ok) await handleFetchError(res);
+      if (!res.ok) throw await friendlyFetchError(res);
       window.location.href = '/admin';
     } catch (e) {
-      setErrMsg((e as Error).message);
+      setErrMsg(friendlyError(e));
       setDeleting(false);
     }
   };
@@ -258,32 +263,15 @@ export default function Composer(props: ComposerProps) {
         <div className="admin-field">
           <label className="admin-label">Body</label>
 
-          {editor && (
-            <div className="admin-toolbar" style={{ marginBottom: 8, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}>
-              <ToolBtn active={editor.isActive('bold')} onClick={() => editor.chain().focus().toggleBold().run()}><strong>B</strong></ToolBtn>
-              <ToolBtn active={editor.isActive('italic')} onClick={() => editor.chain().focus().toggleItalic().run()}><em>I</em></ToolBtn>
-              <span style={{ width: 1, background: 'var(--a-border)' }} />
-              <ToolBtn active={editor.isActive('heading', { level: 2 })} onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>H2</ToolBtn>
-              <ToolBtn active={editor.isActive('heading', { level: 3 })} onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}>H3</ToolBtn>
-              <ToolBtn active={editor.isActive('bulletList')} onClick={() => editor.chain().focus().toggleBulletList().run()}>• List</ToolBtn>
-              <ToolBtn active={editor.isActive('orderedList')} onClick={() => editor.chain().focus().toggleOrderedList().run()}>1. List</ToolBtn>
-              <ToolBtn active={editor.isActive('blockquote')} onClick={() => editor.chain().focus().toggleBlockquote().run()}>"</ToolBtn>
-              <ToolBtn active={editor.isActive('link')} onClick={() => {
-                const url = window.prompt('Link URL');
-                if (url) editor.chain().focus().setLink({ href: url }).run();
-                else editor.chain().focus().unsetLink().run();
-              }}>Link</ToolBtn>
-              <label className="admin-tool-btn" style={{ cursor: 'pointer' }}>
-                Image
-                <input type="file" accept="image/jpeg,image/png,image/webp,image/avif" style={{ display: 'none' }} onChange={(e) => { const f = e.target.files?.[0]; if (f) void uploadInlineImage(f); e.target.value = ''; }} />
-              </label>
-            </div>
-          )}
+          <TiptapToolbar editor={editor} onImageUpload={uploadInlineImage} />
 
           <div style={{ border: '1px solid var(--a-border-strong)', borderRadius: 4, borderTopLeftRadius: editor ? 0 : 4, borderTopRightRadius: editor ? 0 : 4, background: 'var(--a-surface)', padding: '1.25rem 1.5rem' }}>
             <EditorContent editor={editor} />
           </div>
-          <p className="admin-help">Paste an image directly into the body, or drop a file anywhere in the composer.</p>
+          <div className="admin-help" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
+            <span>Paste an image, or drop a file anywhere in the composer.</span>
+            <span className="admin-meta">{wordCount.toLocaleString()} words · {readingTime}</span>
+          </div>
         </div>
 
         {/* Meta */}
@@ -320,13 +308,5 @@ export default function Composer(props: ComposerProps) {
         )}
       </div>
     </div>
-  );
-}
-
-function ToolBtn({ active, onClick, children }: { active?: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button type="button" onClick={onClick} className={`admin-tool-btn ${active ? 'active' : ''}`}>
-      {children}
-    </button>
   );
 }

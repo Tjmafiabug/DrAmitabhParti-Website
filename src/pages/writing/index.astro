@@ -2,7 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import { getAllPosts, formatDate } from '../../data/posts';
+import { getSettings } from '../../lib/settings';
 
+const settings = await getSettings();
+const hero = settings.heroes.writing;
 const all = await getAllPosts();
 
 const chipClass = (c: string | null) =>
@@ -11,15 +14,15 @@ const chipClass = (c: string | null) =>
 :                      'chip-category chip-essay';
 ---
 
-<BaseLayout title="Writing" description="Essays, notes, and educational articles on internal medicine and public health by Dr. Amitabh Parti.">
+<BaseLayout pageKey="writing">
   <PageHero
-    eyebrow="Writing"
-    title="Essays, notes,"
-    titleItalic="and educational articles."
-    kicker="General writing on internal medicine, public health, and the quiet things that happen in consulting rooms. Educational only — please see the standing disclaimer at the foot of each article."
+    eyebrow={hero.eyebrow}
+    title={hero.title}
+    titleItalic={hero.title_italic}
+    kicker={hero.kicker || undefined}
   />
 
-  {/* ARTICLE LIST — light band */}
+  {/* ARTICLE LIST */}
   <section class="bg-[var(--color-surface)]">
     <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
       <div class="flex justify-between items-end mb-10 md:mb-12">
