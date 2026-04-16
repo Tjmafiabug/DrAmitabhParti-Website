@@ -11,6 +11,15 @@
 
 import { supabaseAnon } from './supabase';
 import { z } from 'zod';
+import {
+  SEO_PAGE_KEYS, type SeoPageKey,
+  HERO_PAGE_KEYS, type HeroPageKey,
+} from './pageKeys';
+
+// Re-export so existing callers (admin + pages + API) keep working without
+// caring that the constants live in a separate leaf file.
+export { SEO_PAGE_KEYS, HERO_PAGE_KEYS };
+export type { SeoPageKey, HeroPageKey };
 
 // --- Primitive shapes -------------------------------------------------------
 
@@ -66,12 +75,6 @@ export type Identity = z.infer<typeof identitySchema>;
 
 // --- SEO --------------------------------------------------------------------
 
-export const SEO_PAGE_KEYS = [
-  'home', 'about', 'credentials', 'contact', 'writing',
-  'privacy', 'disclaimer', 'not_found',
-] as const;
-export type SeoPageKey = typeof SEO_PAGE_KEYS[number];
-
 const seoSchema = z.object({
   default_description: z.string().max(320).default(''),
   og_image_url:        z.string().max(800).default('/og-default.png'),
@@ -80,12 +83,6 @@ const seoSchema = z.object({
 export type SeoSettings = z.infer<typeof seoSchema>;
 
 // --- Heroes (one per page) --------------------------------------------------
-
-export const HERO_PAGE_KEYS = [
-  'about', 'credentials', 'contact', 'writing',
-  'privacy', 'disclaimer', 'not_found',
-] as const;
-export type HeroPageKey = typeof HERO_PAGE_KEYS[number];
 
 const heroesSchema = z.record(z.enum(HERO_PAGE_KEYS), heroSchema);
 

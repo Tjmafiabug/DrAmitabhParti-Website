@@ -1,9 +1,9 @@
 /**
  * Supabase clients.
  *
- * - `supabaseAnon` — build-time public reads (RLS-restricted to published rows).
- *   Used from .astro pages that prerender.
- * - `supabaseAdmin()` — server-only. Bypasses RLS via service_role key.
+ * - `supabaseAnon` — stateless anon client used for SSR public reads.
+ *   RLS restricts it to published posts and site-wide readable rows.
+ * - `supabaseAdmin()` — server-only, bypasses RLS via the service_role key.
  *   Used only from API endpoints for privileged writes. Never imported in
  *   anything that ships to the browser.
  * - `createSupabaseServerClient(Astro)` — cookie-based SSR client for admin
@@ -24,7 +24,7 @@ if (!url || !anonKey) {
   );
 }
 
-/** Stateless anon client — used for build-time public reads only. */
+/** Stateless anon client — used for SSR public reads. */
 export const supabaseAnon = createClient(url, anonKey, {
   auth: { persistSession: false },
 });
@@ -51,8 +51,9 @@ export function createSupabaseServerClient(ctx: APIContext | AstroGlobal) {
   return createServerClient(url, anonKey, {
     cookies: {
       getAll() {
-        const all = ctx.cookies.headers().getSetCookie?.() ?? [];
-        // Astro's cookies API gives us a different shape; fall back to parsing request headers:
+        // Parse cookies directly off the request header. Astro's cookies
+        // API has a different shape than @supabase/ssr expects, so going
+        // to the raw header is the simplest reliable path.
         const header = ctx.request.headers.get('cookie') ?? '';
         return header
           .split(';')

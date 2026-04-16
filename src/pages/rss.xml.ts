@@ -8,7 +8,7 @@ export const prerender = false;
 export async function GET(context: APIContext) {
   const [posts, settings] = await Promise.all([getAllPosts(), getSettings()]);
 
-  return rss({
+  const res = await rss({
     title: `${settings.identity.name} — Writing`,
     description: settings.seo.pages.writing?.description ?? settings.seo.default_description,
     site: context.site ?? settings.identity.site_url,
@@ -22,4 +22,9 @@ export async function GET(context: APIContext) {
     customData: `<language>en-IN</language>`,
     stylesheet: false,
   });
+
+  // Match the cache policy used for sitemap.xml — short browser cache,
+  // longer edge cache, so a new post shows up in under 15 minutes.
+  res.headers.set('cache-control', 'public, max-age=300, s-maxage=900');
+  return res;
 }

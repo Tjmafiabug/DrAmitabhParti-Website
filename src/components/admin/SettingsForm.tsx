@@ -3,10 +3,8 @@ import type {
   SiteSettings,
   ClinicalInterest,
   NavLink,
-  HeroPageKey,
-  SeoPageKey,
 } from '../../lib/settings';
-import { HERO_PAGE_KEYS, SEO_PAGE_KEYS } from '../../lib/settings';
+import { HERO_PAGE_KEYS, SEO_PAGE_KEYS } from '../../lib/pageKeys';
 
 interface Props { initial: SiteSettings; }
 

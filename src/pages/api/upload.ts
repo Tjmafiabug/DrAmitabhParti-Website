@@ -12,16 +12,25 @@ const ALLOWED_MIME = new Set([
   'image/jpeg', 'image/png', 'image/webp', 'image/avif',
 ]);
 
+// Magic-byte signatures we can verify cheaply. AVIF's signature lives at
+// offset 4 ('ftyp' + brand) and requires more than a simple prefix check, so
+// we delegate its verification to sharp below instead of a fake check here.
 const MAGIC: Array<{ mime: string; sig: number[] }> = [
   { mime: 'image/jpeg', sig: [0xff, 0xd8, 0xff] },
   { mime: 'image/png',  sig: [0x89, 0x50, 0x4e, 0x47] },
   { mime: 'image/webp', sig: [0x52, 0x49, 0x46, 0x46] },
-  { mime: 'image/avif', sig: [0x00, 0x00, 0x00] },
 ];
 
 function detectMime(buf: Uint8Array, declared: string): string | null {
   for (const m of MAGIC) {
     if (m.sig.every((b, i) => buf[i] === b)) return m.mime;
+  }
+  // AVIF: bytes 4..11 are "ftypavif" or "ftypavis" (image sequence).
+  if (buf.length >= 12 &&
+      buf[4] === 0x66 && buf[5] === 0x74 && buf[6] === 0x79 && buf[7] === 0x70 &&
+      buf[8] === 0x61 && buf[9] === 0x76 && buf[10] === 0x69 &&
+      (buf[11] === 0x66 || buf[11] === 0x73)) {
+    return 'image/avif';
   }
   return ALLOWED_MIME.has(declared) ? declared : null;
 }
@@ -74,7 +83,8 @@ export const POST: APIRoute = async (ctx) => {
   });
   if (upErr) {
     console.error('[api/upload] upload error:', upErr);
-    return json({ error: { code: 'upload_failed', message: upErr.message } }, 500);
+    const publicMsg = import.meta.env.DEV ? upErr.message : 'Could not save the image. Please try again.';
+    return json({ error: { code: 'upload_failed', message: publicMsg } }, 500);
   }
 
   const { data } = db.storage.from('post-images').getPublicUrl(path);

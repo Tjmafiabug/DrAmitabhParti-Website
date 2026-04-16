@@ -28,6 +28,9 @@ export const GET: APIRoute = async (ctx) => {
     return ctx.redirect('/admin/login?error=not_admin');
   }
 
-  // Session cookie is now set. Redirect to the intended destination.
-  return ctx.redirect(next.startsWith('/') ? next : '/admin');
+  // Session cookie is now set. Redirect to the intended destination, but
+  // only if it's a genuine same-site path. `next.startsWith('/')` alone
+  // would accept `//evil.example` (protocol-relative URL = open redirect).
+  const safe = next.startsWith('/') && !next.startsWith('//') && !next.startsWith('/\\');
+  return ctx.redirect(safe ? next : '/admin');
 };

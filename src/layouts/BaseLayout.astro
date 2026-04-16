@@ -8,6 +8,7 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  ogType?: 'website' | 'article';
   /** Optional: pull title/description defaults from settings.seo.pages[pageKey]. */
   pageKey?: SeoPageKey;
 }
@@ -43,7 +44,7 @@ const ogImageUrl = ogImage?.startsWith('http') ? ogImage : new URL(ogImage, iden
 
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={Astro.props.ogType ?? 'website'} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
     <meta name="twitter:card" content="summary_large_image" />

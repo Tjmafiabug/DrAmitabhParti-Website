@@ -38,7 +38,14 @@ export const PATCH: APIRoute = async (ctx) => {
 
   const parsed = siteSettingsSchema.safeParse(raw);
   if (!parsed.success) {
-    return json({ error: { code: 'validation', message: parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ') } }, 400);
+    // In dev, echo the exact zod issue paths back so the admin can debug
+    // a malformed save quickly. In prod, just say "validation" — the
+    // SettingsForm schema is known by the server and the client doesn't
+    // need to know which field was out of range.
+    const message = import.meta.env.DEV
+      ? parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ')
+      : 'Some settings fields were invalid. Please review and try again.';
+    return json({ error: { code: 'validation', message } }, 400);
   }
 
   const clean = sanitizeSettings(parsed.data);

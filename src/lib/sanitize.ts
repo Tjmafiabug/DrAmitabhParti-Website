@@ -45,11 +45,17 @@ export function sanitizeBodyHtml(html: string, allowedImageOrigins: string[]): s
         }
         return false;
       },
-      // Force rel + target on external links.
+      // Force rel + target on external links. External = absolute URL to a
+      // host that isn't ours (exact host match, not substring).
       transformTags: {
         a: (tagName, attribs) => {
           const href = attribs.href ?? '';
-          const isExternal = /^https?:\/\//i.test(href) && !href.includes(primaryHost);
+          let isExternal = false;
+          try {
+            if (/^https?:\/\//i.test(href)) {
+              isExternal = new URL(href).host !== primaryHost;
+            }
+          } catch { /* malformed URL — sanitize-html will drop it elsewhere */ }
           if (isExternal) {
             return {
               tagName,

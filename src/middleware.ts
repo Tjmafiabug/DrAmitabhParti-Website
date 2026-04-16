@@ -32,21 +32,26 @@ const supabaseHost = (() => {
  *   both heavily (is:inline scripts, inline style attributes). A nonce-based
  *   CSP would be stricter but adds material complexity; the tradeoff is
  *   explicit. Everything else is locked down.
- * - img-src allows https: + data: because post bodies and settings can
- *   reference any image the admin uploaded or pasted.
+ * - img-src locks to self + data: + the site's Supabase Storage host so
+ *   arbitrary third-party image hosts can't be loaded even if they slip
+ *   past the HTML sanitizer.
  * - frame-src allows Google Maps for the /contact page embed. If the map is
  *   removed, this directive can be dropped.
  */
 function buildCSP() {
   const connect = ["'self'"];
-  if (supabaseHost) connect.push(`https://${supabaseHost}`, `wss://${supabaseHost}`);
+  const img     = ["'self'", 'data:'];
+  if (supabaseHost) {
+    connect.push(`https://${supabaseHost}`, `wss://${supabaseHost}`);
+    img.push(`https://${supabaseHost}`);
+  }
   return [
     "default-src 'self'",
     "base-uri 'self'",
     "frame-ancestors 'none'",
     "form-action 'self'",
     "object-src 'none'",
-    "img-src 'self' data: https:",
+    `img-src ${img.join(' ')}`,
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com data:",
     "script-src 'self' 'unsafe-inline'",
@@ -129,16 +134,18 @@ export const onRequest = defineMiddleware(async (ctx, next) => {
   }
 
   // CSRF defense on API writes: require at least one of Origin/Referer, and
-  // require it to match the request host. A missing Origin *and* missing
-  // Referer now fails closed (previously it passed — an edge-case that some
-  // proxies can produce).
+  // require it to match the request host *exactly* (URL parse, no substring
+  // tricks). Missing both = fail closed.
   if (isProtectedApi && ['POST', 'PATCH', 'PUT', 'DELETE'].includes(request.method)) {
-    const origin  = request.headers.get('origin')  ?? '';
-    const referer = request.headers.get('referer') ?? '';
-    const host    = url.host;
-    const originMatches  = origin  !== '' && origin.endsWith(host);
-    const refererMatches = referer !== '' && referer.startsWith(`${url.protocol}//${host}`);
-    if (!originMatches && !refererMatches) {
+    const host = url.host;
+    const parseHost = (raw: string): string | null => {
+      if (!raw) return null;
+      try { return new URL(raw).host; } catch { return null; }
+    };
+    const originHost  = parseHost(request.headers.get('origin')  ?? '');
+    const refererHost = parseHost(request.headers.get('referer') ?? '');
+    const matches = originHost === host || refererHost === host;
+    if (!matches) {
       return applySecurityHeaders(new Response(JSON.stringify({ error: { code: 'forbidden', message: 'Cross-origin write blocked' } }), {
         status: 403, headers: { 'content-type': 'application/json' },
       }));
