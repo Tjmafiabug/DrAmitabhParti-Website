@@ -72,7 +72,12 @@ export const POST: APIRoute = async (ctx) => {
     published_at:    data.status === 'published' ? now : null,
   };
 
-  const db = supabaseAdmin();
+  let db;
+  try { db = supabaseAdmin(); }
+  catch (e) {
+    console.error('[api/posts] supabaseAdmin init failed:', e);
+    return json({ error: { code: 'env', message: (e as Error).message } }, 500);
+  }
   const { data: inserted, error } = await db.from('posts')
     .insert(row)
     .select('id, slug, status, updated_at')
@@ -107,7 +112,12 @@ export const PATCH: APIRoute = async (ctx) => {
   const data = parsed.data;
   const cleanHtml = sanitizeBodyHtml(data.body_html, allowedImageOrigins());
 
-  const db = supabaseAdmin();
+  let db;
+  try { db = supabaseAdmin(); }
+  catch (e) {
+    console.error('[api/posts] supabaseAdmin init failed:', e);
+    return json({ error: { code: 'env', message: (e as Error).message } }, 500);
+  }
   const { data: existing } = await db.from('posts')
     .select('status, published_at, updated_at')
     .eq('id', data.id)
@@ -171,7 +181,12 @@ export const DELETE: APIRoute = async (ctx) => {
   const parsed = deleteSchema.safeParse(raw);
   if (!parsed.success) return json({ error: { code: 'validation', message: parsed.error.message } }, 400);
 
-  const db = supabaseAdmin();
+  let db;
+  try { db = supabaseAdmin(); }
+  catch (e) {
+    console.error('[api/posts] supabaseAdmin init failed:', e);
+    return json({ error: { code: 'env', message: (e as Error).message } }, 500);
+  }
   const { error } = await db.from('posts').delete().eq('id', parsed.data.id);
   if (error) {
     console.error('[api/posts] delete error:', error);
