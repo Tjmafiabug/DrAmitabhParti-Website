@@ -95,7 +95,9 @@ export const onRequest = defineMiddleware(async (ctx, next) => {
     if (user && user.email?.toLowerCase() === ADMIN_EMAIL?.toLowerCase()) {
       return applySecurityHeaders(redirect('/admin'));
     }
-    return applySecurityHeaders(await next());
+    const loginRes = await next();
+    loginRes.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return applySecurityHeaders(loginRes);
   }
 
   const isProtectedPage = path.startsWith(PROTECTED_PAGE_PREFIX);
@@ -154,5 +156,11 @@ export const onRequest = defineMiddleware(async (ctx, next) => {
 
   ctx.locals.user = { id: user.id, email: user.email ?? '' };
   const res = await next();
+  // Prevent browser bfcache from storing admin pages — restoring from cache
+  // after logout would show the admin UI without re-running auth middleware.
+  if (isProtectedPage) {
+    res.headers.set('Cache-Control', 'no-store');
+    res.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  }
   return applySecurityHeaders(res);
 });

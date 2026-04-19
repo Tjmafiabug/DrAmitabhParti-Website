@@ -91,6 +91,13 @@ const navItems = [
     )}
 
     <script is:inline>
+      // If browser restores this page from bfcache (e.g. pressing Back after
+      // logout), force a full reload so the server can re-run the auth check.
+      window.addEventListener('pageshow', function (e) {
+        if (e.persisted) window.location.reload();
+      });
+    </script>
+    <script is:inline>
       (function () {
         const toggle = document.getElementById('admin-menu-toggle');
         const sidebar = document.getElementById('admin-sidebar');
