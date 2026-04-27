@@ -17,83 +17,47 @@ const hero = heroes.contact;
     kicker={hero.kicker || undefined}
   />
 
-  {/* CLINICAL PRACTICE + MAP */}
-  <section class="bg-[var(--color-surface)]">
-    <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
-      <div class="container-page mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-10 md:gap-16 items-start">
-          <div>
-            <div class="flex items-baseline gap-4 mb-6">
-              <span class="rule-accent"></span>
-              <h2 class="label label-strong">Clinical Practice</h2>
-            </div>
-            <p class="font-[var(--font-headline)] text-2xl leading-tight mb-3">{settings.address.hospital}</p>
-            <address class="not-italic leading-[1.8] text-[var(--color-on-surface-variant)] mb-6">
-              {settings.address.line1}<br />
-              {settings.address.line2}<br />
-              {settings.address.country}
-            </address>
-            {settings.contact.fortis_profile && (
-              <p class="text-[0.95rem] text-[var(--color-on-surface-variant)] leading-relaxed max-w-md">
-                For clinical consultations, please use
-                <a href={settings.contact.fortis_profile} rel="noopener" class="link-editorial">{settings.identity.institution_short || settings.identity.institution}'s official appointment page</a>.
-              </p>
-            )}
-          </div>
-
-          {contact_page.map_embed_url && (
-            <div class="aspect-[4/3] w-full overflow-hidden border border-[var(--color-outline-variant)]/40">
-              <iframe
-                title={contact_page.map_iframe_title}
-                src={contact_page.map_embed_url}
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                class="w-full h-full border-0"
-              ></iframe>
-            </div>
-          )}
+  <section class="contact-body">
+    <div class="container contact-body__inner">
+      <div class="reveal">
+        <div class="contact-notice">
+          <p>
+            This site is not a channel for clinical consultation. For patient care,
+            appointment requests, or medical records, please contact
+            {settings.contact.fortis_profile
+              ? <a href={settings.contact.fortis_profile} target="_blank" rel="noopener">{settings.identity.institution_short || settings.identity.institution} through their official systems</a>
+              : <span>{settings.identity.institution_short || settings.identity.institution} through their official systems</span>
+            }.
+            For emergencies, call your nearest hospital immediately.
+          </p>
         </div>
-      </div>
-    </div>
-  </section>
 
-  {/* PROFESSIONAL CORRESPONDENCE */}
-  <section class="bg-[var(--color-surface-container-low)]">
-    <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
-      <div class="container-page mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-10 md:gap-16 items-center">
-          <div>
-            <div class="flex items-baseline gap-4 mb-6">
-              <span class="rule-accent"></span>
-              <h2 class="label label-strong">Professional Correspondence</h2>
-            </div>
-            <p class="font-[var(--font-headline)] text-2xl md:text-3xl leading-tight mb-5 text-balance">
-              For media enquiries, teaching invitations,<br />
-              <span class="italic text-[var(--color-primary)]">or fellowship correspondence.</span>
-            </p>
-            <p class="text-[var(--color-on-surface-variant)] leading-relaxed max-w-xl text-[1rem] text-pretty">
-              This site is not a channel for clinical consultation. Please route
-              patient enquiries through {settings.identity.institution_short || settings.identity.institution}'s official systems.
-            </p>
-          </div>
-          <div>
-            <p class="label mb-3">By Letter</p>
-            <a href={`mailto:${settings.contact.email}`} class="font-[var(--font-headline)] italic text-[1.5rem] md:text-[1.75rem] text-[var(--color-primary)] link-editorial">
-              {settings.contact.email}
-            </a>
-          </div>
+        <p class="contact-detail-label">By Letter</p>
+        <a href={`mailto:${settings.contact.email}`} class="contact-email">
+          {settings.contact.email}
+        </a>
+
+        <p class="contact-detail-label">In Clinic</p>
+        <address class="contact-address">
+          {settings.address.hospital}<br />
+          {settings.address.line1}<br />
+          {settings.address.line2}<br />
+          {settings.address.country}
+        </address>
+      </div>
+
+      {contact_page.map_embed_url && (
+        <div class="contact-map reveal">
+          <iframe
+            src={contact_page.map_embed_url}
+            title={contact_page.map_iframe_title}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <p class="contact-map__caption">{settings.address.hospital} · Sector 44, Gurugram</p>
         </div>
-      </div>
+      )}
     </div>
   </section>
 
-  {/* CLOSING NOTE */}
-  <section class="bg-[var(--color-surface)]">
-    <div class="container-wide mx-auto px-5 md:px-6 py-10">
-      <p class="container-prose mx-auto text-center italic text-[0.9rem]" style="color: var(--color-secondary);">
-        This site is not a channel for clinical consultation or medical advice.
-        Please route all patient enquiries through {settings.identity.institution_short || settings.identity.institution}'s official systems.
-      </p>
-    </div>
-  </section>
 </BaseLayout>

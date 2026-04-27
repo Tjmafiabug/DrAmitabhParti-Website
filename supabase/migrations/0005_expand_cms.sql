@@ -4,7 +4,8 @@
 -- Changes:
 --   1. Allow more keys in `pages` (privacy, disclaimer, not_found).
 --   2. Seed those three pages with their current public copy.
---   3. Merge a large bundle of additional editable fields into settings/site:
+--   3. Create a `media` library table for reusable image assets.
+--   4. Merge a large bundle of additional editable fields into settings/site:
 --      identity, nav, footer, heroes, seo, portrait_url, home_intro, about_lede.
 --
 -- Safe to re-run: INSERTs use ON CONFLICT DO NOTHING, the settings UPDATE
@@ -53,7 +54,37 @@ insert into public.pages (key, body_html, body_json) values (
   null
 ) on conflict (key) do nothing;
 
--- ---- 3. Expand the site settings value -------------------------------------
+-- ---- 3. Media library ------------------------------------------------------
+create table if not exists public.media (
+  id            uuid primary key default gen_random_uuid(),
+  url           text not null,
+  storage_path  text not null unique,
+  alt           text,
+  width         integer,
+  height        integer,
+  bytes         integer,
+  mime          text,
+  uploaded_at   timestamptz not null default now()
+);
+
+create index if not exists media_uploaded_at_idx
+  on public.media (uploaded_at desc);
+
+alter table public.media enable row level security;
+
+-- Admin-only reads. Public pages don't need to query this table — they already
+-- have the URL embedded in the consuming row (post.cover_image_url, settings
+-- portrait_url, body_html, etc). Limiting SELECT to authenticated users keeps
+-- the library itself a private index.
+drop policy if exists "media_auth_read" on public.media;
+create policy "media_auth_read" on public.media
+  for select to authenticated using (true);
+
+drop policy if exists "media_auth_write" on public.media;
+create policy "media_auth_write" on public.media
+  for all to authenticated using (true) with check (true);
+
+-- ---- 4. Expand the site settings value -------------------------------------
 -- Uses jsonb concat (||), which ONLY adds keys that don't already exist in
 -- the value. If a previous run already added these fields, the operator
 -- is a no-op for them. To force-reset a field, edit it in the admin UI.
@@ -127,7 +158,7 @@ set value = value || jsonb_build_object(
   'home', jsonb_build_object(
     'intro_paragraph_html', '<p>Dr. Parti writes on internal medicine, public health, and the discipline of clinical attention.</p>',
     'credibility_appointment_label', 'Senior Director, Fortis Memorial',
-    'closing_quote',                 'Medicine is not the application of science to biology. It is the <em>translation of evidence into empathy</em>, within the constraints of a human life.',
+    'closing_quote',                 'Medicine is not the application of science to biology. It is the <span style="color: var(--color-accent);">translation of evidence into empathy</span>, within the constraints of a human life.',
     'closing_quote_meta',            'From the writing · 2026'
   ),
   'about', jsonb_build_object(

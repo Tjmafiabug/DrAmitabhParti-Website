@@ -52,7 +52,7 @@ const ogImageUrl = ogImage?.startsWith('http') ? ogImage : new URL(ogImage, iden
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Space+Grotesk:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap"
       rel="stylesheet"
     />
 
@@ -83,18 +83,35 @@ const ogImageUrl = ogImage?.startsWith('http') ? ogImage : new URL(ogImage, iden
     </main>
     <Footer />
 
-    {/* Reveal-on-scroll: fade+rise for any element with class .reveal */}
+    {/* V2 reveal + nav scroll */}
     <script is:inline>
       (function () {
+        /* Nav scroll state */
+        const nav = document.getElementById('nav');
+        if (nav) {
+          const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+          window.addEventListener('scroll', onScroll, { passive: true });
+          onScroll();
+        }
+
+        /* Reveal-on-scroll */
         if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+          document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
           return;
         }
         const io = new IntersectionObserver((entries) => {
-          for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-        }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const siblings = Array.from(entry.target.parentElement?.children || []);
+              const idx = siblings.indexOf(entry.target);
+              entry.target.style.transitionDelay = Math.min(idx * 60, 300) + 'ms';
+              entry.target.classList.add('visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-        document.querySelectorAll('.reveal:not(.in)').forEach((el) => io.observe(el));
+        document.querySelectorAll('.reveal:not(.visible)').forEach((el) => io.observe(el));
       })();
     </script>
   </body>

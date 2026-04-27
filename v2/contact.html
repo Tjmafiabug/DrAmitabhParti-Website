@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Dr. Amitabh Parti</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .page-hero {
+      background: var(--bg-dark);
+      padding: 100px 0 var(--space-xl);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(27,67,50,0.35) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .page-hero__inner { position: relative; z-index: 1; max-width: 640px; }
+    .page-hero__eyebrow {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold); 
+    }
+    .page-hero__eyebrow::before {
+      content: ''; display: block; width: 2.5rem; height: 1px; background: var(--gold);
+    }
+    .page-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4vw + 0.8rem, 3.8rem);
+      font-weight: 300; line-height: 1.05;
+      letter-spacing: -0.03em; color: #fff;
+    }
+    .page-hero__title em { font-style: italic; color: var(--gold-light); }
+
+    .contact-body { background: var(--bg); padding: var(--space-2xl) 0; }
+    .contact-body__inner {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .contact-notice {
+      background: rgba(27,67,50,0.05);
+      border-left: 3px solid var(--green);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-bottom: var(--space-xl);
+    }
+    .contact-notice p {
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--ink-muted);
+    }
+    .contact-notice a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+
+    .contact-detail-label {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green-soft);
+      margin-bottom: 0.75rem;
+    }
+    .contact-email {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--green);
+      display: inline-block;
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--dur-base);
+      margin-bottom: var(--space-xl);
+    }
+    .contact-email:hover { border-color: var(--green); }
+    .contact-address {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--ink-muted);
+    }
+    .contact-map {
+      background: var(--bg-cream);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(27,67,50,0.08);
+    }
+    .contact-map iframe {
+      display: block;
+      width: 100%;
+      height: 420px;
+      border: none;
+    }
+    .contact-map__caption {
+      padding: var(--space-md) var(--space-md);
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 900px) {
+      .contact-body__inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav scrolled" id="nav">
+    <div class="nav__inner container">
+      <a href="index.html" class="nav__brand">
+        <span class="nav__brand-name">Dr. Amitabh Parti</span>
+        <span class="nav__brand-title">MD · Internal Medicine</span>
+      </a>
+      <nav class="nav__links">
+        <a href="about.html">About</a>
+        <a href="writing.html">Writing</a>
+        <a href="credentials.html">Credentials</a>
+        <a href="contact.html" class="nav__cta" style="background:var(--green)!important">Contact</a>
+      </nav>
+      <button class="nav__hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="mobile-nav" aria-hidden="true">
+      <a href="about.html">About</a>
+      <a href="writing.html">Writing</a>
+      <a href="credentials.html">Credentials</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="page-hero__inner">
+          <p class="page-hero__eyebrow">Contact</p>
+          <h1 class="page-hero__title">Where to find<br /><em>Dr. Parti.</em></h1>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-body">
+      <div class="container contact-body__inner">
+        <div>
+          <div class="contact-notice">
+            <p>
+              This site is not a channel for clinical consultation. For patient care,
+              appointment requests, or medical records, please contact
+              <a href="https://www.fortishealthcare.com/doctors/dr-amitabh-parti-1097" target="_blank" rel="noopener">Fortis Memorial through their official systems</a>.
+              For emergencies, call your nearest hospital immediately.
+            </p>
+          </div>
+
+          <p class="contact-detail-label">By Letter</p>
+          <a href="mailto:office@amitabhparti.com" class="contact-email">
+            office@amitabhparti.com
+          </a>
+
+          <p class="contact-detail-label">In Clinic</p>
+          <address class="contact-address">
+            Fortis Memorial Research Institute<br />
+            Sector 44, Opposite HUDA City Centre Metro Station<br />
+            Gurugram, Haryana 122002<br />
+            India
+          </address>
+        </div>
+
+        <div>
+          <div class="contact-map">
+            <iframe
+              src="https://www.google.com/maps?q=Fortis+Memorial+Research+Institute+Gurgaon&output=embed"
+              title="Fortis Memorial Research Institute, Gurgaon — map"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+            <p class="contact-map__caption">Fortis Memorial Research Institute · Sector 44, Gurugram</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <p class="footer__brand-name">Dr. Amitabh Parti</p>
+          <p class="footer__tagline">Educational content only. Not a substitute for individual medical advice.</p>
+        </div>
+        <nav class="footer__nav">
+          <div class="footer__col">
+            <p class="footer__col-label">Read</p>
+            <a href="about.html">About</a>
+            <a href="credentials.html">Credentials</a>
+            <a href="writing.html">Writing</a>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-label">Correspond</p>
+            <a href="contact.html">Contact</a>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-label">Legal</p>
+            <a href="#">Privacy</a>
+            <a href="#">Disclaimer</a>
+          </div>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Dr. Amitabh Parti. All rights reserved.</p>
+        <p>Fortis Memorial Research Institute, Gurgaon.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

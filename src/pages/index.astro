@@ -3,275 +3,270 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { getRecentPosts, formatDate } from "../data/posts";
 import { getSettings } from "../lib/settings";
 
-const recent = await getRecentPosts(4);
+const recent = await getRecentPosts(3);
 const settings = await getSettings();
 const { identity, home } = settings;
 
-// Split the hero quote around the highlighted phrase (if any)
 const { quote, highlight, attribution } = settings.hero;
 const hIdx = highlight ? quote.indexOf(highlight) : -1;
 const quoteBefore = hIdx >= 0 ? quote.slice(0, hIdx) : quote;
 const quoteHighlight = hIdx >= 0 ? highlight : "";
 const quoteAfter = hIdx >= 0 ? quote.slice(hIdx + highlight.length) : "";
 
-const chipClass = (c: string | null) =>
-  c === "Awareness"
-    ? "chip-category chip-awareness"
-    : c === "Reflection"
-      ? "chip-category chip-reflection"
-      : "chip-category chip-essay";
+const tagClass = (c: string | null) =>
+  c === "Awareness" ? "tag tag--awareness"
+  : c === "Reflection" ? "tag tag--reflection"
+  : "tag";
 ---
 
 <BaseLayout pageKey="home">
-  {/* ================== HERO — dark introduction band ================== */}
-  <section class="section-dark-hero overflow-hidden">
-    <div class="container-wide mx-auto px-5 md:px-6 pt-8 md:pt-14 lg:pt-16 pb-0">
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-end">
-        <div class="md:col-span-7 order-2 md:order-1 pb-10 md:pb-16">
-          <p class="label mb-4" style="color: var(--color-gold-soft);">
-            <span class="inline-block h-px w-8 align-middle mr-3" style="background: var(--color-gold-soft);"></span>
-            From the writing
-          </p>
-          <blockquote
-            class="font-[var(--font-headline)] italic text-balance"
-            style="font-size: clamp(1.35rem, 2vw + 0.8rem, 2.1rem); line-height: 1.25; font-weight: 300;"
-          >
-            &ldquo;{quoteBefore}{quoteHighlight && <span class="not-italic font-normal" style="color: var(--color-gold-soft);">{quoteHighlight}</span>}{quoteAfter}&rdquo;
-          </blockquote>
-          <p class="meta mt-4 mb-5 leading-relaxed" style="color: var(--color-gold-soft); opacity: 0.85;">
-            — {attribution}
-          </p>
 
-          <div class="text-[0.95rem] md:text-[0.98rem] leading-[1.7] max-w-xl text-pretty opacity-90 intro-body" set:html={home.intro_paragraph_html} />
+  <!-- HERO -->
+  <section class="hero" aria-label="Introduction">
+    <div class="hero__bg-line"></div>
+    <div class="container hero__inner">
 
-          <div class="mt-7 flex flex-wrap items-center gap-x-7 gap-y-3">
-            <a href="/writing" class="font-[var(--font-label)] uppercase tracking-[0.2em] text-[0.7rem]" style="color: var(--color-gold-soft);">
-              Read the essays →
-            </a>
-            <a href="/about" class="font-[var(--font-label)] uppercase tracking-[0.2em] text-[0.7rem]" style="color: var(--color-gold-soft);">
-              About {identity.short_name || identity.name}
-            </a>
-          </div>
+      <div class="hero__text">
+        <p class="hero__eyebrow">
+          <span class="hero__eyebrow-rule"></span>
+          Senior Director &amp; Unit Head
+        </p>
+        <h1 class="hero__name">
+          {identity.short_name || identity.name.split(' ')[1]
+            ? <>Dr. {identity.name.replace('Dr. ', '').split(' ')[0]}<br /><em>{identity.name.replace('Dr. ', '').split(' ').slice(1).join(' ')}</em></>
+            : identity.name
+          }
+        </h1>
+        <p class="hero__subtitle">Internal Medicine · {identity.institution_short || identity.institution}, Gurgaon</p>
+
+        <blockquote class="hero__quote">
+          &ldquo;{quoteBefore}{quoteHighlight && <strong>{quoteHighlight}</strong>}{quoteAfter}&rdquo;
+        </blockquote>
+
+        <div class="hero__actions">
+          <a href="/writing" class="btn btn--primary">Read the Essays</a>
+          <a href="/about" class="btn btn--ghost">About Dr. Parti</a>
         </div>
+      </div>
 
-        {identity.portrait_url && (
-          <div class="md:col-span-5 order-1 md:order-2 self-end">
-            <figure class="relative max-w-[320px] md:max-w-none mx-auto md:mx-0 md:-mr-4 lg:-mr-8">
+      {identity.portrait_url && (
+        <div class="hero__card-wrap">
+          <div class="place-card" role="img" aria-label="Dr. Amitabh Parti portrait card">
+            <div class="place-card__img-wrap">
               <img
                 src={identity.portrait_url}
                 alt={identity.portrait_alt}
-                class="w-full h-auto block hero-portrait"
-                loading="eager"
+                class="place-card__img"
                 width="620"
-                height="404"
+                height="520"
+                loading="eager"
               />
-            </figure>
+              <div class="place-card__badges-left">
+                <span class="pc-badge">Internal Medicine</span>
+                <span class="pc-badge">{identity.institution_short || 'Fortis Memorial'}</span>
+              </div>
+              <div class="place-card__dots" aria-hidden="true">
+                <span class="pc-dot pc-dot--active"></span>
+                <span class="pc-dot"></span>
+                <span class="pc-dot"></span>
+              </div>
+            </div>
+            <div class="place-card__body">
+              <div class="place-card__top-row">
+                <h3 class="place-card__title">{identity.name}</h3>
+              </div>
+              <p class="place-card__meta">{identity.experience_years} yrs experience &bull; Gurgaon</p>
+              <p class="place-card__desc">MBBS Gold Medallist · MD Internal Medicine · Senior Director &amp; Unit Head, {identity.institution_short || identity.institution}.</p>
+              <div class="place-card__footer">
+                <p class="place-card__price">
+                  {identity.institution_short || 'Fortis Memorial'}<br />
+                  <span class="place-card__price-sub">Sector 44, Gurugram</span>
+                </p>
+                <a href="/contact" class="pc-btn">
+                  Contact
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
           </div>
-        )}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CREDENTIALS STRIP -->
+  <section class="strip" aria-label="Key credentials">
+    <div class="container strip__inner">
+      <div class="strip__item reveal">
+        <p class="strip__label">Experience</p>
+        <p class="strip__value">{identity.experience_years} <span>Years in Practice</span></p>
+      </div>
+      <div class="strip__divider" aria-hidden="true"></div>
+      <div class="strip__item reveal">
+        <p class="strip__label">Qualification</p>
+        <p class="strip__value">MBBS <span>Gold Medallist, {identity.mbbs_year}</span></p>
+      </div>
+      <div class="strip__divider" aria-hidden="true"></div>
+      <div class="strip__item reveal">
+        <p class="strip__label">Specialisation</p>
+        <p class="strip__value">MD <span>Internal Medicine, {identity.md_year}</span></p>
+      </div>
+      <div class="strip__divider" aria-hidden="true"></div>
+      <div class="strip__item reveal">
+        <p class="strip__label">Appointment</p>
+        <p class="strip__value">Senior Director <span>{identity.institution_short || 'Fortis Memorial'}</span></p>
       </div>
     </div>
   </section>
 
-  {/* =================== CREDIBILITY STRIP — LIGHT =================== */}
-  <section class="bg-[var(--color-surface)]">
-    <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
-      <div
-        class="reveal-group grid grid-cols-2 md:grid-cols-4 gap-px bg-[var(--color-outline-variant)]/25"
-      >
-        <div class="reveal bg-[var(--color-surface)] p-5 md:p-8 flex flex-col min-h-[110px] md:min-h-[150px]">
-          <p class="label">Qualifications</p>
-          <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
-            MBBS <span class="italic text-[var(--color-primary)]">Gold Medallist</span>, {identity.mbbs_year}
-          </p>
-        </div>
-        <div class="reveal bg-[var(--color-surface)] p-5 md:p-8 flex flex-col min-h-[110px] md:min-h-[150px]">
-          <p class="label">Specialisation</p>
-          <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
-            MD Internal Medicine, {identity.md_year}
-          </p>
-        </div>
-        <div class="reveal bg-[var(--color-surface)] p-5 md:p-8 flex flex-col min-h-[110px] md:min-h-[150px]">
-          <p class="label">Experience</p>
-          <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
-            {identity.experience_years} Years in Practice
-          </p>
-        </div>
-        <div class="reveal bg-[var(--color-surface)] p-5 md:p-8 flex flex-col min-h-[110px] md:min-h-[150px]">
-          <p class="label">Appointment</p>
-          <p class="font-[var(--font-headline)] text-xl leading-tight mt-auto">
-            {home.credibility_appointment_label}
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* ========================= RECENT WRITING — DARK ========================= */}
-  <section class="section-dark-hero">
-    <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
-      <div class="flex justify-between items-end mb-10 md:mb-12">
-        <h2 class="label" style="color: var(--color-gold-soft);">
-          Recent Writing
+  <!-- ABOUT INTRO -->
+  <section class="about-intro" aria-labelledby="about-intro-heading">
+    <div class="container about-intro__inner">
+      <div class="about-intro__left reveal">
+        <span class="section-label" id="about-intro-heading">About</span>
+        <h2 class="about-intro__heading">
+          A physician who believes<br />
+          <em>precision is an act of respect.</em>
         </h2>
+        <p class="about-intro__body" set:html={home.intro_paragraph_html} />
+        <a href="/about" class="link-arrow">Read the full biography</a>
+      </div>
+      {identity.portrait_url && (
+        <div class="about-intro__right reveal">
+          <figure class="about-intro__portrait-frame">
+            <img
+              src={identity.portrait_url}
+              alt={identity.portrait_alt}
+              class="about-intro__portrait"
+              width="480"
+              height="600"
+              loading="lazy"
+            />
+            <figcaption class="about-intro__caption">
+              {identity.institution_short || identity.institution}<br />
+              Sector 44, Gurugram
+            </figcaption>
+          </figure>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CLINICAL INTERESTS -->
+  <section class="expertise" aria-labelledby="expertise-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label" id="expertise-heading">Areas of Clinical Expertise</span>
+        <p class="section-header__meta">{identity.experience_years} years in practice</p>
+      </div>
+      <div class="expertise__grid">
+        {settings.clinical_interests.map((t, i) => (
+          <article class="expertise__card reveal">
+            <span class="expertise__num">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="expertise__title">{t.title}</h3>
+            <p class="expertise__note">{t.note}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WRITING PREVIEW -->
+  <section class="writing-preview" aria-labelledby="writing-preview-heading">
+    <div class="container">
+      <div class="section-header section-header--light">
+        <span class="section-label" id="writing-preview-heading">Recent Writing</span>
+        <a href="/writing" class="link-arrow link-arrow--light">All essays</a>
       </div>
 
-      <ul class="reveal-group">
-        {recent.slice(0, 3).map((p, i) => (
-          <li
-            class={`reveal ${i > 0 ? "border-t" : ""}`}
-            style="border-color: rgba(221, 184, 128, 0.15);"
-          >
-            <a
-              href={`/writing/${p.slug}`}
-              class="group grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3 md:gap-10 py-7 md:py-10 items-start"
-            >
-              <div>
-                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-3">
-                  <span class={chipClass(p.category)}>{p.category}</span>
-                  <span class="meta" style="color: var(--color-gold-soft); opacity: 0.7;">{p.readingTime}</span>
-                  <span class="meta md:hidden" style="color: var(--color-gold-soft); opacity: 0.55;">· {formatDate(p.publishedAt)}</span>
-                </div>
-                <h3
-                  class={`font-[var(--font-headline)] mb-3 leading-[1.1] text-balance transition-colors group-hover:text-white ${i === 0 ? "text-[1.8rem] md:text-4xl" : "text-[1.45rem] md:text-[1.7rem]"}`}
-                  style="color: #f4efdf;"
-                >
-                  {p.title}
-                </h3>
-                <p class="leading-relaxed max-w-2xl opacity-80 text-[0.95rem] md:text-base">{p.excerpt}</p>
+      <ul class="writing-list">
+        {recent.map((p) => (
+          <li class="writing-item reveal">
+            <a href={`/writing/${p.slug}`} class="writing-item__link">
+              <div class="writing-item__meta">
+                <span class={tagClass(p.category)}>{p.category}</span>
+                <span class="writing-item__time">{p.readingTime}</span>
               </div>
-              <div class="hidden md:flex md:flex-col md:items-end gap-2 shrink-0 md:pt-1">
-                <span class="meta" style="color: var(--color-gold-soft); opacity: 0.7;">{formatDate(p.publishedAt)}</span>
-                <span class="meta opacity-0 group-hover:opacity-100 transition-opacity" style="color: var(--color-gold-soft);">Read →</span>
-              </div>
+              <h3 class="writing-item__title">{p.title}</h3>
+              <p class="writing-item__excerpt">{p.excerpt}</p>
+              <span class="writing-item__arrow">Read →</span>
             </a>
           </li>
         ))}
       </ul>
-
-      <div class="mt-8 flex justify-end">
-        <a href="/writing" class="font-[var(--font-label)] text-[0.72rem] uppercase tracking-[0.2em]">All writing →</a>
-      </div>
     </div>
   </section>
 
-  {/* ===================== AREAS OF CLINICAL INTEREST — LIGHT ===================== */}
-  <section class="bg-paper-warm">
-    <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
-      <div class="flex items-baseline justify-between mb-10 md:mb-12">
-        <div class="flex items-baseline gap-4">
-          <span class="rule-accent"></span>
-          <h2 class="label label-strong">Areas of Clinical Expertise</h2>
-        </div>
-        <span class="meta">{identity.experience_years} years</span>
-      </div>
-      <div class="reveal-group grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-14 gap-y-10">
-        {settings.clinical_interests.map((t, i) => {
-          const accents = [
-            "var(--color-primary)", "var(--color-tertiary)", "var(--color-gold)",
-            "var(--color-primary)", "var(--color-tertiary)", "var(--color-gold)",
-          ];
-          const c = accents[i % accents.length];
-          return (
-            <div class="reveal">
-              <div class="flex items-baseline gap-3 mb-3">
-                <span class="meta" style={`color: ${c};`}>№ {String(i + 1).padStart(2, "0")}</span>
-                <h5 class="font-[var(--font-headline)] text-lg" style={`color: ${c};`}>{t.title}</h5>
-              </div>
-              <div class="h-px w-full mb-3" style={`background: ${c}; opacity: 0.25;`} />
-              <p class="text-sm leading-relaxed text-[var(--color-on-surface-variant)] italic">{t.note}</p>
-            </div>
-          );
-        })}
-      </div>
+  <!-- PULL QUOTE -->
+  <section class="pull-section" aria-label="Featured quote">
+    <div class="container pull-section__inner">
+      <svg class="pull-section__mark" width="48" height="36" viewBox="0 0 48 36" fill="none" aria-hidden="true">
+        <path d="M0 36V22.5C0 10.08 8.16 2.94 24.48 0L26.4 3.78C18.96 5.76 15.24 9.78 14.88 15.84H21.6V36H0ZM26.4 36V22.5C26.4 10.08 34.56 2.94 50.88 0L52.8 3.78C45.36 5.76 41.64 9.78 41.28 15.84H48V36H26.4Z" fill="currentColor"/>
+      </svg>
+      {home.closing_quote ? (
+        <blockquote class="pull-section__quote" set:html={home.closing_quote} />
+      ) : (
+        <blockquote class="pull-section__quote">
+          Medicine is not the application of science to biology. It is the
+          <em>translation of evidence into empathy,</em> within the constraints
+          of a human life.
+        </blockquote>
+      )}
+      <p class="pull-section__attr">{home.closing_quote_meta || 'From the writing · 2026'}</p>
     </div>
   </section>
 
-  {/* ====================== EMPANELMENTS — DARK ====================== */}
-  <section class="section-dark-hero">
-    <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
-      <div class="flex items-baseline justify-between mb-8 md:mb-10">
-        <h2 class="label" style="color: var(--color-gold-soft);">Empanelled Visiting Physician</h2>
-        <span class="meta" style="color: var(--color-gold-soft); opacity: 0.8;">Corporate Health Partners</span>
+  <!-- EMPANELMENTS -->
+  <section class="empanelments" aria-labelledby="empanelments-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label" id="empanelments-heading">Empanelled Visiting Physician</span>
+        <p class="section-header__meta">Corporate Health Partners</p>
       </div>
-      <ul class="reveal-group grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-6">
-        {settings.empanelments.map((e, i) => {
-          const tops = ["var(--color-primary-container)", "#8fb3b8", "var(--color-gold-soft)", "#c97056", "#dbc4a8"];
-          return (
-            <li class="reveal p-5 relative" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(221,184,128,0.1);">
-              <span class="absolute top-0 left-0 h-[3px] w-10" style={`background: ${tops[i % tops.length]};`} />
-              <p class="meta mt-2 mb-3" style="color: var(--color-gold-soft); opacity: 0.7;">№ {String(i + 1).padStart(2, "0")}</p>
-              <p class="font-[var(--font-headline)] text-[1.05rem] leading-tight" style="color: #f4efdf;">{e}</p>
-            </li>
-          );
-        })}
+      <ul class="empanelments__grid">
+        {settings.empanelments.map((e, i) => (
+          <li class="empanelments__item reveal">
+            <span class="empanelments__num">{String(i + 1).padStart(2, '0')}</span>
+            {e}
+          </li>
+        ))}
       </ul>
     </div>
   </section>
 
-  {/* ======================= PULL QUOTE — LIGHT ======================= */}
-  {home.closing_quote && (
-    <section class="bg-paper-cool">
-      <div class="container-wide mx-auto px-5 md:px-6 py-16 md:py-28 flex flex-col items-center">
-        <div class="max-w-3xl text-center">
-          <svg width="44" height="44" viewBox="0 0 40 40" fill="none" aria-hidden="true" class="mx-auto mb-6" style="color: var(--color-tertiary);">
-            <path d="M12 10C8 10 5 13 5 17V24H13V17H9C9 14.5 10.5 13 12 13V10ZM27 10C23 10 20 13 20 17V24H28V17H24C24 14.5 25.5 13 27 13V10Z" fill="currentColor"></path>
-          </svg>
-          <blockquote class="pull-quote mb-8 text-balance" set:html={home.closing_quote} />
-          {home.closing_quote_meta && (
-            <div class="flex items-center justify-center gap-3">
-              <span class="h-px w-8" style="background: var(--color-gold);"></span>
-              <p class="meta" style="color: var(--color-gold);">{home.closing_quote_meta}</p>
-              <span class="h-px w-8" style="background: var(--color-gold);"></span>
-            </div>
-          )}
-        </div>
+  <!-- CONTACT CTA -->
+  <section class="contact-cta" aria-labelledby="contact-cta-heading">
+    <div class="container contact-cta__inner">
+      <div class="contact-cta__text reveal">
+        <span class="section-label" id="contact-cta-heading">Professional Correspondence</span>
+        <h2 class="contact-cta__heading">
+          For media, teaching,<br />
+          <em>or professional enquiry.</em>
+        </h2>
+        <p class="contact-cta__body">
+          This site is not a channel for clinical consultation. For patient care,
+          please contact {identity.institution_short || identity.institution} through
+          their official systems. For media, fellowship, speaking, or editorial
+          correspondence, please write directly.
+        </p>
       </div>
-    </section>
-  )}
-
-  {/* ====================== PROFESSIONAL CORRESPONDENCE — LIGHT ====================== */}
-  <section class="bg-[var(--color-surface-container-low)]">
-    <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
-      <div class="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 items-center">
+      <div class="contact-cta__details reveal">
         <div>
-          <p class="label label-primary mb-5">Professional Correspondence</p>
-          <h2 class="mb-6 text-balance">
-            For media, teaching,<br />
-            <span class="italic">or professional enquiry.</span>
-          </h2>
-          <p class="text-[var(--color-on-surface-variant)] leading-relaxed text-[1.05rem] max-w-xl text-pretty">
-            This site is not a channel for clinical consultation. For patient
-            care, please contact {identity.institution_short || identity.institution} through
-            their official systems. For media, fellowship, speaking, or
-            editorial correspondence, please write to the address opposite.
-          </p>
+          <p class="contact-cta__row-label">By Letter</p>
+          <a href={`mailto:${settings.contact.email}`} class="contact-cta__email">
+            {settings.contact.email}
+          </a>
         </div>
-
-        <div class="space-y-8">
-          <div>
-            <p class="label mb-3">By Letter</p>
-            <a href={`mailto:${settings.contact.email}`} class="font-[var(--font-headline)] italic text-[1.4rem] text-[var(--color-primary)] link-editorial">
-              {settings.contact.email}
-            </a>
-          </div>
-          <div>
-            <p class="label mb-3">In Clinic</p>
-            <p class="leading-[1.7] text-[var(--color-on-surface)]">
-              {settings.address.hospital}<br />
-              {settings.address.line2}
-            </p>
-            <a href="/contact" class="mt-3 inline-block meta text-[var(--color-primary)]">See the map →</a>
-          </div>
+        <div>
+          <p class="contact-cta__row-label">In Clinic</p>
+          <address class="contact-cta__address">
+            {settings.address.hospital}<br />
+            {settings.address.line2}
+          </address>
+          <a href="/contact" class="link-arrow" style="margin-top:0.75rem;display:inline-flex;">See the map</a>
         </div>
       </div>
     </div>
   </section>
-</BaseLayout>
 
-<style>
-  .intro-body :global(a) {
-    color: var(--color-gold-soft);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-</style>
+</BaseLayout>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing — Dr. Amitabh Parti</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .page-hero {
+      background: var(--bg-dark);
+      padding: 100px 0 var(--space-xl);
+      position: relative; overflow: hidden;
+    }
+    .page-hero::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(27,67,50,0.35) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .page-hero__inner { position: relative; z-index: 1; max-width: 780px; }
+    .page-hero__eyebrow {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold); 
+    }
+    .page-hero__eyebrow::before { content:''; display:block; width:2.5rem; height:1px; background:var(--gold); }
+    .page-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4vw + 0.8rem, 3.8rem);
+      font-weight: 300; line-height: 1.05; letter-spacing: -0.03em; color: #fff;
+      
+    }
+    .page-hero__title em { font-style: italic; color: var(--gold-light); }
+    .page-hero__kicker {
+      font-size: 0.95rem; font-weight: 300; line-height: 1.75;
+      color: rgba(232,237,233,0.55); max-width: 48rem;
+    }
+
+    .writing-body { background: var(--bg-dark); padding: var(--space-xl) 0 var(--space-xl); }
+
+    .filter-bar {
+      display: flex; align-items: center; gap: 0.5rem;
+      margin-bottom: var(--space-xl);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-bottom: var(--space-md);
+    }
+    .filter-btn {
+      padding: 0.3rem 0.9rem;
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-ghost);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--dur-base);
+    }
+    .filter-btn:hover, .filter-btn.active {
+      color: var(--gold-light);
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+
+    .writing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .article-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      display: flex; flex-direction: column; gap: 0.75rem;
+      transition: background var(--dur-base), border-color var(--dur-base),
+                  transform var(--dur-base) var(--ease-out);
+      cursor: pointer;
+    }
+    .article-card:hover {
+      background: rgba(27,67,50,0.2);
+      border-color: rgba(201,168,76,0.2);
+      transform: translateY(-3px);
+    }
+    .article-card__meta {
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .article-card__date {
+      font-size: 0.65rem; font-weight: 400;
+      letter-spacing: 0.08em; color: var(--ink-ghost);
+    }
+    .article-card__title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem; font-weight: 400; line-height: 1.25;
+      color: var(--ink-light);
+      transition: color var(--dur-base);
+    }
+    .article-card:hover .article-card__title { color: var(--gold-light); }
+    .article-card__excerpt {
+      font-size: 0.85rem; font-weight: 300; line-height: 1.65;
+      color: var(--ink-ghost); flex: 1;
+    }
+    .article-card__footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .article-card__time {
+      font-size: 0.65rem; font-weight: 400;
+      color: var(--ink-ghost); letter-spacing: 0.06em;
+    }
+    .article-card__read {
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); opacity: 0;
+      transition: opacity var(--dur-base);
+    }
+    .article-card:hover .article-card__read { opacity: 1; }
+
+    .writing-disclaimer {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg) var(--space-xl);
+      margin-top: var(--space-xl);
+      text-align: center;
+    }
+    .writing-disclaimer p {
+      font-size: 0.78rem; font-weight: 300;
+      line-height: 1.7; color: var(--ink-ghost);
+      max-width: 52rem; margin: 0 auto;
+    }
+    .writing-disclaimer a { color: var(--gold); }
+
+    @media (max-width: 900px) { .writing-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px) { .writing-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header class="nav scrolled" id="nav">
+    <div class="nav__inner container">
+      <a href="index.html" class="nav__brand">
+        <span class="nav__brand-name">Dr. Amitabh Parti</span>
+        <span class="nav__brand-title">MD · Internal Medicine</span>
+      </a>
+      <nav class="nav__links">
+        <a href="about.html">About</a>
+        <a href="writing.html" style="color:#fff;border-color:rgba(201,168,76,0.5)">Writing</a>
+        <a href="credentials.html">Credentials</a>
+        <a href="contact.html" class="nav__cta">Contact</a>
+      </nav>
+      <button class="nav__hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="mobile-nav" aria-hidden="true">
+      <a href="about.html">About</a>
+      <a href="writing.html">Writing</a>
+      <a href="credentials.html">Credentials</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="page-hero__inner">
+          <p class="page-hero__eyebrow">Writing</p>
+          <h1 class="page-hero__title">Essays, notes,<br /><em>and educational articles.</em></h1>
+          <p class="page-hero__kicker">
+            General writing on internal medicine, public health, and the quiet things that
+            happen in consulting rooms. Educational only — please see the standing
+            disclaimer at the foot of each article.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="writing-body">
+      <div class="container">
+        <div class="filter-bar">
+          <button class="filter-btn active">All</button>
+          <button class="filter-btn">Essay</button>
+          <button class="filter-btn">Awareness</button>
+          <button class="filter-btn">Reflection</button>
+        </div>
+
+        <div class="writing-grid">
+
+          <a href="#" class="article-card">
+            <div class="article-card__meta">
+              <span class="tag">Essay</span>
+              <span class="article-card__date">March 2026</span>
+            </div>
+            <h2 class="article-card__title">The Art of Listening in Clinical Practice</h2>
+            <p class="article-card__excerpt">The single most consequential diagnostic tool remains what it was in 1900 — the willingness to listen without hurry.</p>
+            <div class="article-card__footer">
+              <span class="article-card__time">8 min read</span>
+              <span class="article-card__read">Read →</span>
+            </div>
+          </a>
+
+          <a href="#" class="article-card">
+            <div class="article-card__meta">
+              <span class="tag tag--awareness">Awareness</span>
+              <span class="article-card__date">February 2026</span>
+            </div>
+            <h2 class="article-card__title">On Hypertension and the Art of Patience</h2>
+            <p class="article-card__excerpt">Hypertension is quiet. It does not announce itself the way a fever does. This is both its danger and its lesson.</p>
+            <div class="article-card__footer">
+              <span class="article-card__time">5 min read</span>
+              <span class="article-card__read">Read →</span>
+            </div>
+          </a>
+
+          <a href="#" class="article-card">
+            <div class="article-card__meta">
+              <span class="tag tag--reflection">Reflection</span>
+              <span class="article-card__date">January 2026</span>
+            </div>
+            <h2 class="article-card__title">Monsoon and the Return of Tropical Fevers</h2>
+            <p class="article-card__excerpt">Every July, North India rehearses the same pattern. The rains come, the mosquitoes follow, and the wards fill in a rhythm as old as the river.</p>
+            <div class="article-card__footer">
+              <span class="article-card__time">6 min read</span>
+              <span class="article-card__read">Read →</span>
+            </div>
+          </a>
+
+          <a href="#" class="article-card">
+            <div class="article-card__meta">
+              <span class="tag">Essay</span>
+              <span class="article-card__date">December 2025</span>
+            </div>
+            <h2 class="article-card__title">What Diabetes Teaches the Physician</h2>
+            <p class="article-card__excerpt">A condition that requires a thirty-year conversation holds lessons about the nature of medicine itself.</p>
+            <div class="article-card__footer">
+              <span class="article-card__time">7 min read</span>
+              <span class="article-card__read">Read →</span>
+            </div>
+          </a>
+
+          <a href="#" class="article-card">
+            <div class="article-card__meta">
+              <span class="tag tag--awareness">Awareness</span>
+              <span class="article-card__date">November 2025</span>
+            </div>
+            <h2 class="article-card__title">The Thyroid and the Hidden Epidemic</h2>
+            <p class="article-card__excerpt">Thyroid disorders are commoner than once thought, and frequently missed. The symptoms are often mistaken for the ordinary fatigue of modern life.</p>
+            <div class="article-card__footer">
+              <span class="article-card__time">5 min read</span>
+              <span class="article-card__read">Read →</span>
+            </div>
+          </a>
+
+          <a href="#" class="article-card">
+            <div class="article-card__meta">
+              <span class="tag tag--reflection">Reflection</span>
+              <span class="article-card__date">October 2025</span>
+            </div>
+            <h2 class="article-card__title">On Uncertainty as a Clinical Companion</h2>
+            <p class="article-card__excerpt">Medicine does not promise certainty. It offers, at best, probability — and the training to act wisely within it.</p>
+            <div class="article-card__footer">
+              <span class="article-card__time">9 min read</span>
+              <span class="article-card__read">Read →</span>
+            </div>
+          </a>
+
+        </div>
+
+        <div class="writing-disclaimer">
+          <p>
+            All articles are published for general education and public awareness.
+            Nothing here constitutes individual medical advice. If you are unwell,
+            please consult a qualified physician in person.
+            See the <a href="#">full disclaimer</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <p class="footer__brand-name">Dr. Amitabh Parti</p>
+          <p class="footer__tagline">Educational content only. Not a substitute for individual medical advice.</p>
+        </div>
+        <nav class="footer__nav">
+          <div class="footer__col">
+            <p class="footer__col-label">Read</p>
+            <a href="about.html">About</a>
+            <a href="credentials.html">Credentials</a>
+            <a href="writing.html">Writing</a>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-label">Correspond</p>
+            <a href="contact.html">Contact</a>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-label">Legal</p>
+            <a href="#">Privacy</a>
+            <a href="#">Disclaimer</a>
+          </div>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Dr. Amitabh Parti. All rights reserved.</p>
+        <p>Fortis Memorial Research Institute, Gurgaon.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

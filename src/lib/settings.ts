@@ -169,7 +169,7 @@ export const defaultSettings: SiteSettings = {
     university: 'University of Punjab',
     tagline: 'Advancing medical thought through clinical rigour and public education.',
     description: 'The professional home of Dr. Amitabh Parti — internal medicine consultant at Fortis Memorial Research Institute, Gurgaon. Essays, notes, and educational writing on general medicine and public health.',
-    portrait_url: '/images/parti-cutout.png',
+    portrait_url: '/images/parti-hero.jpeg',
     portrait_alt: 'Dr. Amitabh Parti, Senior Director of Internal Medicine at Fortis Memorial Research Institute, Gurgaon',
     site_url: 'https://amitabhparti.com',
   },
