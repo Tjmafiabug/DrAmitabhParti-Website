@@ -207,6 +207,7 @@ export const defaultSettings: SiteSettings = {
     { href: '/about',       label: 'About' },
     { href: '/writing',     label: 'Writing' },
     { href: '/credentials', label: 'Credentials' },
+    { href: '/media',       label: 'Media' },
     { href: '/contact',     label: 'Contact' },
   ],
   footer: {
