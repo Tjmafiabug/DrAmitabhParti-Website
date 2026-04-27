@@ -1,0 +1,248 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+
+const printCoverage = [
+  { publication: 'The Statesman',   headline: 'Unclean surroundings fertile ground for dengue, say experts',          edition: 'New Delhi', date: 'Apr 14, 2017', page: '4'  },
+  { publication: 'Sunday Standard', headline: 'The code of ethics for patients',                                       edition: 'New Delhi', date: 'May 8, 2017',  page: '5'  },
+  { publication: 'Times of India',  headline: 'Chikungunya sneaks into Gurgaon',                                       edition: 'Gurgaon',   date: 'Aug 24, 2017', page: '4'  },
+  { publication: 'Hindustan Times', headline: 'Waterlogged roads after rain raise dengue scare in Gurgaon',            edition: 'Gurgaon',   date: 'Aug 10, 2017', page: '2'  },
+  { publication: 'Hindustan Times', headline: 'Hospitals report increase in Chikungunya patients',                     edition: 'Gurgaon',   date: 'Aug 25, 2017', page: '2'  },
+  { publication: 'Hindustan Times', headline: '6 suspected dengue cases in city',                                      edition: 'Gurgaon',   date: 'Jun 22, 2017', page: '2'  },
+  { publication: 'Hindustan Times', headline: 'Rain likely to bring respite from the heat next week: Met dept',        edition: 'Gurgaon',   date: 'Jun 7, 2017',  page: '8'  },
+  { publication: 'Hindustan Times', headline: 'Confirmed dengue cases climb to 51 in city',                           edition: 'Gurgaon',   date: 'Sep 5, 2017',  page: '2'  },
+  { publication: 'Economic Times',  headline: 'Chronic fatigue syndrome: Know how to manage it',                       edition: 'New Delhi', date: 'May 15, 2017', page: '14' },
+  { publication: 'Economic Times',  headline: 'Chronic fatigue syndrome: Know how to manage it',                       edition: 'Bangalore', date: 'May 9, 2017',  page: '14' },
+  { publication: 'Dainik Bhaskar',  headline: 'What is the cause of stress',                                          edition: 'New Delhi', date: 'Jun 12, 2017', page: '3'  },
+  { publication: 'Biospectrum',     headline: 'Rising demand of traditional medicines in modern world',                edition: 'National',  date: 'Jun 2017',     page: '39' },
+];
+
+const onlineCoverage = [
+  { publication: 'Hindustan Times',   headline: 'Gurgaon doctors raise dengue alert in the city',                          date: 'Apr 14, 2017', url: 'http://www.hindustantimes.com/gurgaon/gurgaon-doctors-raise-dengue-alert-in-city/story-499z4cMuS3LvbzisOUdrKJ.html' },
+  { publication: 'ANI News',          headline: 'Protect yourself from early onset of Dengue',                              date: 'Apr 14, 2017', url: 'http://www.aninews.in/newsdetail-MTA/MzA5MTY2/protect-yourself-from-early-onset-of-dengue.html' },
+  { publication: 'Deccan Chronicle',  headline: "Here's how to protect yourself from early onset of dengue",                date: 'Apr 14, 2017', url: 'http://www.deccanchronicle.com/lifestyle/health-and-wellbeing/140417/heres-how-to-protect-yourself-from-early-onset-of-dengue.html' },
+  { publication: 'Business Standard', headline: 'Protect yourself against the early onset of Dengue',                      date: 'Apr 14, 2017', url: 'http://www.business-standard.com/article/news-ani/protect-yourself-from-early-onset-of-dengue-117041400163_1.html' },
+  { publication: 'Sify.com',          headline: 'Protect yourself from early onset of dengue',                              date: 'Apr 14, 2017', url: 'http://www.sify.com/news/protect-yourself-from-early-onset-of-dengue-news-health-reojPeiffhdcg.html' },
+  { publication: 'India4u.com',       headline: 'Protect yourself from early onset of dengue',                              date: 'Apr 14, 2017', url: 'http://www.india4u.com/protect-yourself-from-early-onset-of-dengue/' },
+  { publication: 'Nyoooz.com',        headline: 'Gurgaon doctors raise dengue alert in city',                               date: 'Apr 14, 2017', url: 'https://www.nyoooz.com/news/gurgaon/782704/gurgaon-doctors-raise-dengue-alert-in-city/' },
+  { publication: 'Times of India',    headline: 'Gurgaon doctors concerned over ill-effects of fumigation in residential areas', date: 'Sep 25, 2017', url: 'http://timesofindia.indiatimes.com/city/gurgaon/Gurgaon-doctors-concerned-over-ill-effects-of-fumigation-in-residential-areas/articleshow/54513913.cms' },
+  { publication: 'Times of India',    headline: 'What leading doctors want you to know about your health in 2017',          date: 'Sep 2017',     url: 'http://timesofindia.indiatimes.com/life-style/health-fitness/health-news/what-leading-doctors-want-you-to-know-about-your-health-in-2017/articleshow/56269440.cms' },
+  { publication: 'The Health Site',   headline: 'Chikungunya — expert guidance',                                            date: 'Sep 2017',     url: 'http://www.thehealthsite.com/diseases-conditions/chikungunya/001/' },
+  { publication: 'The Health Site',   headline: 'Dengue — expert guidance',                                                 date: 'Sep 2017',     url: 'http://www.thehealthsite.com/diseases-conditions/dengue/001/' },
+];
+---
+
+<BaseLayout
+  title="Media Coverage"
+  description="Dr. Amitabh Parti's press coverage — print and online features across The Statesman, Hindustan Times, Times of India, Economic Times, and more."
+>
+
+  <PageHero
+    eyebrow="Media Coverage"
+    title="In the press"
+    titleItalic="2017"
+    kicker="Featured across national print and digital publications on public health, seasonal disease, and preventive medicine."
+  />
+
+  <!-- PRINT COVERAGE -->
+  <section class="media-section">
+    <div class="container">
+      <div class="media-section__header">
+        <span class="section-label">Print coverage</span>
+        <span class="media-count">{printCoverage.length} articles</span>
+      </div>
+
+      <div class="media-list" role="list">
+        {printCoverage.map((item, i) => (
+          <article class="media-item reveal" role="listitem">
+            <div class="media-item__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</div>
+            <div class="media-item__body">
+              <p class="media-item__pub">{item.publication}</p>
+              <p class="media-item__headline">&ldquo;{item.headline}&rdquo;</p>
+              <p class="media-item__meta">{item.edition} &middot; {item.date} &middot; p.{item.page}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ONLINE COVERAGE -->
+  <section class="media-section media-section--alt">
+    <div class="container">
+      <div class="media-section__header">
+        <span class="section-label">Online coverage</span>
+        <span class="media-count">{onlineCoverage.length} features</span>
+      </div>
+
+      <div class="media-list" role="list">
+        {onlineCoverage.map((item, i) => (
+          <article class="media-item reveal" role="listitem">
+            <div class="media-item__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</div>
+            <div class="media-item__body">
+              <p class="media-item__pub">{item.publication}</p>
+              <p class="media-item__headline">&ldquo;{item.headline}&rdquo;</p>
+              <p class="media-item__meta">{item.date}</p>
+            </div>
+            <a
+              href={item.url}
+              class="media-item__link link-arrow"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Read: ${item.headline} on ${item.publication}`}
+            >
+              Read
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER NOTE -->
+  <p class="footer-note container">
+    Coverage compiled from the 2017 media report. For press enquiries or interview requests, see the
+    <a href="/contact" class="link-editorial">contact page</a>.
+  </p>
+
+</BaseLayout>
+
+<style>
+/* ── Page layout ─────────────────────────────────────── */
+.media-section {
+  padding: var(--space-3xl) 0;
+  border-top: 1px solid rgba(27, 67, 50, 0.1);
+}
+.media-section--alt {
+  background: var(--bg-cream);
+}
+
+.media-section__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: var(--space-xl);
+}
+
+.media-count {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--ink-ghost);
+  text-transform: uppercase;
+}
+
+/* ── List ─────────────────────────────────────────────── */
+.media-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Item ─────────────────────────────────────────────── */
+.media-item {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr auto;
+  align-items: start;
+  gap: 0 var(--space-md);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid rgba(27, 67, 50, 0.08);
+  transition: background var(--dur-fast);
+}
+.media-item:first-child {
+  border-top: 1px solid rgba(27, 67, 50, 0.08);
+}
+.media-section--alt .media-item {
+  border-color: rgba(27, 67, 50, 0.12);
+}
+
+.media-item__index {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--ink-ghost);
+  padding-top: 0.25rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.media-item__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.media-item__pub {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-soft);
+}
+
+.media-item__headline {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--ink);
+  font-style: italic;
+}
+
+.media-item__meta {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 300;
+  color: var(--ink-ghost);
+  letter-spacing: 0.05em;
+  margin-top: 0.1rem;
+}
+
+.media-item__link {
+  align-self: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Footer note ─────────────────────────────────────── */
+.footer-note {
+  padding: var(--space-xl) var(--space-lg);
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--ink-muted);
+  line-height: 1.7;
+  border-top: 1px solid rgba(27, 67, 50, 0.1);
+}
+
+/* ── Reveal ──────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 600px) {
+  .media-item {
+    grid-template-columns: 2rem 1fr;
+    grid-template-rows: auto auto;
+  }
+  .media-item__link {
+    grid-column: 2;
+    margin-top: var(--space-xs);
+  }
+  .media-item__index {
+    padding-top: 0.3rem;
+  }
+}
+</style>
