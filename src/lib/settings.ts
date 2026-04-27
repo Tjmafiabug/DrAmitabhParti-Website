@@ -179,7 +179,7 @@ export const defaultSettings: SiteSettings = {
     attribution: 'Dr. Amitabh Parti · Internal Medicine, Fortis Memorial, Gurgaon',
   },
   contact: {
-    email: 'office@amitabhparti.com',
+    email: 'amitabhparti@gmail.com',
     fortis_profile: 'https://www.fortishealthcare.com/doctors/dr-amitabh-parti-1097',
   },
   address: {
