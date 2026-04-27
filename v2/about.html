@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Dr. Amitabh Parti</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .page-hero {
+      background: var(--bg-dark);
+      padding: 100px 0 var(--space-xl);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(27,67,50,0.35) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .page-hero__inner {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+    }
+    .page-hero__eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      
+    }
+    .page-hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 1px;
+      background: var(--gold);
+    }
+    .page-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4vw + 0.8rem, 3.8rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: #fff;
+      
+    }
+    .page-hero__title em { font-style: italic; color: var(--gold-light); }
+    .page-hero__kicker {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(232,237,233,0.6);
+      max-width: 52rem;
+    }
+
+    .about-lede {
+      background: var(--bg);
+      padding: var(--space-xl) 0;
+    }
+    .about-lede__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+    .about-lede__left {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .about-lede__heading {
+      font-family: var(--font-serif);
+      font-size: clamp(1.7rem, 2.5vw + 0.5rem, 2.5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+    }
+    .about-lede__heading em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--green);
+    }
+    .about-lede__body {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--ink-muted);
+    }
+    .about-lede__portrait-frame {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      margin-left: auto;
+    }
+    .about-lede__portrait-frame::before {
+      content: '';
+      position: absolute;
+      top: -0.75rem;
+      right: -0.75rem;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      background: var(--bg-cream);
+      border-radius: var(--radius-md);
+      z-index: 0;
+    }
+    .about-lede__portrait {
+      position: relative;
+      z-index: 1;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .about-lede__caption {
+      position: relative;
+      z-index: 1;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      margin-top: 0.85rem;
+      text-align: right;
+    }
+    @media (max-width: 900px) {
+      .about-lede__inner { grid-template-columns: 1fr; }
+      .about-lede__portrait-frame { max-width: 320px; margin: 0 auto; }
+    }
+
+    .about-bio {
+      background: var(--bg-cream);
+      padding: var(--space-xl) 0;
+    }
+    .about-bio__inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .prose p {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--ink-muted);
+      margin-bottom: 1.5rem;
+    }
+    .prose p:first-child::first-letter {
+      font-family: var(--font-serif);
+      font-size: 3.5rem;
+      font-weight: 600;
+      line-height: 0.8;
+      float: left;
+      margin-right: 0.15em;
+      margin-top: 0.12em;
+      color: var(--green);
+    }
+    .sign-off {
+      margin-top: var(--space-lg);
+      text-align: center;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--ink-muted);
+    }
+
+    .about-links {
+      background: var(--bg);
+      padding: var(--space-xl) 0;
+      border-top: 1px solid rgba(27,67,50,0.08);
+    }
+    .about-links__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      text-align: center;
+    }
+    .about-links__item {
+      padding: var(--space-lg) var(--space-md);
+      border-right: 1px solid rgba(27,67,50,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: background var(--dur-base);
+    }
+    .about-links__item:last-child { border-right: none; }
+    .about-links__item:hover { background: var(--bg-cream); }
+    .about-links__label {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green-soft);
+    }
+    .about-links__title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--ink);
+      transition: color var(--dur-base);
+    }
+    .about-links__item:hover .about-links__title { color: var(--green); }
+
+    @media (max-width: 900px) {
+      .about-lede__inner { grid-template-columns: 1fr; }
+      .about-links__grid { grid-template-columns: 1fr; }
+      .about-links__item { border-right: none; border-bottom: 1px solid rgba(27,67,50,0.08); }
+      .about-links__item:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav scrolled" id="nav">
+    <div class="nav__inner container">
+      <a href="index.html" class="nav__brand">
+        <span class="nav__brand-name">Dr. Amitabh Parti</span>
+        <span class="nav__brand-title">MD · Internal Medicine</span>
+      </a>
+      <nav class="nav__links">
+        <a href="about.html" style="color:#fff;border-color:rgba(201,168,76,0.5)">About</a>
+        <a href="writing.html">Writing</a>
+        <a href="credentials.html">Credentials</a>
+        <a href="contact.html" class="nav__cta">Contact</a>
+      </nav>
+      <button class="nav__hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="mobile-nav" aria-hidden="true">
+      <a href="about.html">About</a>
+      <a href="writing.html">Writing</a>
+      <a href="credentials.html">Credentials</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="page-hero__inner">
+          <p class="page-hero__eyebrow">About</p>
+          <h1 class="page-hero__title">On a life<br /><em>in internal medicine.</em></h1>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-lede">
+      <div class="container about-lede__inner">
+        <div class="about-lede__left">
+          <span class="section-label">About</span>
+          <h2 class="about-lede__heading">
+            A physician who believes<br />
+            <em>precision is an act of respect.</em>
+          </h2>
+          <p class="about-lede__body">
+            Dr. Parti writes on internal medicine, public health, and the discipline of
+            clinical attention. Over 38 years at the bedside — and now as Senior Director
+            at Fortis Memorial Research Institute, Gurgaon — he has built a practice
+            grounded in rigour, patience, and the conviction that listening is the
+            primary diagnostic instrument.
+          </p>
+          <a href="#biography" class="link-arrow">Read the full biography</a>
+        </div>
+        <figure class="about-lede__portrait-frame">
+          <img
+            src="../public/images/parti-hero.jpeg"
+            alt="Dr. Amitabh Parti"
+            class="about-lede__portrait"
+            width="480"
+            height="580"
+            loading="eager"
+          />
+          <figcaption class="about-lede__caption">
+            Fortis Memorial Research Institute · Sector 44, Gurugram
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="about-bio" id="biography">
+      <div class="container about-bio__inner">
+        <div class="prose">
+          <p>Dr. Amitabh Parti is Senior Director and Unit Head of Internal Medicine at Fortis Memorial Research Institute, Gurgaon — one of India's foremost tertiary care hospitals. He has been in clinical practice for 38 years and holds an MD in Internal Medicine from the University of Punjab, where he also completed his MBBS with a Gold Medal.</p>
+          <p>His practice is grounded in general internal medicine, with particular depth in infectious disease, hypertension, diabetes management, and thyroid disorders. He is an officially empanelled visiting physician to several major corporate health programmes, including Engineers India Limited, the University of Delhi, and Indus Towers Limited.</p>
+          <p>Alongside his clinical work, Dr. Parti writes on internal medicine, public health, and the discipline of clinical attention. His essays are addressed to the lay reader: they do not assume a medical background, but they do assume a reader willing to think carefully. The concerns that animate his writing — listening, patience, the limits of certainty — are the same concerns that have shaped his clinical practice over nearly four decades.</p>
+          <p>This site is a professional home: a place for his writing, his credentials, and a record of his clinical interests. It is not a channel for clinical consultation. For patient care, please contact Fortis Memorial through their official appointment systems.</p>
+        </div>
+        <p class="sign-off">— Dr. Amitabh Parti</p>
+      </div>
+    </section>
+
+    <section class="about-links">
+      <div class="container">
+        <div class="about-links__grid">
+          <a href="credentials.html" class="about-links__item">
+            <p class="about-links__label">Curriculum Vitae</p>
+            <p class="about-links__title">The record, in brief →</p>
+          </a>
+          <a href="writing.html" class="about-links__item">
+            <p class="about-links__label">Writing</p>
+            <p class="about-links__title">Essays &amp; notes →</p>
+          </a>
+          <a href="contact.html" class="about-links__item">
+            <p class="about-links__label">Correspondence</p>
+            <p class="about-links__title">Where to write →</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <p class="footer__brand-name">Dr. Amitabh Parti</p>
+          <p class="footer__tagline">Educational content only. Not a substitute for individual medical advice.</p>
+        </div>
+        <nav class="footer__nav">
+          <div class="footer__col">
+            <p class="footer__col-label">Read</p>
+            <a href="about.html">About</a>
+            <a href="credentials.html">Credentials</a>
+            <a href="writing.html">Writing</a>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-label">Correspond</p>
+            <a href="contact.html">Contact</a>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-label">Legal</p>
+            <a href="#">Privacy</a>
+            <a href="#">Disclaimer</a>
+          </div>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Dr. Amitabh Parti. All rights reserved.</p>
+        <p>Fortis Memorial Research Institute, Gurgaon.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

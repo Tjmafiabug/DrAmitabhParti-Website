@@ -9,45 +9,62 @@ const isActive = (href: string) =>
   href === '/' ? path === '/' : path === href || path.startsWith(href + '/');
 ---
 
-<nav class="nav" aria-label="Primary">
-  <a href="/" class="nav-brand">{identity.name}</a>
+<header class="nav" id="nav">
+  <div class="nav__inner container">
+    <a href="/" class="nav__brand">
+      <span class="nav__brand-name">{identity.name}</span>
+      <span class="nav__brand-title">MD · Internal Medicine</span>
+    </a>
 
-  <ul class="nav-links-desktop">
-    {nav.map((item) => {
-      const active = isActive(item.href);
-      return (
-        <li>
-          <a
-            href={item.href}
-            class={active ? 'is-active' : ''}
-            aria-current={active ? 'page' : undefined}
-          >
-            {item.label}
-          </a>
-        </li>
-      );
-    })}
-  </ul>
-
-  <details class="nav-hamburger">
-    <summary aria-label="Open menu">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-        <path d="M4 7h16M4 12h16M4 17h16" />
-      </svg>
-    </summary>
-    <div class="nav-mobile-menu">
+    <nav class="nav__links" aria-label="Primary navigation">
       {nav.map((item) => {
         const active = isActive(item.href);
+        const isCta = item.label.toLowerCase() === 'contact';
         return (
           <a
             href={item.href}
-            class={active ? 'is-active' : ''}
+            class={[active ? 'is-active' : '', isCta ? 'nav__cta' : ''].filter(Boolean).join(' ')}
             aria-current={active ? 'page' : undefined}
           >
             {item.label}
           </a>
         );
       })}
-    </div>
-  </details>
-</nav>
+    </nav>
+
+    <button
+      class="nav__hamburger"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      id="nav-hamburger"
+    >
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="nav__mobile" id="mobile-nav" aria-hidden="true">
+    {nav.map((item) => (
+      <a
+        href={item.href}
+        aria-current={isActive(item.href) ? 'page' : undefined}
+      >
+        {item.label}
+      </a>
+    ))}
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    const burger = document.getElementById('nav-hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    if (burger && mobileNav) {
+      burger.addEventListener('click', () => {
+        const open = mobileNav.classList.toggle('open');
+        burger.setAttribute('aria-expanded', String(open));
+        mobileNav.setAttribute('aria-hidden', String(!open));
+      });
+    }
+  })();
+</script>

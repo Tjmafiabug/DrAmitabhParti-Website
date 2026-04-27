@@ -19,70 +19,74 @@ const aboutHtml = await getPageBody('about');
     kicker={hero.kicker || undefined}
   />
 
-  {/* LEDE + PORTRAIT */}
-  <section class="bg-[var(--color-surface)]">
-    <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
-      <div class="grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-10 md:gap-16 items-center">
-        {identity.portrait_url && (
-          <figure class="order-2 md:order-1 relative max-w-[420px] mx-auto md:mx-0">
-            <img
-              src={identity.portrait_url}
-              alt={identity.portrait_alt}
-              class="w-full h-auto block"
-              style="filter: saturate(0.97) contrast(1.05);"
-              loading="eager"
-              width="620"
-              height="404"
-            />
-          </figure>
-        )}
-        <div class={identity.portrait_url ? 'order-1 md:order-2' : ''}>
-          {about.lede_quote && (
-            <p class="pull-quote text-balance text-pretty mb-6" style="font-size: clamp(1.3rem, 1.8vw + 1rem, 1.85rem);">
-              &ldquo;{about.lede_quote}&rdquo;
-            </p>
-          )}
-          {about.lede_source_label && (
-            <p class="meta">
-              — From {about.lede_source_href
-                ? <a href={about.lede_source_href} class="link-editorial">{about.lede_source_label}</a>
-                : <span>{about.lede_source_label}</span>}
-            </p>
-          )}
+  <!-- LEDE + PORTRAIT -->
+  <section class="about-lede">
+    <div class="container about-lede__inner">
+      <div class="about-lede__left reveal">
+        <span class="section-label">About</span>
+        <h2 class="about-lede__heading">
+          A physician who believes<br />
+          <em>precision is an act of respect.</em>
+        </h2>
+        <p class="about-lede__body">
+          {about.lede_quote || `Dr. Parti writes on internal medicine, public health, and the discipline of clinical attention. Over ${identity.experience_years} years at the bedside — and now as Senior Director at ${identity.institution}, Gurgaon — he has built a practice grounded in rigour, patience, and the conviction that listening is the primary diagnostic instrument.`}
+        </p>
+        <a href="#biography" class="link-arrow">Read the full biography</a>
+      </div>
+
+      {identity.portrait_url && (
+        <figure class="about-lede__portrait-frame reveal">
+          <img
+            src={identity.portrait_url}
+            alt={identity.portrait_alt}
+            class="about-lede__portrait"
+            width="480"
+            height="580"
+            loading="eager"
+          />
+          <figcaption class="about-lede__caption">
+            {identity.institution_short || identity.institution} · Sector 44, Gurugram
+          </figcaption>
+        </figure>
+      )}
+    </div>
+  </section>
+
+  <!-- BIOGRAPHY -->
+  <section class="about-bio" id="biography">
+    <div class="container about-bio__inner">
+      {aboutHtml ? (
+        <div class="prose" set:html={aboutHtml} />
+      ) : (
+        <div class="prose">
+          <p>Dr. {identity.name.replace('Dr. ', '')} is Senior Director and Unit Head of Internal Medicine at {identity.institution}, Gurgaon — one of India's foremost tertiary care hospitals. He has been in clinical practice for {identity.experience_years} years and holds an MD in Internal Medicine from the {identity.university}, where he also completed his MBBS with a Gold Medal.</p>
+          <p>His practice is grounded in general internal medicine, with particular depth in infectious disease, hypertension, diabetes management, and thyroid disorders. He is an officially empanelled visiting physician to several major corporate health programmes.</p>
+          <p>Alongside his clinical work, Dr. Parti writes on internal medicine, public health, and the discipline of clinical attention. His essays are addressed to the lay reader: they do not assume a medical background, but they do assume a reader willing to think carefully.</p>
+          <p>This site is a professional home: a place for his writing, his credentials, and a record of his clinical interests. It is not a channel for clinical consultation. For patient care, please contact {identity.institution_short || identity.institution} through their official appointment systems.</p>
         </div>
+      )}
+      {about.sign_off && <p class="sign-off">{about.sign_off}</p>}
+    </div>
+  </section>
+
+  <!-- QUICK LINKS -->
+  <section class="about-links">
+    <div class="container">
+      <div class="about-links__grid">
+        <a href="/credentials" class="about-links__item">
+          <p class="about-links__label">Curriculum Vitae</p>
+          <p class="about-links__title">The record, in brief →</p>
+        </a>
+        <a href="/writing" class="about-links__item">
+          <p class="about-links__label">Writing</p>
+          <p class="about-links__title">Essays &amp; notes →</p>
+        </a>
+        <a href="/contact" class="about-links__item">
+          <p class="about-links__label">Correspondence</p>
+          <p class="about-links__title">Where to write →</p>
+        </a>
       </div>
     </div>
   </section>
 
-  {/* BIOGRAPHY — rendered from admin-edited body_html */}
-  <section class="bg-[var(--color-surface-container-low)]">
-    <div class="container-wide mx-auto px-5 md:px-6 py-14 md:py-24">
-      <div class="container-reading mx-auto">
-        <div class="prose-article drop-cap" set:html={aboutHtml} />
-        {about.sign_off && (
-          <p class="mt-16 text-center italic text-[var(--color-on-surface-variant)]">{about.sign_off}</p>
-        )}
-      </div>
-    </div>
-  </section>
-
-  {/* QUICK LINKS */}
-  <section class="bg-[var(--color-surface)]">
-    <div class="container-wide mx-auto px-5 md:px-6 py-12">
-      <div class="grid md:grid-cols-3 gap-8 text-center">
-        <a href="/credentials" class="group">
-          <p class="label mb-2">Curriculum Vitae</p>
-          <p class="font-[var(--font-headline)] text-xl group-hover:text-[var(--color-primary)] transition-colors">The record, in brief →</p>
-        </a>
-        <a href="/writing" class="group">
-          <p class="label mb-2">Writing</p>
-          <p class="font-[var(--font-headline)] text-xl group-hover:text-[var(--color-primary)] transition-colors">Essays &amp; notes →</p>
-        </a>
-        <a href="/contact" class="group">
-          <p class="label mb-2">Correspondence</p>
-          <p class="font-[var(--font-headline)] text-xl group-hover:text-[var(--color-primary)] transition-colors">Where to write →</p>
-        </a>
-      </div>
-    </div>
-  </section>
 </BaseLayout>

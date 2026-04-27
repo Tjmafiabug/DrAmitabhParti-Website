@@ -4,52 +4,41 @@ import { getSettings } from '../lib/settings';
 const settings = await getSettings();
 const { identity, footer } = settings;
 const year = new Date().getFullYear();
-const host = (() => {
-  try { return new URL(identity.site_url).host; } catch { return identity.site_url; }
-})();
 ---
 
-<footer class="section-dark-hero py-10 px-6">
-  <div class="container-wide mx-auto">
-    <div class="grid gap-8 md:gap-12 md:grid-cols-[1.4fr_auto_auto_auto] items-start mb-8">
-      <div>
-        <p class="font-[var(--font-headline)] text-[1rem] font-semibold uppercase tracking-tight" style="color: #f4efdf;">{footer.brand_line || identity.name}</p>
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <p class="footer__brand-name">{footer.brand_line || identity.name}</p>
+        <p class="footer__tagline">{footer.tagline || 'Educational content only. Not a substitute for individual medical advice.'}</p>
       </div>
 
-      <div>
-        <p class="label mb-3 text-[0.65rem]" style="color: var(--color-gold-soft);">Read</p>
-        <ul class="flex flex-col gap-1.5 text-[0.85rem]">
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <div class="footer__col">
+          <p class="footer__col-label">Read</p>
           {footer.read.map((l) => (
-            <li><a href={l.href}>{l.label}</a></li>
+            <a href={l.href}>{l.label}</a>
           ))}
-        </ul>
-      </div>
-
-      <div>
-        <p class="label mb-3 text-[0.65rem]" style="color: var(--color-gold-soft);">Correspond</p>
-        <ul class="flex flex-col gap-1.5 text-[0.85rem]">
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-label">Correspond</p>
           {footer.correspond.map((l) => (
-            <li><a href={l.href}>{l.label}</a></li>
+            <a href={l.href}>{l.label}</a>
           ))}
-        </ul>
-      </div>
-
-      <div>
-        <p class="label mb-3 text-[0.65rem]" style="color: var(--color-gold-soft);">Fine Print</p>
-        <ul class="flex flex-col gap-1.5 text-[0.85rem]">
+        </div>
+        <div class="footer__col">
+          <p class="footer__col-label">Legal</p>
           {footer.legal.map((l) => (
-            <li><a href={l.href}>{l.label}</a></li>
+            <a href={l.href}>{l.label}</a>
           ))}
-        </ul>
-      </div>
+        </div>
+      </nav>
     </div>
 
-    <div class="h-px w-full mb-5" style="background: rgba(221, 184, 128, 0.12);"></div>
-
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-[0.72rem]" style="color: var(--color-gold-soft); opacity: 0.7;">
-      <p class="meta">© {year} {identity.name}</p>
-      {footer.tagline && <p class="italic">{footer.tagline}</p>}
-      <p class="meta">{host}</p>
+    <div class="footer__bottom">
+      <p>&copy; {year} {identity.name}. All rights reserved.</p>
+      <p>{identity.institution_short || identity.institution}, Gurgaon.</p>
     </div>
   </div>
 </footer>

@@ -8,13 +8,14 @@ const settings = await getSettings();
 const hero = settings.heroes.writing;
 const all = await getAllPosts();
 
-const chipClass = (c: string | null) =>
-  c === 'Awareness'  ? 'chip-category chip-awareness'
-: c === 'Reflection' ? 'chip-category chip-reflection'
-:                      'chip-category chip-essay';
+const tagClass = (c: string | null) =>
+  c === 'Awareness'  ? 'tag tag--awareness'
+: c === 'Reflection' ? 'tag tag--reflection'
+:                      'tag';
 ---
 
 <BaseLayout pageKey="writing">
+
   <PageHero
     eyebrow={hero.eyebrow}
     title={hero.title}
@@ -22,38 +23,64 @@ const chipClass = (c: string | null) =>
     kicker={hero.kicker || undefined}
   />
 
-  {/* ARTICLE LIST */}
-  <section class="bg-[var(--color-surface)]">
-    <div class="container-wide mx-auto px-5 md:px-6 py-12 md:py-20">
-      <div class="flex justify-between items-end mb-10 md:mb-12">
-        <h2 class="label label-strong">All Writing</h2>
-        <span class="meta">{all.length} {all.length === 1 ? 'essay' : 'essays'}</span>
+  <section class="writing-body">
+    <div class="container">
+      <div class="filter-bar" id="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="Essay">Essay</button>
+        <button class="filter-btn" data-filter="Awareness">Awareness</button>
+        <button class="filter-btn" data-filter="Reflection">Reflection</button>
       </div>
 
-      <ul class="divide-y divide-[var(--color-outline-variant)]/30">
-        {all.map((p, i) => (
-          <li>
-            <a href={`/writing/${p.slug}`} class="group grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 md:gap-10 py-8 md:py-10 items-start -mx-2 px-2 transition-colors hover:bg-[var(--color-surface-container-low)]/50">
-              <div>
-                <div class="flex items-center gap-3 mb-3">
-                  <span class={chipClass(p.category)}>{p.category}</span>
-                  <span class="meta">{p.readingTime}</span>
-                </div>
-                <h3 class={`font-[var(--font-headline)] mb-3 leading-[1.1] text-balance group-hover:text-[var(--color-primary)] transition-colors ${i === 0 ? 'text-3xl md:text-4xl' : 'text-2xl md:text-[1.65rem]'}`}>
-                  {p.title}
-                </h3>
-                <p class="text-[var(--color-on-surface-variant)] leading-relaxed max-w-2xl">
-                  {p.excerpt}
-                </p>
-              </div>
-              <div class="flex md:flex-col md:items-end gap-2 shrink-0 md:pt-1">
-                <span class="meta">{formatDate(p.publishedAt)}</span>
-                <span class="meta text-[var(--color-primary)] opacity-0 group-hover:opacity-100 transition-opacity">Read →</span>
-              </div>
-            </a>
-          </li>
+      <div class="writing-grid" id="writing-grid">
+        {all.map((p) => (
+          <a
+            href={`/writing/${p.slug}`}
+            class="article-card"
+            data-category={p.category || 'Essay'}
+          >
+            <div class="article-card__meta">
+              <span class={tagClass(p.category)}>{p.category || 'Essay'}</span>
+              <span class="article-card__date">{formatDate(p.publishedAt)}</span>
+            </div>
+            <h2 class="article-card__title">{p.title}</h2>
+            <p class="article-card__excerpt">{p.excerpt}</p>
+            <div class="article-card__footer">
+              <span class="article-card__time">{p.readingTime}</span>
+              <span class="article-card__read">Read →</span>
+            </div>
+          </a>
         ))}
-      </ul>
+      </div>
+
+      <div class="writing-disclaimer">
+        <p>
+          All articles are published for general education and public awareness.
+          Nothing here constitutes individual medical advice. If you are unwell,
+          please consult a qualified physician in person.
+          See the <a href="/disclaimer">full disclaimer</a>.
+        </p>
+      </div>
     </div>
   </section>
+
 </BaseLayout>
+
+<script is:inline>
+  (function () {
+    const bar = document.getElementById('filter-bar');
+    const grid = document.getElementById('writing-grid');
+    if (!bar || !grid) return;
+
+    bar.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      bar.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      grid.querySelectorAll('.article-card').forEach((card) => {
+        card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
+      });
+    });
+  })();
+</script>
