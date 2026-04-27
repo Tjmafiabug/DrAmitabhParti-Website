@@ -7,73 +7,73 @@ const printCoverage = [
     publication: 'The Statesman',
     headline: 'Unclean surroundings fertile ground for dengue, say experts',
     edition: 'New Delhi', date: 'Apr 14, 2017', page: '4',
-    images: ['/images/press/image1.png'],
+    image: '/images/press/image1.png',
   },
   {
     publication: 'Sunday Standard',
     headline: 'The code of ethics for patients',
     edition: 'New Delhi', date: 'May 8, 2017', page: '5',
-    images: ['/images/press/image2.jpg'],
+    image: '/images/press/image2.jpg',
   },
   {
     publication: 'Times of India',
     headline: 'Chikungunya sneaks into Gurgaon',
     edition: 'Gurgaon', date: 'Aug 24, 2017', page: '4',
-    images: ['/images/press/image3.jpeg'],
+    image: '/images/press/image3.jpeg',
   },
   {
     publication: 'Hindustan Times',
     headline: 'Waterlogged roads after rain raise dengue scare in Gurgaon',
     edition: 'Gurgaon', date: 'Aug 10, 2017', page: '2',
-    images: ['/images/press/image4.JPG'],
+    image: '/images/press/image4.JPG',
   },
   {
     publication: 'Hindustan Times',
     headline: 'Hospitals report increase in Chikungunya patients',
     edition: 'Gurgaon', date: 'Aug 25, 2017', page: '2',
-    images: ['/images/press/image5.jpeg'],
+    image: '/images/press/image5.jpeg',
   },
   {
     publication: 'Hindustan Times',
     headline: '6 suspected dengue cases in city',
     edition: 'Gurgaon', date: 'Jun 22, 2017', page: '2',
-    images: ['/images/press/image6.jpeg'],
+    image: '/images/press/image6.jpeg',
   },
   {
     publication: 'Hindustan Times',
     headline: 'Rain likely to bring respite from the heat next week: Met dept',
     edition: 'Gurgaon', date: 'Jun 7, 2017', page: '8',
-    images: ['/images/press/image7.jpeg'],
+    image: '/images/press/image7.jpeg',
   },
   {
     publication: 'Hindustan Times',
     headline: 'Confirmed dengue cases climb to 51 in city',
     edition: 'Gurgaon', date: 'Sep 5, 2017', page: '2',
-    images: ['/images/press/image8.jpeg'],
+    image: '/images/press/image8.jpeg',
   },
   {
     publication: 'Economic Times',
     headline: 'Chronic fatigue syndrome: Know how to manage it',
     edition: 'New Delhi', date: 'May 15, 2017', page: '14',
-    images: ['/images/press/image9.jpeg'],
+    image: '/images/press/image9.jpeg',
   },
   {
     publication: 'Economic Times',
     headline: 'Chronic fatigue syndrome: Know how to manage it',
     edition: 'Bangalore', date: 'May 9, 2017', page: '14',
-    images: ['/images/press/image10.jpeg'],
+    image: '/images/press/image10.jpeg',
   },
   {
     publication: 'Dainik Bhaskar',
     headline: 'What is the cause of stress',
     edition: 'New Delhi', date: 'Jun 12, 2017', page: '3',
-    images: ['/images/press/image11.jpeg'],
+    image: '/images/press/image11.jpeg',
   },
   {
     publication: 'Biospectrum',
     headline: 'Rising demand of traditional medicines in modern world',
     edition: 'National', date: 'Jun 2017', page: '39',
-    images: ['/images/press/image12.jpeg', '/images/press/image13.jpeg'],
+    image: '/images/press/image12.jpeg',
   },
 ];
 
@@ -104,7 +104,7 @@ const onlineCoverage = [
     kicker="Featured across national print and digital publications on public health, seasonal disease, and preventive medicine."
   />
 
-  <!-- PRINT COVERAGE -->
+  <!-- PRINT COVERAGE GRID -->
   <section class="media-section">
     <div class="container">
       <div class="media-section__header">
@@ -112,40 +112,38 @@ const onlineCoverage = [
         <span class="media-count">{printCoverage.length} articles</span>
       </div>
 
-      <div class="print-list">
-        {printCoverage.map((item, i) => (
-          <article class="print-item reveal">
-            <div class="print-item__meta">
-              <span class="print-item__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-              <div>
-                <p class="print-item__pub">{item.publication}</p>
-                <h2 class="print-item__headline">&ldquo;{item.headline}&rdquo;</h2>
-                <p class="print-item__detail">{item.edition} &middot; {item.date} &middot; p.{item.page}</p>
+      <div class="clip-grid">
+        {printCoverage.map((item) => (
+          <a
+            href={item.image}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="clip-card reveal"
+            aria-label={`View clipping: ${item.headline} — ${item.publication}`}
+          >
+            <div class="clip-card__img-wrap">
+              <img
+                src={item.image}
+                alt={`${item.publication} — ${item.headline}`}
+                class="clip-card__img"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="clip-card__overlay" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
               </div>
             </div>
-            <div class="print-item__clips" data-count={item.images.length}>
-              {item.images.map((src, ci) => (
-                <a
-                  href={src}
-                  class="print-item__clip-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`View clipping ${ci + 1} — ${item.headline}`}
-                >
-                  <img
-                    src={src}
-                    alt={`${item.publication} clipping — ${item.headline}`}
-                    class="print-item__clip"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <span class="print-item__clip-zoom" aria-hidden="true">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-                  </span>
-                </a>
-              ))}
+            <div class="clip-card__body">
+              <div class="clip-card__byline">
+                <span class="clip-card__pub">{item.publication}</span>
+                <span class="clip-card__dot" aria-hidden="true"></span>
+                <span class="clip-card__date">{item.date}</span>
+                <span class="clip-card__dot" aria-hidden="true"></span>
+                <span class="clip-card__edition">{item.edition} · p.{item.page}</span>
+              </div>
+              <h2 class="clip-card__headline">{item.headline}</h2>
             </div>
-          </article>
+          </a>
         ))}
       </div>
     </div>
@@ -184,7 +182,6 @@ const onlineCoverage = [
     </div>
   </section>
 
-  <!-- FOOTER NOTE -->
   <p class="footer-note container">
     Coverage compiled from the 2017 media report. For press enquiries or interview requests, see the
     <a href="/contact" class="link-editorial">contact page</a>.
@@ -193,14 +190,12 @@ const onlineCoverage = [
 </BaseLayout>
 
 <style>
-/* ── Page layout ─────────────────────────────────────── */
+/* ── Section shell ───────────────────────────────────── */
 .media-section {
   padding: var(--space-3xl) 0;
   border-top: 1px solid rgba(27, 67, 50, 0.1);
 }
-.media-section--alt {
-  background: var(--bg-cream);
-}
+.media-section--alt { background: var(--bg-cream); }
 
 .media-section__header {
   display: flex;
@@ -219,132 +214,109 @@ const onlineCoverage = [
   text-transform: uppercase;
 }
 
-/* ── Print list ──────────────────────────────────────── */
-.print-list {
+/* ── Card grid ───────────────────────────────────────── */
+.clip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xs);
+}
+
+/* ── Clip card ───────────────────────────────────────── */
+.clip-card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2xl);
-}
-
-.print-item {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-xl);
-  align-items: start;
-  padding-bottom: var(--space-2xl);
-  border-bottom: 1px solid rgba(27, 67, 50, 0.1);
-}
-.print-item:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-/* Alternate clip side */
-.print-item:nth-child(even) {
-  direction: rtl;
-}
-.print-item:nth-child(even) > * {
-  direction: ltr;
-}
-
-.print-item__meta {
-  display: flex;
-  gap: var(--space-md);
-  align-items: start;
-}
-
-.print-item__index {
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  color: var(--ink-ghost);
-  padding-top: 0.3rem;
-  flex-shrink: 0;
-  font-variant-numeric: tabular-nums;
-}
-
-.print-item__pub {
-  font-family: var(--font-sans);
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--green-soft);
-  margin-bottom: 0.4rem;
-}
-
-.print-item__headline {
-  font-family: var(--font-serif);
-  font-size: clamp(1.1rem, 1.5vw + 0.6rem, 1.5rem);
-  font-weight: 400;
-  line-height: 1.35;
-  color: var(--ink);
-  font-style: italic;
-  letter-spacing: -0.01em;
-  margin-bottom: 0.6rem;
-}
-
-.print-item__detail {
-  font-family: var(--font-sans);
-  font-size: 0.68rem;
-  font-weight: 300;
-  color: var(--ink-ghost);
-  letter-spacing: 0.05em;
-}
-
-/* ── Clipping images ─────────────────────────────────── */
-.print-item__clips {
-  display: flex;
   gap: var(--space-sm);
+  border-radius: var(--radius-md);
+  padding: 0.5rem;
+  text-decoration: none;
+  transition: background var(--dur-fast);
+  cursor: pointer;
 }
+.clip-card:hover { background: rgba(27, 67, 50, 0.05); }
+.clip-card:active { background: rgba(27, 67, 50, 0.09); }
 
-.print-item__clip-link {
+.clip-card__img-wrap {
   position: relative;
-  display: block;
-  flex: 1;
+  width: 100%;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   border-radius: var(--radius-sm);
   border: 1px solid rgba(27, 67, 50, 0.1);
-  transition: border-color var(--dur-base), transform var(--dur-base) var(--ease-out);
-}
-.print-item__clip-link:hover {
-  border-color: rgba(27, 67, 50, 0.3);
-  transform: scale(1.01);
-}
-.print-item__clip-link:hover .print-item__clip-zoom {
-  opacity: 1;
+  background: var(--bg-cream);
 }
 
-.print-item__clip {
+.clip-card__img {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
   object-fit: cover;
+  display: block;
+  transition: transform 500ms var(--ease-out);
 }
+.clip-card:hover .clip-card__img { transform: scale(1.04); }
 
-.print-item__clip-zoom {
+.clip-card__overlay {
   position: absolute;
-  bottom: 0.5rem;
-  right: 0.5rem;
-  width: 2rem;
-  height: 2rem;
-  background: rgba(19, 31, 28, 0.75);
-  color: var(--ink-light);
-  border-radius: 50%;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transition: opacity var(--dur-base);
-  backdrop-filter: blur(4px);
+  background: rgba(13, 23, 20, 0);
+  color: #fff;
+  transition: background var(--dur-base);
+}
+.clip-card:hover .clip-card__overlay { background: rgba(13, 23, 20, 0.28); }
+
+.clip-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0 0.25rem 0.25rem;
+}
+
+.clip-card__byline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  color: var(--ink-muted);
+}
+
+.clip-card__pub {
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green-soft);
+}
+
+.clip-card__dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--ink-ghost);
+  flex-shrink: 0;
+}
+
+.clip-card__date,
+.clip-card__edition { font-weight: 300; color: var(--ink-ghost); }
+
+.clip-card__headline {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--ink);
+  font-style: italic;
+  letter-spacing: -0.01em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* ── Online list ─────────────────────────────────────── */
-.media-list {
-  display: flex;
-  flex-direction: column;
-}
+.media-list { display: flex; flex-direction: column; }
 
 .media-item {
   display: grid;
@@ -395,13 +367,9 @@ const onlineCoverage = [
   margin-top: 0.1rem;
 }
 
-.media-item__link {
-  align-self: center;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
+.media-item__link { align-self: center; white-space: nowrap; flex-shrink: 0; }
 
-/* ── Footer note ─────────────────────────────────────── */
+/* ── Footer ──────────────────────────────────────────── */
 .footer-note {
   padding: var(--space-xl) var(--space-lg);
   font-size: 0.82rem;
@@ -415,30 +383,17 @@ const onlineCoverage = [
 .reveal {
   opacity: 0;
   transform: translateY(12px);
-  transition:
-    opacity var(--dur-slow) var(--ease-out),
-    transform var(--dur-slow) var(--ease-out);
+  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
 }
 .reveal.visible { opacity: 1; transform: none; }
 
 /* ── Responsive ──────────────────────────────────────── */
-@media (max-width: 768px) {
-  .print-item {
-    grid-template-columns: 1fr;
-    direction: ltr !important;
-  }
-  .print-item__clips {
-    flex-wrap: wrap;
-  }
+@media (max-width: 900px) {
+  .clip-grid { grid-template-columns: repeat(2, 1fr); }
 }
-
-@media (max-width: 600px) {
-  .media-item {
-    grid-template-columns: 2rem 1fr;
-  }
-  .media-item__link {
-    grid-column: 2;
-    margin-top: var(--space-xs);
-  }
+@media (max-width: 560px) {
+  .clip-grid { grid-template-columns: 1fr; }
+  .media-item { grid-template-columns: 2rem 1fr; }
+  .media-item__link { grid-column: 2; margin-top: var(--space-xs); }
 }
 </style>
